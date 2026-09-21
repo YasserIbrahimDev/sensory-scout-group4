@@ -2,6 +2,10 @@
 
 UNT Computer Science Capstone — Team 4
 
+## About the Project
+
+Sensory Scout helps people with sensory sensitivities and their families discover places that match their needs. Users will be able to search by preferences such as noise levels, lighting, and crowds, share reviews, and get personalized recommendations. The platform aims to provide an accessible experience across mobile, tablet, and desktop.
+
 ## Team and Responsibilities
 
 | Member | Areas |
