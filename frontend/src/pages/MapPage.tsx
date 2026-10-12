@@ -1,10 +1,14 @@
-import { useCallback, useEffect, useState } from 'react';
+import { Suspense, lazy, useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { Place } from '../types/place';
 import type { PlaceLinkState } from '../components/PlaceCard';
 import { getPlaces } from '../api/client';
 import { categoryLabels } from '../lib/sensoryLabels';
-import MapView from '../components/MapView';
+import SimpleMap from '../components/SimpleMap';
+
+// Mapbox is large, so it only downloads when a token is set. Without one,
+// the simple drawn map shows right away.
+const MapView = lazy(() => import('../components/MapView'));
 
 type LoadState =
   | { status: 'loading' }
@@ -56,7 +60,22 @@ export default function MapPage() {
 
       {state.status === 'ready' && (
         <div className="map-layout">
-          <MapView places={state.places} />
+          {import.meta.env.VITE_MAPBOX_TOKEN ? (
+            <Suspense fallback={<p className="status-message" role="status">Loading map…</p>}>
+              <MapView places={state.places} />
+            </Suspense>
+          ) : (
+            <div>
+              <SimpleMap places={state.places} />
+              {/* Only shown while developing (npm run dev), never on the live site. */}
+              {import.meta.env.DEV && (
+                <p className="map-view__dev-hint">
+                  Developer note: for the detailed Mapbox map, add <code>VITE_MAPBOX_TOKEN=pk...</code> to{' '}
+                  <code>frontend/.env.local</code>, then stop and restart <code>npm run dev</code>.
+                </p>
+              )}
+            </div>
+          )}
 
           {/* The same places as a list, for screen reader users and anyone who prefers a list. */}
           <section aria-labelledby="map-list-heading" className="map-list">

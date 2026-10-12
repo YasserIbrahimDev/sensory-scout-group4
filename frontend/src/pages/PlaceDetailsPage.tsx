@@ -9,6 +9,9 @@ import { categoryIcons } from '../lib/sensoryIcons';
 import { directionsUrl } from '../lib/directions';
 import SensoryInfo from '../components/SensoryInfo';
 import PlaceTabs from '../components/PlaceTabs';
+import ReviewsTab from '../components/placeTabs/ReviewsTab';
+import PhotosTab from '../components/placeTabs/PhotosTab';
+import NearbyTab from '../components/placeTabs/NearbyTab';
 
 type LoadState =
   | { status: 'loading' }
@@ -56,10 +59,6 @@ function OverviewTab({ place }: { place: Place }) {
       <p className="overview__description">{place.description}</p>
     </div>
   );
-}
-
-function ComingSoonTab({ message }: { message: string }) {
-  return <p className="coming-soon-panel">{message}</p>;
 }
 
 export default function PlaceDetailsPage() {
@@ -174,13 +173,9 @@ export default function PlaceDetailsPage() {
         label="Place information"
         tabs={[
           { id: 'overview', label: 'Overview', content: <OverviewTab place={place} /> },
-          {
-            id: 'reviews',
-            label: `Reviews (${place.reviewCount})`,
-            content: <ComingSoonTab message="Reading and writing reviews is coming soon." />,
-          },
-          { id: 'photos', label: 'Photos', content: <ComingSoonTab message="Photos are coming soon." /> },
-          { id: 'nearby', label: 'Nearby', content: <ComingSoonTab message="Nearby places are coming soon." /> },
+          { id: 'reviews', label: `Reviews (${place.reviewCount})`, content: <ReviewsTab place={place} /> },
+          { id: 'photos', label: 'Photos', content: <PhotosTab place={place} /> },
+          { id: 'nearby', label: 'Nearby', content: <NearbyTab place={place} /> },
         ]}
       />
     </div>

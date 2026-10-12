@@ -1,8 +1,9 @@
-import type { Place } from '../types/place';
+import type { NearbyPlace, Place, Review } from '../types/place';
 import type { SearchFilters } from '../lib/searchFilters';
 import { emptyFilters } from '../lib/searchFilters';
 import { categoryLabels } from '../lib/sensoryLabels';
 import { mockPlaces } from '../data/mockPlaces';
+import { mockReviews } from '../data/mockReviews';
 
 // All data loading goes through this file. Pages never import mock data directly.
 // In "UI: Connect Sprint 1 pages to the API", only this file changes to call the
@@ -16,6 +17,24 @@ export async function getPopularPlaces(limit = 3): Promise<Place[]> {
 /** One place by id, or null if it does not exist. */
 export async function getPlace(placeId: string): Promise<Place | null> {
   return mockPlaces.find((place) => place.id === placeId) ?? null;
+}
+
+/** Reviews for one place, newest first. */
+export async function getReviews(placeId: string): Promise<Review[]> {
+  return mockReviews
+    .filter((review) => review.placeId === placeId)
+    .sort((a, b) => b.date.localeCompare(a.date));
+}
+
+/** The closest other places to one place, nearest first. */
+export async function getNearbyPlaces(placeId: string, limit = 3): Promise<NearbyPlace[]> {
+  const origin = mockPlaces.find((place) => place.id === placeId);
+  if (!origin) return [];
+  return mockPlaces
+    .filter((place) => place.id !== placeId)
+    .map((place) => ({ place, distanceMiles: distanceInMiles(origin.location, place.location) }))
+    .sort((a, b) => a.distanceMiles - b.distanceMiles)
+    .slice(0, limit);
 }
 
 /** Every place, for the Map page. */
@@ -48,4 +67,16 @@ function matchesFilters(place: Place, filters: SearchFilters): boolean {
   if (filters.wheelchair && !place.accessibility.wheelchair) return false;
   if (filters.sensoryRoom && !place.accessibility.sensoryRoom) return false;
   return true;
+}
+
+// Mock-only. Straight-line distance between two points on Earth (haversine formula).
+function distanceInMiles(a: Place['location'], b: Place['location']): number {
+  const toRadians = (degrees: number) => (degrees * Math.PI) / 180;
+  const earthRadiusMiles = 3958.8;
+  const dLat = toRadians(b.lat - a.lat);
+  const dLng = toRadians(b.lng - a.lng);
+  const h =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRadians(a.lat)) * Math.cos(toRadians(b.lat)) * Math.sin(dLng / 2) ** 2;
+  return 2 * earthRadiusMiles * Math.asin(Math.sqrt(h));
 }

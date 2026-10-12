@@ -14,7 +14,7 @@ Open http://localhost:5173.
 
 Copy `.env.example` to `.env.local` and fill in the values. Never commit `.env.local` or real keys.
 
-- `VITE_MAPBOX_TOKEN`: a Mapbox public token (starts with `pk.`) from https://account.mapbox.com/access-tokens/. Without it, the Map page shows a message and the list of places instead of the map. Restart `npm run dev` after changing it.
+- `VITE_MAPBOX_TOKEN`: a Mapbox public token (starts with `pk.`) from https://account.mapbox.com/access-tokens/. Without it, the Map page shows a simple drawn map (`SimpleMap.tsx`) instead of the detailed Mapbox map. Restart `npm run dev` after changing it.
 - `VITE_API_URL`: the FastAPI backend address (used once the API is connected).
 
 ## What's done (Sprint 1)
@@ -44,12 +44,16 @@ Copy `.env.example` to `.env.local` and fill in the values. Never commit `.env.l
 - Filters apply right away and are saved in the page address (for example `/search?noise=low&crowd=low`), so they stay applied after going back from Place Details
 - Within a group, any selected level matches (Low or Moderate noise); every group must match
 - Place Details: header with name, category, city, and rating; Sensory Information tiles (`SensoryInfo.tsx`) before everything else; Overview, Reviews, Photos, and Nearby tabs (`PlaceTabs.tsx`)
-- Save, Share, and the Reviews, Photos, and Nearby tabs are marked "coming soon"
+- Reviews tab: average rating and the most recent reviews; "Write a review" is marked "coming soon" until sign-in exists
+- Photos tab: the place's photos with descriptions for screen readers
+- Nearby tab: the 3 closest places with distance and sensory conditions
+- Save and Share are marked "coming soon"
 
 **UI: Map page (R9)**
 - Map page (`src/pages/MapPage.tsx`) uses Mapbox (`src/components/MapView.tsx`) with a pin for each place; pins are buttons you can reach with Tab
+- Without a Mapbox token, or if Mapbox can't load, a simple drawn map (`src/components/SimpleMap.tsx`) shows the pins by location; selecting a pin opens a card with the place's sensory info and a details link (Escape closes it)
 - A list of the same places sits beside the map for screen reader and keyboard users
-- The Map page loads on demand so the large map library doesn't slow down the other pages
+- The Mapbox library only downloads when a token is set, so it never slows down the other pages
 - Get Directions on Place Details opens directions in Google Maps (no key needed; `src/lib/directions.ts`)
 
 ## Tests
@@ -90,4 +94,6 @@ src/
 - Temperature and scents are optional fields in `src/types/place.ts` until we confirm the backend will store them.
 - Lighting uses Dim / Normal / Bright everywhere, matching the filter wireframe.
 - Places now have a `location` (latitude and longitude) for the map. Mock coordinates are approximate.
+- Place images in `public/images/places/` are generated illustrations, not real photos. Swap them for real photos when the team has them.
+- Sample reviews are in `src/data/mockReviews.ts`.
 - Mapbox's free tier covers 50,000 map loads a month.

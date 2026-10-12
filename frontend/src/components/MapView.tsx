@@ -5,16 +5,17 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import type { Place } from '../types/place';
 import type { PlaceLinkState } from './PlaceCard';
 import { categoryLabels } from '../lib/sensoryLabels';
+import SimpleMap from './SimpleMap';
 
 interface MapViewProps {
   places: Place[];
 }
 
-export const MAP_UNAVAILABLE_MESSAGE =
-  "The map can't be shown right now. You can still use the list of places on this page, or find places with Search.";
+export const MAP_FALLBACK_NOTE = "The detailed map couldn't load, so a simple map is shown instead.";
 
 const linkState: PlaceLinkState = { from: '/map' };
 
+/** The detailed Mapbox map. MapPage only loads this when a Mapbox token is set. */
 export default function MapView({ places }: MapViewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
@@ -23,11 +24,7 @@ export default function MapView({ places }: MapViewProps) {
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!token) {
-      console.warn('Map: add VITE_MAPBOX_TOKEN to frontend/.env.local (see .env.example).');
-      setFailed(true);
-      return;
-    }
+    if (!token) return;
     if (!container || places.length === 0) return;
 
     let map: mapboxgl.Map;
@@ -95,12 +92,9 @@ export default function MapView({ places }: MapViewProps) {
     return () => map.remove();
   }, [places, token, navigate]);
 
+  // If Mapbox can't load, show the simple drawn map instead.
   if (failed) {
-    return (
-      <div className="map-view map-view--failed" role="alert">
-        <p>{MAP_UNAVAILABLE_MESSAGE}</p>
-      </div>
-    );
+    return <SimpleMap places={places} note={MAP_FALLBACK_NOTE} />;
   }
 
   return (
