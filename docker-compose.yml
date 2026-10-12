@@ -1,0 +1,10 @@
+services:
+  db:
+    image: postgis/postgis:15-3.4
+    container_name: sensory_scout_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: supersecretpassword
+      POSTGRES_DB: sensory_scout
+    ports:
+      - "5432:5432"
