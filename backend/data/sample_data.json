@@ -1,0 +1,338 @@
+{
+  "users": [
+    {
+      "name": "Sample Scout One",
+      "email": "scout.one@example.invalid"
+    },
+    {
+      "name": "Sample Scout Two",
+      "email": "scout.two@example.invalid"
+    },
+    {
+      "name": "Sample Scout Three",
+      "email": "scout.three@example.invalid"
+    }
+  ],
+  "sensory_profiles": [
+    {
+      "user_email": "scout.one@example.invalid",
+      "pref_noise": 1,
+      "pref_light": 2,
+      "pref_crowd": 1
+    },
+    {
+      "user_email": "scout.two@example.invalid",
+      "pref_noise": 2,
+      "pref_light": 3,
+      "pref_crowd": 2
+    },
+    {
+      "user_email": "scout.three@example.invalid",
+      "pref_noise": null,
+      "pref_light": null,
+      "pref_crowd": null
+    }
+  ],
+  "venues": [
+    {
+      "slug": "willow-reading-room",
+      "name": "Sample Willow Reading Room",
+      "category": "library",
+      "description": "Fictional venue for testing Sensory Scout. Not a real destination.",
+      "address": "1 Example Lane (fictional address)",
+      "city": "Sample City",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": true,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    },
+    {
+      "slug": "cedar-cafe",
+      "name": "Sample Cedar Cafe",
+      "category": "cafe",
+      "description": "Fictional venue for testing Sensory Scout. Not a real destination.",
+      "address": "2 Example Lane (fictional address)",
+      "city": "Sample City",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": true,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    },
+    {
+      "slug": "meadow-park",
+      "name": "Sample Meadow Park",
+      "category": "park",
+      "description": "Fictional venue for testing Sensory Scout. Not a real destination.",
+      "address": "3 Example Lane (fictional address)",
+      "city": "Sample City",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": true,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    },
+    {
+      "slug": "market-square",
+      "name": "Sample Market Square",
+      "category": "market",
+      "description": "Fictional venue for testing Sensory Scout. Not a real destination.",
+      "address": "4 Example Lane (fictional address)",
+      "city": "Sample City",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": true,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    },
+    {
+      "slug": "evening-gallery",
+      "name": "Sample Evening Gallery",
+      "category": "museum",
+      "description": "Fictional venue for testing Sensory Scout. Not a real destination.",
+      "address": "5 Example Lane (fictional address)",
+      "city": "Sample City",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": true,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    },
+    {
+      "slug": "community-lounge",
+      "name": "Sample Community Lounge",
+      "category": "community",
+      "description": "Fictional venue for testing Sensory Scout. Not a real destination.",
+      "address": "6 Example Lane (fictional address)",
+      "city": "Sample City",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": true,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    },
+    {
+      "slug": "riverside-cafe",
+      "name": "Sample Riverside Cafe",
+      "category": "cafe",
+      "description": "Fictional venue for testing Sensory Scout. Not a real destination.",
+      "address": "7 Example Lane (fictional address)",
+      "city": "Sample City",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": true,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    },
+    {
+      "slug": "busy-food-hall",
+      "name": "Sample Busy Food Hall",
+      "category": "restaurant",
+      "description": "Fictional venue for testing Sensory Scout. Not a real destination.",
+      "address": "8 Example Lane (fictional address)",
+      "city": "Sample City",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": true,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    },
+    {
+      "slug": "study-corner",
+      "name": "Sample Study Corner",
+      "category": "library",
+      "description": "Fictional venue for testing Sensory Scout. Not a real destination.",
+      "address": "9 Example Lane (fictional address)",
+      "city": "Sample City",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": true,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    },
+    {
+      "slug": "new-venue",
+      "name": "Sample New Venue",
+      "category": "community",
+      "description": "Fictional venue for testing Sensory Scout. Not a real destination.",
+      "address": "10 Example Lane (fictional address)",
+      "city": "Sample City",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": true,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    }
+  ],
+  "reviews": [
+    {
+      "key": "sample-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "willow-reading-room",
+      "comment": "Fictional sample review for development only.",
+      "wheelchair_accessible": true
+    },
+    {
+      "key": "sample-review-2",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "cedar-cafe",
+      "comment": "Fictional sample review for development only.",
+      "wheelchair_accessible": true
+    },
+    {
+      "key": "sample-review-3",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "meadow-park",
+      "comment": "Fictional sample review for development only.",
+      "wheelchair_accessible": false
+    },
+    {
+      "key": "sample-review-4",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "market-square",
+      "comment": "Fictional sample review for development only.",
+      "wheelchair_accessible": true
+    },
+    {
+      "key": "sample-review-5",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "evening-gallery",
+      "comment": "Fictional sample review for development only.",
+      "wheelchair_accessible": true
+    },
+    {
+      "key": "sample-review-6",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "community-lounge",
+      "comment": "Fictional sample review for development only.",
+      "wheelchair_accessible": false
+    },
+    {
+      "key": "sample-review-7",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "riverside-cafe",
+      "comment": "Fictional sample review for development only.",
+      "wheelchair_accessible": true
+    },
+    {
+      "key": "sample-review-8",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "busy-food-hall",
+      "comment": "Fictional sample review for development only.",
+      "wheelchair_accessible": true
+    },
+    {
+      "key": "sample-review-9",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "study-corner",
+      "comment": "Fictional sample review for development only.",
+      "wheelchair_accessible": false
+    },
+    {
+      "key": "sample-review-second",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "willow-reading-room",
+      "comment": "Second fictional sample assessment.",
+      "wheelchair_accessible": true
+    }
+  ],
+  "ratings": [
+    {
+      "review_key": "sample-review-1",
+      "noise_rating": 1,
+      "light_rating": 3,
+      "crowd_rating": 1
+    },
+    {
+      "review_key": "sample-review-2",
+      "noise_rating": 3,
+      "light_rating": 3,
+      "crowd_rating": 3
+    },
+    {
+      "review_key": "sample-review-3",
+      "noise_rating": 1,
+      "light_rating": 5,
+      "crowd_rating": 1
+    },
+    {
+      "review_key": "sample-review-4",
+      "noise_rating": 5,
+      "light_rating": 5,
+      "crowd_rating": 5
+    },
+    {
+      "review_key": "sample-review-5",
+      "noise_rating": 1,
+      "light_rating": 1,
+      "crowd_rating": 1
+    },
+    {
+      "review_key": "sample-review-6",
+      "noise_rating": 3,
+      "light_rating": 1,
+      "crowd_rating": 3
+    },
+    {
+      "review_key": "sample-review-7",
+      "noise_rating": 1,
+      "light_rating": 3,
+      "crowd_rating": 5
+    },
+    {
+      "review_key": "sample-review-8",
+      "noise_rating": 5,
+      "light_rating": 3,
+      "crowd_rating": 5
+    },
+    {
+      "review_key": "sample-review-9",
+      "noise_rating": 1,
+      "light_rating": 1,
+      "crowd_rating": 3
+    },
+    {
+      "review_key": "sample-review-second",
+      "noise_rating": 2,
+      "light_rating": 2,
+      "crowd_rating": 2
+    }
+  ],
+  "review_votes": [
+    {
+      "review_key": "sample-review-1",
+      "user_email": "scout.two@example.invalid",
+      "is_upvote": true
+    },
+    {
+      "review_key": "sample-review-second",
+      "user_email": "scout.three@example.invalid",
+      "is_upvote": false
+    }
+  ],
+  "saved_places": [
+    {
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "willow-reading-room"
+    },
+    {
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "cedar-cafe"
+    },
+    {
+      "user_email": "scout.three@example.invalid",
+      "venue_slug": "new-venue"
+    }
+  ]
+}

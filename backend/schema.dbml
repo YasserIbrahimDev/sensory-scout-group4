@@ -1,0 +1,94 @@
+// Sensory Scout revised schema. Generated from the ORM table definitions.
+// Scores/preferences: integers 1 to 5; nullable means unknown or no preference.
+// Sample accounts are disabled. Geography is represented by paired lat/lon.
+
+Table users {
+  id integer [pk, increment, not null]
+  name varchar(160) [not null]
+  email varchar(254) [not null, unique]
+  password_hash varchar(255) [not null, note: 'Never store plaintext passwords']
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+}
+
+Table venues {
+  id integer [pk, increment, not null]
+  slug varchar(100) [not null, unique]
+  name varchar(160) [not null]
+  category varchar(60) [not null]
+  description text [not null]
+  address varchar(240) [not null]
+  city varchar(100) [not null]
+  latitude decimal(9,6)
+  longitude decimal(9,6)
+  external_map_provider varchar(40)
+  external_map_id varchar(255)
+  image_url varchar(2048)
+  is_sample boolean [not null]
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+  indexes {
+    (external_map_provider, external_map_id) [unique]
+  }
+}
+
+Table reviews {
+  id integer [pk, increment, not null]
+  user_id integer [not null]
+  venue_id integer [not null]
+  comment text
+  wheelchair_accessible boolean
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+}
+
+Table saved_places {
+  id integer [pk, increment, not null]
+  venue_id integer [not null]
+  user_id integer [not null]
+  saved_at timestamp [not null]
+  indexes {
+    (user_id, venue_id) [unique]
+  }
+}
+
+Table sensory_profiles {
+  id integer [pk, increment, not null]
+  user_id integer [not null, unique]
+  pref_noise integer [note: '1 to 5; null means unknown or no preference']
+  pref_light integer [note: '1 to 5; null means unknown or no preference']
+  pref_crowd integer [note: '1 to 5; null means unknown or no preference']
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+}
+
+Table ratings {
+  id integer [pk, increment, not null]
+  review_id integer [not null, unique]
+  noise_rating integer [note: '1 to 5; null means unknown or no preference']
+  light_rating integer [note: '1 to 5; null means unknown or no preference']
+  crowd_rating integer [note: '1 to 5; null means unknown or no preference']
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+}
+
+Table review_votes {
+  id integer [pk, increment, not null]
+  review_id integer [not null]
+  user_id integer [not null]
+  is_upvote boolean [not null]
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+  indexes {
+    (review_id, user_id) [unique]
+  }
+}
+
+Ref: reviews.venue_id > venues.id [delete: cascade]
+Ref: reviews.user_id > users.id [delete: cascade]
+Ref: saved_places.user_id > users.id [delete: cascade]
+Ref: saved_places.venue_id > venues.id [delete: cascade]
+Ref: sensory_profiles.user_id - users.id [delete: cascade]
+Ref: ratings.review_id - reviews.id [delete: cascade]
+Ref: review_votes.review_id > reviews.id [delete: cascade]
+Ref: review_votes.user_id > users.id [delete: cascade]
