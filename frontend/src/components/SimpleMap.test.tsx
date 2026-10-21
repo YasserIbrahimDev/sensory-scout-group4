@@ -30,21 +30,21 @@ describe('SimpleMap', () => {
     renderWithRouter(<SimpleMap places={mockPlaces} note="Extra note." />);
     const pins = within(map()).getAllByRole('button');
     expect(pins).toHaveLength(6);
-    expect(pins[2]).toHaveAccessibleName('Harmony Coffee, Cafe');
+    expect(pins[2]).toHaveAccessibleName('Jupiter House, Cafe');
     expect(pins[2]).toHaveAttribute('aria-expanded', 'false');
     expect(screen.getByText(/Street details aren't shown\. Extra note\./)).toBeInTheDocument();
   });
 
   it('TC-MAP-16: selecting a pin opens a card with sensory info and moves focus to it', async () => {
     renderWithRouter(<SimpleMap places={mockPlaces} />);
-    const pin = screen.getByRole('button', { name: 'Harmony Coffee, Cafe' });
+    const pin = screen.getByRole('button', { name: 'Jupiter House, Cafe' });
     pin.focus();
     await userEvent.keyboard('{Enter}');
 
     expect(pin).toHaveAttribute('aria-expanded', 'true');
-    const heading = screen.getByRole('heading', { name: 'Harmony Coffee' });
+    const heading = screen.getByRole('heading', { name: 'Jupiter House' });
     expect(heading).toHaveFocus();
-    expect(screen.getByRole('list', { name: 'Sensory conditions at Harmony Coffee' })).toHaveTextContent('Moderate noise');
+    expect(screen.getByRole('list', { name: 'Sensory conditions at Jupiter House' })).toHaveTextContent('Moderate noise');
     expect(screen.getByRole('link', { name: 'View details' })).toHaveAttribute('href', '/places/harmony-coffee');
   });
 
@@ -59,14 +59,14 @@ describe('SimpleMap', () => {
 
   it('TC-MAP-18: the close button and a second click on the pin both close the card', async () => {
     renderWithRouter(<SimpleMap places={mockPlaces} />);
-    const pin = screen.getByRole('button', { name: 'UNT Art Gallery, Museum' });
+    const pin = screen.getByRole('button', { name: 'UNT Art Building, Museum' });
     await userEvent.click(pin);
-    await userEvent.click(screen.getByRole('button', { name: 'Close UNT Art Gallery' }));
-    expect(screen.queryByRole('heading', { name: 'UNT Art Gallery' })).not.toBeInTheDocument();
+    await userEvent.click(screen.getByRole('button', { name: 'Close UNT Art Building' }));
+    expect(screen.queryByRole('heading', { name: 'UNT Art Building' })).not.toBeInTheDocument();
     expect(pin).toHaveFocus();
 
     await userEvent.click(pin);
     await userEvent.click(pin);
-    expect(screen.queryByRole('heading', { name: 'UNT Art Gallery' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: 'UNT Art Building' })).not.toBeInTheDocument();
   });
 });
