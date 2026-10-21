@@ -28,7 +28,7 @@ describe('PlaceDetailsPage', () => {
   });
   it('TC-DETAILS-02: shows five sensory tiles with text labels', async () => {
     renderDetails('harmony-coffee');
-    const section = await screen.findByRole('region', { name: 'Sensory Information' });
+    const section = await screen.findByRole('region', { name: /Sensory Information/ });
     expect(within(section).getAllByRole('term').map((t) => t.textContent))
       .toEqual(['Noise', 'Lighting', 'Crowds', 'Temperature', 'Strong scents']);
     expect(within(section).getAllByRole('definition').map((d) => d.textContent))
@@ -36,7 +36,7 @@ describe('PlaceDetailsPage', () => {
   });
   it('TC-DETAILS-03: sensory information comes before the tabs', async () => {
     renderDetails('harmony-coffee');
-    const sensory = await screen.findByRole('region', { name: 'Sensory Information' });
+    const sensory = await screen.findByRole('region', { name: /Sensory Information/ });
     const tabs = screen.getByRole('tablist');
     expect(sensory.compareDocumentPosition(tabs) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
@@ -47,7 +47,7 @@ describe('PlaceDetailsPage', () => {
       sensory: { noise: 'low', lighting: 'dim', crowd: 'low' },
     });
     renderDetails('harmony-coffee');
-    const section = await screen.findByRole('region', { name: 'Sensory Information' });
+    const section = await screen.findByRole('region', { name: /Sensory Information/ });
     expect(within(section).getAllByText('Not reported yet')).toHaveLength(2);
   });
   it('TC-DETAILS-05: Overview tab shows address, hours, description, and Get Directions', async () => {
