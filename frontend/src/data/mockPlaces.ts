@@ -1,100 +1,142 @@
+
 import type { Place } from '../types/place';
 import { mockReviews } from './mockReviews';
 
 type PlaceWithoutStats = Omit<Place, 'rating' | 'reviewCount'>;
 
-// Rating and review count come from the sample reviews so the numbers always match.
 function withReviewStats(place: PlaceWithoutStats): Place {
-  const ratings = mockReviews.filter((r) => r.placeId === place.id).map((r) => r.rating);
-  const average = ratings.length ? ratings.reduce((sum, r) => sum + r, 0) / ratings.length : 0;
-  return { ...place, rating: Math.round(average * 10) / 10, reviewCount: ratings.length };
+  const ratings = mockReviews
+    .filter((review) => review.placeId === place.id)
+    .map((review) => review.rating);
+
+  const average = ratings.length
+    ? ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length
+    : 0;
+
+  return {
+    ...place,
+    rating: Math.round(average * 10) / 10,
+    reviewCount: ratings.length,
+  };
 }
 
-// Sample data only. Coordinates are approximate; images are illustrations in public/images/places. Replace with API data in "UI: Connect pages to the backend API".
+// Real venues for the Sensory Scout demonstration.
+// Sensory levels below are DEMO VALUES, not verified observations.
+// Coordinates are based on the selected map locations.
 const places: PlaceWithoutStats[] = [
   {
     id: 'denton-public-library',
-    name: 'Denton Public Library',
+    name: 'Emily Fowler Central Library',
     category: 'library',
     city: 'Denton, TX',
     address: '502 Oakland St, Denton, TX 76201',
-    description: 'Large reading rooms with quiet zones and plenty of individual seating.',
-    hours: 'Open until 9:00 PM',
-    imageUrl: '/images/places/denton-public-library.svg',
-    photos: [{ url: '/images/places/denton-public-library.svg', alt: 'Illustration of a quiet library reading room with tall bookshelves and a reading lamp' }],
-    location: { lat: 33.219, lng: -97.1335 },
-    sensory: { noise: 'low', lighting: 'dim', crowd: 'low', temperature: 'Comfortable', scents: 'Minimal' },
-    accessibility: { wheelchair: true, sensoryRoom: true },
+    description:
+      'A public library operated by the City of Denton. Check the official library website for current services, hours, and visitor information.',
+    hours: 'See official library hours',
+    location: { lat: 33.21863601456154, lng: -97.13008743253772 },
+    sensory: {
+      noise: 'low',
+      lighting: 'normal',
+      crowd: 'moderate',
+      temperature: 'Not verified',
+      scents: 'Not verified',
+    },
+    accessibility: {},
   },
   {
     id: 'north-lakes-park',
     name: 'North Lakes Park',
     category: 'park',
     city: 'Denton, TX',
-    address: '2001 W Windsor Dr, Denton, TX 76209',
-    description: 'Open green space with walking trails and shaded areas away from the sports fields.',
-    hours: 'Open until 11:00 PM',
-    imageUrl: '/images/places/north-lakes-park.svg',
-    photos: [{ url: '/images/places/north-lakes-park.svg', alt: 'Illustration of a sunny park with trees, a walking path, a bench, and a pond' }],
-    location: { lat: 33.2366, lng: -97.164 },
-    sensory: { noise: 'low', lighting: 'normal', crowd: 'moderate', temperature: 'Varies with weather', scents: 'Minimal' },
-    accessibility: { wheelchair: true, sensoryRoom: false },
+    address: '2001 W Windsor Dr, Denton, TX',
+    description:
+      'A City of Denton park with outdoor recreation areas, trails, and open space. Conditions vary with weather, events, and activity.',
+    hours: 'Check City of Denton park information',
+    location: { lat: 33.23981, lng: -97.15225 },
+    sensory: {
+      noise: 'moderate',
+      lighting: 'normal',
+      crowd: 'moderate',
+      temperature: 'Depends on weather',
+      scents: 'Not verified',
+    },
+    accessibility: {},
   },
   {
     id: 'harmony-coffee',
-    name: 'Harmony Coffee',
+    name: 'Jupiter House',
     category: 'cafe',
     city: 'Denton, TX',
-    address: '123 Maple Ave, Denton, TX 76201',
-    description: 'A cozy local coffee shop with a calm atmosphere and plenty of seating. Popular for quiet study time.',
-    hours: 'Open until 8:00 PM',
-    imageUrl: '/images/places/harmony-coffee.svg',
-    photos: [{ url: '/images/places/harmony-coffee.svg', alt: 'Illustration of a cozy coffee shop with a counter, hanging lamps, and a small table' }],
-    location: { lat: 33.2148, lng: -97.1331 },
-    sensory: { noise: 'moderate', lighting: 'bright', crowd: 'moderate', temperature: 'Comfortable', scents: 'Strong coffee aroma' },
-    accessibility: { wheelchair: true, sensoryRoom: false },
+    address: '106 N Locust St, Denton, TX 76201',
+    description:
+      'A coffee shop in downtown Denton. Noise, lighting, seating, and crowd levels may vary throughout the day.',
+    hours: 'Check current business hours',
+    location: { lat: 33.21500606757385, lng: -97.13223691534338 },
+    sensory: {
+      noise: 'moderate',
+      lighting: 'normal',
+      crowd: 'moderate',
+      temperature: 'Not verified',
+      scents: 'Not verified',
+    },
+    accessibility: {},
   },
   {
     id: 'unt-art-gallery',
-    name: 'UNT Art Gallery',
+    name: 'UNT Art Building',
     category: 'museum',
     city: 'Denton, TX',
     address: '1201 W Mulberry St, Denton, TX 76201',
-    description: 'Small rotating exhibits with soft lighting. Weekday mornings are the calmest.',
-    hours: 'Open until 5:00 PM',
-    imageUrl: '/images/places/unt-art-gallery.svg',
-    photos: [{ url: '/images/places/unt-art-gallery.svg', alt: 'Illustration of a calm art gallery with framed paintings, soft spotlights, and a sculpture' }],
-    location: { lat: 33.2107, lng: -97.1475 },
-    sensory: { noise: 'low', lighting: 'dim', crowd: 'low', temperature: 'Cool', scents: 'Minimal' },
-    accessibility: { wheelchair: true, sensoryRoom: false },
+    description:
+      'A University of North Texas arts facility. Building access, exhibitions, and room availability depend on university schedules and events.',
+    hours: 'Check UNT building and gallery schedules',
+    location: { lat: 33.21312, lng: -97.14525 },
+    sensory: {
+      noise: 'moderate',
+      lighting: 'normal',
+      crowd: 'moderate',
+      temperature: 'Not verified',
+      scents: 'Not verified',
+    },
+    accessibility: {},
   },
   {
     id: 'square-burger-co',
-    name: 'Square Burger Co.',
+    name: 'LSA Burger Co.',
     category: 'restaurant',
     city: 'Denton, TX',
-    address: '210 W Hickory St, Denton, TX 76201',
-    description: 'Busy downtown spot with music and an open kitchen. Patio seating is quieter.',
-    hours: 'Open until 10:00 PM',
-    imageUrl: '/images/places/square-burger-co.svg',
-    photos: [{ url: '/images/places/square-burger-co.svg', alt: 'Illustration of a busy restaurant with brick walls, string lights, tables, and an open kitchen' }],
-    location: { lat: 33.2149, lng: -97.135 },
-    sensory: { noise: 'high', lighting: 'bright', crowd: 'high', temperature: 'Warm', scents: 'Strong cooking smells' },
-    accessibility: { wheelchair: true, sensoryRoom: false },
+    address: '113 W Hickory St, Denton, TX 76201',
+    description:
+      'A restaurant on the Denton Square. Music, food preparation, and customer activity can affect the sensory environment.',
+    hours: 'Check current business hours',
+    location: { lat: 33.21458342041195, lng: -97.13316561534339 },
+    sensory: {
+      noise: 'high',
+      lighting: 'bright',
+      crowd: 'moderate',
+      temperature: 'Not verified',
+      scents: 'Not verified',
+    },
+    accessibility: {},
   },
   {
     id: 'calm-corner-books',
-    name: 'Calm Corner Books',
+    name: 'Recycled Books, Records & CDs',
     category: 'store',
     city: 'Denton, TX',
-    address: '88 Elm St, Denton, TX 76201',
-    description: 'Independent bookstore with a reading nook and a quiet hour every Tuesday morning.',
-    hours: 'Open until 7:00 PM',
-    imageUrl: '/images/places/calm-corner-books.svg',
-    photos: [{ url: '/images/places/calm-corner-books.svg', alt: 'Illustration of an independent bookstore with a striped awning and books in the window' }],
-    location: { lat: 33.2165, lng: -97.132 },
-    sensory: { noise: 'low', lighting: 'normal', crowd: 'low', temperature: 'Comfortable', scents: 'Minimal' },
-    accessibility: { wheelchair: false, sensoryRoom: true },
+    address: '200 N Locust St, Denton, TX 76201',
+    description:
+      'An independent bookstore and music shop in the historic Wright Opera House in downtown Denton.',
+    hours: '9 AM–9 PM daily; verify before visiting',
+    location: { lat: 33.215960928314374, lng: -97.13228479999998 },
+    sensory: {
+      noise: 'moderate',
+      lighting: 'normal',
+      crowd: 'moderate',
+      temperature: 'Not verified',
+      scents: 'Not verified',
+    },
+    accessibility: {},
   },
 ];
 

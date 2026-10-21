@@ -157,13 +157,18 @@ export default function PlaceDetailsPage() {
             <h1 className="place-hero__name">{place.name}</h1>
             <p className="place-hero__meta">{categoryLabels[place.category]} • {place.city}</p>
           </div>
-          <p className="place-hero__rating">
-            <Star className="place-hero__star" aria-hidden="true" />
-            <span aria-hidden="true">{place.rating.toFixed(1)} ({place.reviewCount} reviews)</span>
-            <span className="visually-hidden">
-              Rated {place.rating.toFixed(1)} out of 5 from {place.reviewCount} reviews
-            </span>
-          </p>
+
+          {place.reviewCount > 0 ? (
+            <p className="place-hero__rating">
+              <Star className="place-hero__star" aria-hidden="true" />
+              <span>
+                {place.rating.toFixed(1)} ({place.reviewCount} reviews)
+              </span>
+            </p>
+          ) : (
+            <p className="place-hero__rating">No reviews yet</p>
+          )}
+
         </div>
       </header>
 
