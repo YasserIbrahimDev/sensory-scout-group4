@@ -4,7 +4,18 @@ React + TypeScript + Vite web app for Sensory Scout (Team 4).
 
 ## Run it locally
 
+### 1. Start Database & Backend (Required for Live API Data)
+To view live venue data and test the Place Details feature, ensure your database container and backend server are running from the `backend/` directory:
+
 ```bash
+# In backend/
+docker compose up -d
+/opt/anaconda3/bin/uvicorn app.main:app --reload
+
+###2. Start the Frontend Development Server
+
+```bash
+# In frontend/
 cd frontend
 npm ci
 npm run dev
@@ -43,6 +54,13 @@ Copy `.env.example` to `.env.local` and fill in the values. Never commit `.env.l
 - Filter panel (`src/components/FilterPanel.tsx`): Noise Level, Lighting, and Crowd Level buttons, Place Type dropdown, accessibility checkboxes, Clear all, and Show Results (count)
 - Filters apply right away and are saved in the page address (for example `/search?noise=low&crowd=low`), so they stay applied after going back from Place Details
 - Within a group, any selected level matches (Low or Moderate noise); every group must match
+- Place Details (src/components/PlaceDetails.tsx):
+ - Integrated live with the FastAPI backend endpoint GET /places/{place_id}
+ - Calculates and displays sensory environment scores (noise, lighting, crowd density) on a 1–5 scale, displaying unrated metrics as "Unknown" rather than 0
+ - Displays crowdsourced accessibility reports (accessible, inaccessible, and unknown)
+ - Defensive UX states: accessible loading screen, 404 "Place Not Found" state, and network failure handling with an interactive "Retry" trigger
+ - Automated warning banner when development seed data is detected (is_sample: true)
+ - Venue tab navigation (PlaceTabs.tsx): Overview, Reviews, Photos, and Nearby tabs
 - Place Details: header with name, category, city, and rating; Sensory Information tiles (`SensoryInfo.tsx`) before everything else; Overview, Reviews, Photos, and Nearby tabs (`PlaceTabs.tsx`)
 - Reviews tab: average rating and the most recent reviews; "Write a review" is marked "coming soon" until sign-in exists
 - Photos tab: the place's photos with descriptions for screen readers
@@ -77,6 +95,7 @@ src/
     FilterPanel.tsx
     MapView.tsx
     PlaceCard.tsx
+    PlaceDetails.tsx
     PlaceTabs.tsx
     SearchBar.tsx
     SensoryBadge.tsx
@@ -91,6 +110,7 @@ src/
 
 ## Notes for the team
 
+- GET /places/{place_id} is live and integrated with the PostgreSQL database and FastAPI backend. The search/listing endpoint (GET /places) is planned for upcoming sprint work.
 - Temperature and scents are optional fields in `src/types/place.ts` until we confirm the backend will store them.
 - Lighting uses Dim / Normal / Bright everywhere, matching the filter wireframe.
 - Places now have a `location` (latitude and longitude) for the map. Mock coordinates are approximate.
