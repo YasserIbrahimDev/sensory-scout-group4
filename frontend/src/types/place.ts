@@ -61,8 +61,11 @@ export interface Place {
     lng: number;
   };
   sensory: SensoryInfo;
+
   accessibility: {
-    wheelchair: boolean;
-    sensoryRoom: boolean;
+    /** Unknown means the feature has not been verified. */
+    wheelchair?: boolean;
+    sensoryRoom?: boolean;
   };
+
 }

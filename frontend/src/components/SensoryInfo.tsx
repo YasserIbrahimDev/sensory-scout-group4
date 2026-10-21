@@ -27,7 +27,9 @@ export default function SensoryInfo({ sensory, headingId }: SensoryInfoProps) {
 
   return (
     <section className="sensory-info" aria-labelledby={headingId}>
-      <h2 id={headingId} className="sensory-info__title">Sensory Information</h2>
+      <h2 id={headingId} className="sensory-info__title">
+        Sensory Information — Demo Data, Not Verified
+      </h2>
       <dl className="sensory-tiles">
         {tiles.map(({ key, value, Icon }) => (
           <div key={key} className={`sensory-tile sensory-tile--${key}`}>

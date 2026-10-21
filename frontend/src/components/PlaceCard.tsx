@@ -43,16 +43,21 @@ export default function PlaceCard({ place }: PlaceCardProps) {
         <p className="place-card__meta">
           {categoryLabels[place.category]} • {place.city}
         </p>
-        <p className="place-card__rating">
-          <Star className="place-card__star" aria-hidden="true" />
-          <span aria-hidden="true">
-            <strong>{place.rating.toFixed(1)}</strong>{' '}
-            <span className="place-card__reviews">({place.reviewCount})</span>
-          </span>
-          <span className="visually-hidden">
-            Rated {place.rating.toFixed(1)} out of 5 from {place.reviewCount} reviews
-          </span>
-        </p>
+
+        {place.reviewCount > 0 ? (
+          <p className="place-card__rating">
+            <Star className="place-card__star" aria-hidden="true" />
+            <span>
+              <strong>{place.rating.toFixed(1)}</strong>{' '}
+              <span className="place-card__reviews">
+                ({place.reviewCount} reviews)
+              </span>
+            </span>
+          </p>
+        ) : (
+          <p className="place-card__rating">No reviews yet</p>
+        )}
+
 
         <ul className="place-card__badges" aria-label="Sensory conditions">
           <li><SensoryBadge type="noise" level={place.sensory.noise} /></li>
