@@ -27,10 +27,13 @@ jobs:
           python-version: '3.12'
 
       
+
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
           pip install pytest
+          pip install httpx2
+
 
       - name: Run place tests
         run: python -m pytest tests/test_places.py -v
