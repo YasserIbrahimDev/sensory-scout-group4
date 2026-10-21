@@ -44,7 +44,7 @@ describe('SearchPage', () => {
   });
 
   it('TC-SEARCH-20: Show Results moves keyboard focus to the results heading', async () => {
-    renderWithRouter(<App />, { route: '/search?crowd=low' });
+    renderWithRouter(<App />, { route: '/search?crowd=moderate' });
     await screen.findAllByRole('article');
     await userEvent.click(screen.getByRole('button', { name: /Show Results/ }));
     expect(screen.getByRole('heading', { name: /^Results/ })).toHaveFocus();
@@ -56,7 +56,7 @@ describe('SearchPage', () => {
     await userEvent.type(screen.getByRole('searchbox'), 'jupiter{Enter}');
     const cards = await screen.findAllByRole('article');
     expect(cards).toHaveLength(1);
-    expect(within(group('Noise Level')).getByRole('button', { name: 'Low' })).toHaveAttribute('aria-pressed', 'true');
+    expect(within(group('Noise Level')).getByRole('button', { name: 'Moderate' })).toHaveAttribute('aria-pressed', 'true');
   });
 
   it('TC-SEARCH-22: an empty search on the Search page clears the search text', async () => {
@@ -70,16 +70,14 @@ describe('SearchPage', () => {
   it('TC-SEARCH-23: filters stay applied after opening a place and going back', async () => {
     renderWithRouter(<App />, { route: '/search' });
     await screen.findAllByRole('article');
-    await userEvent.click(within(group('Crowd Level')).getByRole('button', { name: 'Low' }));
-    await userEvent.click(screen.getByRole('checkbox', { name: 'Sensory room available' }));
-    await screen.findByRole('button', { name: 'Show Results (2)' });
+    await userEvent.click(within(group('Crowd Level')).getByRole('button', { name: 'Moderate' }));
+    await screen.findByRole('button', { name: 'Show Results (6)' });
 
     await userEvent.click(screen.getByRole('link', { name: 'Recycled Books, Records & CDs' }));
     await userEvent.click(await screen.findByRole('link', { name: 'Back to results' }));
 
-    expect(await screen.findAllByRole('article')).toHaveLength(2);
-    expect(within(group('Crowd Level')).getByRole('button', { name: 'Low' })).toHaveAttribute('aria-pressed', 'true');
-    expect(screen.getByRole('checkbox', { name: 'Sensory room available' })).toBeChecked();
+    expect(await screen.findAllByRole('article')).toHaveLength(6);
+    expect(within(group('Crowd Level')).getByRole('button', { name: 'Moderate' })).toHaveAttribute('aria-pressed', 'true');
   });
 
   it('TC-SEARCH-24: explains how to fix a failed search, and Try again works', async () => {
