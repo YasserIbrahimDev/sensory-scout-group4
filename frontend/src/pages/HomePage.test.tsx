@@ -37,7 +37,7 @@ describe('HomePage', () => {
     expect(screen.getByRole('status')).toHaveTextContent('Loading places');
     const cards = await screen.findAllByRole('article');
     expect(cards).toHaveLength(3);
-    expect(screen.getByRole('link', { name: 'Denton Public Library' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Emily Fowler Central Library' })).toBeInTheDocument();
     expect(screen.queryByRole('status')).not.toBeInTheDocument();
   });
 
