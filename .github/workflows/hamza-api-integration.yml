@@ -1,0 +1,29 @@
+name: Hamza API integration checks
+on:
+  push:
+    branches:
+      - hamza/sprint1-api-integration
+  pull_request:
+    paths:
+      - 'frontend/src/api/backendAdapter.ts'
+      - 'frontend/src/api/backendClient.ts'
+      - 'frontend/src/api/backendAdapter.test.ts'
+      - '.github/workflows/hamza-api-integration.yml'
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test -- --run src/api/backendAdapter.test.ts
+      - run: npm test
+      - run: npm run build
