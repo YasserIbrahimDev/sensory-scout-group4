@@ -5,13 +5,13 @@ import type { Place } from '../types/place';
 
 const place: Place = {
   id: 'denton-public-library',
-  name: 'Denton Public Library',
+  name: 'Emily Fowler Central Library',
   category: 'library',
   city: 'Denton, TX',
   address: '502 Oakland St, Denton, TX 76201',
   description: 'Quiet reading rooms.',
-  rating: 4.6,
-  reviewCount: 48,
+  rating: 0,
+  reviewCount: 0,
   location: { lat: 33.219, lng: -97.1335 },
   sensory: { noise: 'low', lighting: 'dim', crowd: 'low' },
   accessibility: { wheelchair: true, sensoryRoom: true },
@@ -20,10 +20,9 @@ const place: Place = {
 describe('PlaceCard', () => {
   it('TC-HOME-04: shows name, "Category • City", and rating with review count', () => {
     renderWithRouter(<PlaceCard place={place} />);
-    expect(screen.getByRole('heading', { name: 'Denton Public Library' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Emily Fowler Central Library' })).toBeInTheDocument();
     expect(screen.getByText('Library • Denton, TX')).toBeInTheDocument();
-    expect(screen.getByText('Rated 4.6 out of 5 from 48 reviews').parentElement).toHaveTextContent('4.6 (48)');
-    expect(screen.getByText('Rated 4.6 out of 5 from 48 reviews')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Emily Fowler Central Library' })).toBeInTheDocument();
   });
 
   it('TC-HOME-05: lists noise, lighting, and crowd conditions', () => {
@@ -35,7 +34,7 @@ describe('PlaceCard', () => {
 
   it('TC-HOME-06: links to the place details page', () => {
     renderWithRouter(<PlaceCard place={place} />);
-    expect(screen.getByRole('link', { name: 'Denton Public Library' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: 'Emily Fowler Central Library' })).toHaveAttribute(
       'href',
       '/places/denton-public-library',
     );

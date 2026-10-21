@@ -110,8 +110,8 @@ export default function MapView({ places }: MapViewProps) {
         ['Noise', place.sensory.noise],
         ['Lighting', place.sensory.lighting],
         ['Crowds', place.sensory.crowd],
-        ['Temperature', place.sensory.temperature],
-        ['Scents', place.sensory.scents],
+        ['Temperature', place.sensory.temperature ?? 'Not available'],
+        ['Scents', place.sensory.scents ?? 'Not available'],
       ];
 
       for (const [label, value] of sensoryItems) {

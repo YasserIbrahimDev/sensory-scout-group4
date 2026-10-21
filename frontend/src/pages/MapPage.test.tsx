@@ -26,18 +26,18 @@ describe('MapPage', () => {
     const map = screen.getByRole('region', { name: /Map showing place locations/ });
     const pins = await within(map).findAllByRole('button');
     expect(pins).toHaveLength(6);
-    expect(pins[0]).toHaveAccessibleName('Denton Public Library, Library. Show details');
-    expect(mapboxState.markers[0].lngLat).toEqual([-97.1335, 33.219]);
+    expect(pins[0]).toHaveAccessibleName('Emily Fowler Central Library, Library. Show details');
+    expect(mapboxState.markers[0].lngLat).toEqual([-97.13008743253772, 33.21863601456154]);
     expect(screen.getByRole('link', { name: 'Map' })).toHaveAttribute('aria-current', 'page');
   });
 
   it('TC-MAP-04: a pin popup links to the place details', async () => {
     await renderMap();
     const popup = mapboxState.markers[2].popup!.content!;
-    expect(popup).toHaveTextContent('Harmony Coffee');
+    expect(popup).toHaveTextContent('Jupiter House');
     expect(popup).toHaveTextContent('Cafe • Denton, TX');
     fireEvent.click(within(popup).getByRole('link', { name: 'View details' }));
-    expect(await screen.findByRole('heading', { level: 1, name: 'Harmony Coffee' })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { level: 1, name: 'Jupiter House' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Back' })).toHaveAttribute('href', '/map');
   });
 
@@ -45,7 +45,7 @@ describe('MapPage', () => {
     await renderMap();
     const list = screen.getByRole('region', { name: 'Places on the map (6)' });
     expect(within(list).getAllByRole('listitem')).toHaveLength(6);
-    expect(within(list).getByRole('link', { name: 'Calm Corner Books' })).toHaveAttribute(
+    expect(within(list).getByRole('link', { name: 'Recycled Books, Records & CDs' })).toHaveAttribute(
       'href',
       '/places/calm-corner-books',
     );
