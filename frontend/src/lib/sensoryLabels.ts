@@ -54,6 +54,11 @@ export const sensoryTypeLabels = {
 
 export const notReportedLabel = 'Not reported yet';
 
+/** "1 review" or "3 reviews". */
+export function reviewCountLabel(count: number): string {
+  return count === 1 ? '1 review' : `${count} reviews`;
+}
+
 export const categoryLabels: Record<PlaceCategory, string> = {
   library: 'Library',
   park: 'Park',
@@ -61,4 +66,14 @@ export const categoryLabels: Record<PlaceCategory, string> = {
   museum: 'Museum',
   restaurant: 'Restaurant',
   store: 'Store',
+  community: 'Community space',
+  market: 'Market',
+  other: 'Other',
 };
+
+/** Badge text when a level has not been reported, for example "Noise not reported yet". */
+export const notReportedBadgeLabels = {
+  noise: 'Noise not reported yet',
+  lighting: 'Lighting not reported yet',
+  crowd: 'Crowds not reported yet',
+} as const;

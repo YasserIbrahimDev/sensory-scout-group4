@@ -2,13 +2,13 @@ import { useEffect, useId, useRef, useState } from 'react';
 import type { KeyboardEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { X } from 'lucide-react';
-import type { Place } from '../types/place';
+import type { LocatedPlace } from '../types/place';
 import type { PlaceLinkState } from './PlaceCard';
 import { categoryLabels } from '../lib/sensoryLabels';
 import SensoryBadge from './SensoryBadge';
 
 interface SimpleMapProps {
-  places: Place[];
+  places: LocatedPlace[];
   /** Short message shown under the map, for example why the detailed map isn't showing. */
   note?: string;
 }
@@ -22,7 +22,7 @@ const PADDING = 0.12;
  * Turns latitude and longitude into a position inside the map box (0 to 100 percent).
  * The box is fitted to the places, so they always fill the map.
  */
-export function projectPlaces(places: Place[]): Map<string, { x: number; y: number }> {
+export function projectPlaces(places: LocatedPlace[]): Map<string, { x: number; y: number }> {
   const lats = places.map((p) => p.location.lat);
   const lngs = places.map((p) => p.location.lng);
   const [minLat, maxLat] = [Math.min(...lats), Math.max(...lats)];

@@ -1,4 +1,4 @@
-import { BookOpen, Coffee, Landmark, Lightbulb, Moon, ShoppingBag, Sun, Trees, Users, Utensils, Volume1, Volume2, VolumeX } from 'lucide-react';
+import { BookOpen, Coffee, Landmark, Lightbulb, MapPin, Moon, ShoppingBag, Store, Sun, Trees, Users, Utensils, Volume, Volume1, Volume2, VolumeX } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import type { CrowdLevel, LightingLevel, NoiseLevel, PlaceCategory } from '../types/place';
 
@@ -29,4 +29,14 @@ export const categoryIcons: Record<PlaceCategory, LucideIcon> = {
   museum: Landmark,
   restaurant: Utensils,
   store: ShoppingBag,
+  community: Users,
+  market: Store,
+  other: MapPin,
 };
+
+// Neutral icons for levels nobody has reported yet.
+export const notReportedIcons = {
+  noise: Volume,
+  lighting: Lightbulb,
+  crowd: Users,
+} as const;

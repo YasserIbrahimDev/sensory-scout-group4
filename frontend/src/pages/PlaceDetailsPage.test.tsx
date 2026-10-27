@@ -1,11 +1,12 @@
-import { screen, within } from '@testing-library/react';
+import { screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Route, Routes } from 'react-router-dom';
-import PlaceDetailsPage, { COMING_SOON_MESSAGES } from './PlaceDetailsPage';
+import PlaceDetailsPage, { COMING_SOON_MESSAGES, SAVE_MESSAGES } from './PlaceDetailsPage';
 import { WRITE_REVIEW_MESSAGE } from '../components/placeTabs/ReviewsTab';
 import App from '../App';
 import { renderWithRouter } from '../test/renderWithRouter';
 import * as client from '../api/client';
+import { DEMO_ACCOUNT, signInAsDemo } from '../test/account';
 
 function renderDetails(placeId: string) {
   return renderWithRouter(
@@ -143,16 +144,68 @@ describe('PlaceDetailsPage', () => {
     expect(await within(panel).findByText('No nearby places found.')).toBeInTheDocument();
   });
 
-  it('TC-DETAILS-07: Save and Share are marked "coming soon" and explain why when used', async () => {
+  it('TC-DETAILS-07: Share is marked "coming soon" and explains why when used', async () => {
     renderDetails('harmony-coffee');
-    const save = await screen.findByRole('button', { name: 'Save Coming soon' });
-    const share = screen.getByRole('button', { name: 'Share Coming soon' });
-    expect(save).toHaveAttribute('aria-disabled', 'true');
+    const share = await screen.findByRole('button', { name: 'Share Coming soon' });
+    expect(share).toHaveAttribute('aria-disabled', 'true');
+    await userEvent.click(share);
+    expect(screen.getByRole('status')).toHaveTextContent(COMING_SOON_MESSAGES.share);
+  });
+
+  it('TC-FAV-01: signed-out users who press Save are asked to sign in', async () => {
+    renderDetails('harmony-coffee');
+    await userEvent.click(await screen.findByRole('button', { name: 'Save' }));
+    const status = screen.getByRole('status');
+    expect(status).toHaveTextContent(SAVE_MESSAGES.signIn);
+    expect(within(status).getByRole('link', { name: 'Sign in or create an account' })).toHaveAttribute('href', '/profile');
+    expect(await client.getCurrentUser()).toBeNull();
+  });
+
+  it('TC-FAV-02: signed-in users can save and unsave a place, with a message each time', async () => {
+    signInAsDemo();
+    renderDetails('harmony-coffee');
+    const save = await screen.findByRole('button', { name: 'Save' });
+    expect(save).toHaveAttribute('aria-pressed', 'false');
 
     await userEvent.click(save);
-    expect(screen.getByText(COMING_SOON_MESSAGES.save)).toHaveAttribute('role', 'status');
-    await userEvent.click(share);
-    expect(screen.getByText(COMING_SOON_MESSAGES.share)).toHaveAttribute('role', 'status');
+    expect(save).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByRole('status')).toHaveTextContent(SAVE_MESSAGES.saved);
+    expect(await client.isFavorite('harmony-coffee')).toBe(true);
+
+    await userEvent.click(save);
+    expect(save).toHaveAttribute('aria-pressed', 'false');
+    expect(screen.getByRole('status')).toHaveTextContent(SAVE_MESSAGES.removed);
+    expect(await client.isFavorite('harmony-coffee')).toBe(false);
+  });
+
+  it('TC-FAV-03: Save shows as pressed for a place that is already saved', async () => {
+    signInAsDemo();
+    renderDetails('north-lakes-park');
+    const save = await screen.findByRole('button', { name: 'Save' });
+    await waitFor(() => expect(save).toHaveAttribute('aria-pressed', 'true'));
+  });
+
+  it('TC-FAV-04: a failed save shows an error, not a success message', async () => {
+    signInAsDemo();
+    vi.spyOn(client, 'saveFavorite').mockRejectedValueOnce(new Error('Network'));
+    renderDetails('harmony-coffee');
+    const save = await screen.findByRole('button', { name: 'Save' });
+    await userEvent.click(save);
+    expect(await screen.findByRole('alert')).toHaveTextContent(SAVE_MESSAGES.saveFailed);
+    expect(screen.queryByText(SAVE_MESSAGES.saved)).not.toBeInTheDocument();
+    expect(save).toHaveAttribute('aria-pressed', 'false');
+  });
+
+  it('TC-FAV-05: signing in from the Save prompt returns to the place', async () => {
+    renderWithRouter(<App />, { route: '/places/harmony-coffee' });
+    await userEvent.click(await screen.findByRole('button', { name: 'Save' }));
+    await userEvent.click(screen.getByRole('link', { name: 'Sign in or create an account' }));
+    await userEvent.type(await screen.findByLabelText('Email'), DEMO_ACCOUNT.email);
+    await userEvent.type(screen.getByLabelText('Password'), DEMO_ACCOUNT.password);
+    await userEvent.click(screen.getByRole('button', { name: 'Sign in' }));
+    expect(await screen.findByRole('heading', { level: 1, name: 'Jupiter House' })).toBeInTheDocument();
+    await userEvent.click(screen.getByRole('button', { name: 'Save' }));
+    expect(screen.getByRole('status')).toHaveTextContent(SAVE_MESSAGES.saved);
   });
 
   it('TC-DETAILS-08: "Back to results" goes to Search when opened directly', async () => {

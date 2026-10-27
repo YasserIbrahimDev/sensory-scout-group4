@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../../App';
 import { renderWithRouter } from '../../test/renderWithRouter';
@@ -37,9 +37,14 @@ describe('App shell', () => {
     expect(screen.getByRole('main')).toHaveFocus();
   });
 
-  it('TC-HOME-22: shows a "coming soon" message on later-sprint pages', () => {
-    renderWithRouter(<App />, { route: '/favorites' });
-    expect(screen.getByText('This page is coming in a later update.')).toBeInTheDocument();
+  it('TC-HOME-22: Favorites, Profile, and Settings each open their own page', async () => {
+    for (const [route, title] of [['/favorites', 'Favorites'], ['/profile', 'Profile'], ['/settings', 'Settings']]) {
+      const { unmount } = renderWithRouter(<App />, { route });
+      expect(screen.getByRole('heading', { level: 1, name: title })).toBeInTheDocument();
+      expect(screen.queryByText('This page is coming in a later update.')).not.toBeInTheDocument();
+      await waitFor(() => expect(screen.queryByText(/^Loading/)).not.toBeInTheDocument());
+      unmount();
+    }
   });
 
   it('TC-HOME-23: shows a helpful page for unknown addresses', () => {
