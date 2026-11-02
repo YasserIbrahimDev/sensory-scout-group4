@@ -22,7 +22,7 @@ export default function MapView({ places }: MapViewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const [failed, setFailed] = useState(false);
-  const token = import.meta.env.VITE_MAPBOX_TOKEN;
+  const token = 'pk.eyJ1IjoiYXIxOTkzIiwiYSI6ImNtdmg1bWN1djAxZWYyeW9rZ3ZqcHBma2MifQ.hwoTi2xKVbBL4lGcU0IXSQ';
 
   useEffect(() => {
     const container = containerRef.current;
