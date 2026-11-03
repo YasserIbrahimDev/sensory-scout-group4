@@ -1,0 +1,39 @@
+
+name: Robert Backend Tests
+
+on:
+  push:
+    branches:
+      - robert/sprint1-place-list
+  pull_request:
+    paths:
+      - 'backend/**'
+      - '.github/workflows/robert-backend-tests.yml'
+
+jobs:
+  backend-tests:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: backend
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install pytest
+          pip install httpx2
+
+
+      - name: Run place tests
+        run: python -m pytest tests/test_places.py -v
