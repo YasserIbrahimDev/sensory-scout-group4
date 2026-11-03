@@ -2,6 +2,8 @@ import type { LatLng, NearbyPlace, Place, Review } from '../types/place';
 import { hasLocation } from '../types/place';
 import type { AppSettings, SensoryPreferences, SignInDetails, SignUpDetails, User } from '../types/user';
 import type { SearchFilters } from '../lib/searchFilters';
+import type { Recommendation } from '../lib/recommendations';
+import { recommendPlaces } from '../lib/recommendations';
 import { categoryLabels } from '../lib/sensoryLabels';
 import { mockPlaces } from '../data/mockPlaces';
 import { mockReviews } from '../data/mockReviews';
@@ -135,6 +137,19 @@ export async function getFavorites(): Promise<Place[]> {
   return favoriteIds
     .map((id) => places.find((place) => place.id === id))
     .filter((place): place is Place => place !== undefined);
+}
+
+/**
+ * Places for "Recommended for you", best match first, using the signed-in user's
+ * sensory preferences. The backend recommendation endpoint isn't ready, so places
+ * are ranked here for now; swap this for the endpoint when it exists.
+ */
+export async function getRecommendations(
+  limit = 3,
+): Promise<{ preferences: SensoryPreferences; recommendations: Recommendation[] }> {
+  const preferences = { ...requireAccount().preferences };
+  const recommendations = recommendPlaces(await loadAllPlaces(), preferences).slice(0, limit);
+  return { preferences, recommendations };
 }
 
 export async function isFavorite(placeId: string): Promise<boolean> {

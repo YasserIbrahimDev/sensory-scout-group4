@@ -293,7 +293,7 @@ function SensoryPreferencesSection({ userId }: { userId: string }) {
     <section className="profile-card" aria-labelledby="preferences-heading">
       <h2 id="preferences-heading" className="section-title">Sensory Preferences</h2>
       <p className="profile-card__intro">
-        Choose the levels you are most comfortable with. You can change these at any time.
+        Choose the levels you are most comfortable with. We use these to pick places for "Recommended for you" on the Home page. You can change them at any time.
       </p>
       {state.status === 'loading' && <p className="status-message" role="status">Loading your preferences…</p>}
       {state.status === 'error' && (

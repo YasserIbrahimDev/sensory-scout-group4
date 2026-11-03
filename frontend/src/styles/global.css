@@ -1471,6 +1471,37 @@ img {
   margin-bottom: 1rem;
 }
 
+/* ---------- Home: Recommended for you ---------- */
+.home__recommended {
+  margin-bottom: 2.5rem;
+}
+
+.recommended__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.recommended__item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.recommended__item .place-card {
+  flex: 1;
+}
+
+.recommended__reason {
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  border-left: 3px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  background: var(--color-primary-soft);
+  color: var(--color-text);
+  font-size: 0.9rem;
+}
+
 /* ---------- Profile and Settings pages ---------- */
 .profile__content {
   display: flex;
