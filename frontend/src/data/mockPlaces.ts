@@ -1,10 +1,11 @@
 
-import type { Place } from '../types/place';
+import type { LocatedPlace } from '../types/place';
 import { mockReviews } from './mockReviews';
 
-type PlaceWithoutStats = Omit<Place, 'rating' | 'reviewCount'>;
+// Every mock place has a map position.
+type PlaceWithoutStats = Omit<LocatedPlace, 'rating' | 'reviewCount'>;
 
-function withReviewStats(place: PlaceWithoutStats): Place {
+function withReviewStats(place: PlaceWithoutStats): LocatedPlace {
   const ratings = mockReviews
     .filter((review) => review.placeId === place.id)
     .map((review) => review.rating);
@@ -140,4 +141,4 @@ const places: PlaceWithoutStats[] = [
   },
 ];
 
-export const mockPlaces: Place[] = places.map(withReviewStats);
+export const mockPlaces: LocatedPlace[] = places.map(withReviewStats);

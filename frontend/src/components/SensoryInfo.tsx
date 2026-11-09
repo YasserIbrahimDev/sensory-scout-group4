@@ -2,7 +2,7 @@ import { Flower2, Thermometer } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import type { SensoryInfo as SensoryInfoData } from '../types/place';
 import { crowdLabels, lightingLabels, noiseLabels, notReportedLabel, sensoryTypeLabels } from '../lib/sensoryLabels';
-import { crowdIcons, lightingIcons, noiseIcons } from '../lib/sensoryIcons';
+import { crowdIcons, lightingIcons, noiseIcons, notReportedIcons } from '../lib/sensoryIcons';
 
 interface Tile {
   key: keyof typeof sensoryTypeLabels;
@@ -18,9 +18,15 @@ interface SensoryInfoProps {
 /** The "Sensory Information" row on Place Details: five tiles with an icon, caption, and text value. */
 export default function SensoryInfo({ sensory, headingId }: SensoryInfoProps) {
   const tiles: Tile[] = [
-    { key: 'noise', value: noiseLabels[sensory.noise], Icon: noiseIcons[sensory.noise] },
-    { key: 'lighting', value: lightingLabels[sensory.lighting], Icon: lightingIcons[sensory.lighting] },
-    { key: 'crowd', value: crowdLabels[sensory.crowd], Icon: crowdIcons[sensory.crowd] },
+    sensory.noise
+      ? { key: 'noise', value: noiseLabels[sensory.noise], Icon: noiseIcons[sensory.noise] }
+      : { key: 'noise', value: notReportedLabel, Icon: notReportedIcons.noise },
+    sensory.lighting
+      ? { key: 'lighting', value: lightingLabels[sensory.lighting], Icon: lightingIcons[sensory.lighting] }
+      : { key: 'lighting', value: notReportedLabel, Icon: notReportedIcons.lighting },
+    sensory.crowd
+      ? { key: 'crowd', value: crowdLabels[sensory.crowd], Icon: crowdIcons[sensory.crowd] }
+      : { key: 'crowd', value: notReportedLabel, Icon: notReportedIcons.crowd },
     { key: 'temperature', value: sensory.temperature ?? notReportedLabel, Icon: Thermometer },
     { key: 'scents', value: sensory.scents ?? notReportedLabel, Icon: Flower2 },
   ];

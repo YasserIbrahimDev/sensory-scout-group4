@@ -2,6 +2,7 @@
 import { Suspense, lazy, useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { Place } from '../types/place';
+import { hasLocation } from '../types/place';
 import type { PlaceLinkState } from '../components/PlaceCard';
 import { getPlaces } from '../api/client';
 import { categoryLabels } from '../lib/sensoryLabels';
@@ -15,6 +16,12 @@ type LoadState =
 
 export const MAP_LOAD_ERROR_MESSAGE =
   "We couldn't load places for the map. Check your internet connection, then select Try again.";
+
+export function missingLocationMessage(count: number): string {
+  return count === 1
+    ? "1 place isn't on the map because its location isn't known yet."
+    : `${count} places aren't on the map because their locations aren't known yet.`;
+}
 
 const linkState: PlaceLinkState = { from: '/map' };
 

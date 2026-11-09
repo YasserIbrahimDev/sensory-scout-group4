@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Star } from 'lucide-react';
 import type { Place } from '../types/place';
-import { categoryLabels } from '../lib/sensoryLabels';
+import { categoryLabels, reviewCountLabel } from '../lib/sensoryLabels';
 import { categoryIcons } from '../lib/sensoryIcons';
 import SensoryBadge from './SensoryBadge';
 
@@ -44,16 +44,18 @@ export default function PlaceCard({ place }: PlaceCardProps) {
           {categoryLabels[place.category]} • {place.city}
         </p>
 
-        {place.reviewCount > 0 ? (
+        {place.reviewCount > 0 && place.rating !== null ? (
           <p className="place-card__rating">
             <Star className="place-card__star" aria-hidden="true" />
             <span>
               <strong>{place.rating.toFixed(1)}</strong>{' '}
               <span className="place-card__reviews">
-                ({place.reviewCount} reviews)
+                ({reviewCountLabel(place.reviewCount)})
               </span>
             </span>
           </p>
+        ) : place.reviewCount > 0 ? (
+          <p className="place-card__rating">{reviewCountLabel(place.reviewCount)}</p>
         ) : (
           <p className="place-card__rating">No reviews yet</p>
         )}

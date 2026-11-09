@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import type { Place } from '../types/place';
 import { getPopularPlaces } from '../api/client';
 import PlaceCard from '../components/PlaceCard';
+import RecommendedForYou from '../components/RecommendedForYou';
 import SearchBar from '../components/SearchBar';
 
 type LoadState =
@@ -48,6 +49,8 @@ export default function HomePage() {
 
         <SearchBar onSearch={handleSearch} />
       </div>
+
+      <RecommendedForYou />
 
       <section aria-labelledby="popular-heading" className="home__popular">
         <div className="section-header">

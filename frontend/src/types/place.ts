@@ -8,12 +8,17 @@ export type PlaceCategory =
   | 'cafe'
   | 'museum'
   | 'restaurant'
-  | 'store';
+  | 'store'
+  | 'community'
+  | 'market'
+  /** Any category the backend sends that the app does not know yet. */
+  | 'other';
 
+/** Null means nobody has reported this yet. Never show a guess in its place. */
 export interface SensoryInfo {
-  noise: NoiseLevel;
-  lighting: LightingLevel;
-  crowd: CrowdLevel;
+  noise: NoiseLevel | null;
+  lighting: LightingLevel | null;
+  crowd: CrowdLevel | null;
   /** Optional until the team confirms the backend will store these. */
   temperature?: string;
   scents?: string;
@@ -41,6 +46,11 @@ export interface NearbyPlace {
   distanceMiles: number;
 }
 
+export interface LatLng {
+  lat: number;
+  lng: number;
+}
+
 export interface Place {
   id: string;
   name: string;
@@ -48,18 +58,18 @@ export interface Place {
   city: string;
   address: string;
   description: string;
-  rating: number;
+  /** Average star rating, or null when the data source has no star ratings (the API does not yet). */
+  rating: number | null;
   reviewCount: number;
   hours?: string;
   /** Main photo for cards and the Place Details header (decorative there; alt is empty). */
   imageUrl?: string;
   /** Photos for the Photos tab, each with a description for screen readers. */
   photos?: PlacePhoto[];
-  /** Map position, used by the Map page and Get Directions. */
-  location: {
-    lat: number;
-    lng: number;
-  };
+  /** Map position, used by the Map page, Nearby, and Get Directions. Null when unknown. */
+  location: LatLng | null;
+  /** True for made-up development data, so it can be labelled. */
+  isSample?: boolean;
   sensory: SensoryInfo;
 
   accessibility: {
@@ -68,4 +78,11 @@ export interface Place {
     sensoryRoom?: boolean;
   };
 
+}
+
+/** A place that has a map position, so it can be shown on the map. */
+export type LocatedPlace = Place & { location: LatLng };
+
+export function hasLocation(place: Place): place is LocatedPlace {
+  return place.location !== null;
 }

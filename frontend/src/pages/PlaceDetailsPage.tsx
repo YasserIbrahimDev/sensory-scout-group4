@@ -3,8 +3,10 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 import { ArrowLeft, Clock, Heart, MapPin, Navigation, Share2, Star } from 'lucide-react';
 import type { Place } from '../types/place';
 import type { PlaceLinkState } from '../components/PlaceCard';
-import { getPlace } from '../api/client';
-import { categoryLabels } from '../lib/sensoryLabels';
+import { getPlace, isFavorite, removeFavorite, saveFavorite } from '../api/client';
+import { useAuth } from '../lib/auth';
+import SignInPrompt from '../components/SignInPrompt';
+import { categoryLabels, reviewCountLabel } from '../lib/sensoryLabels';
 import { categoryIcons } from '../lib/sensoryIcons';
 import { directionsUrl } from '../lib/directions';
 import SensoryInfo from '../components/SensoryInfo';
@@ -18,10 +20,73 @@ type LoadState =
   | { status: 'error' }
   | { status: 'ready'; place: Place | null };
 
+type Notice =
+  | { kind: 'info'; text: string }
+  | { kind: 'error'; text: string }
+  | { kind: 'signIn' }
+  | null;
+
 export const COMING_SOON_MESSAGES = {
-  save: 'Saving places is coming soon. You will be able to save places once sign-in is available.',
   share: 'Sharing is coming soon. For now, copy the page address from your browser to share this place.',
 } as const;
+
+export const SAVE_MESSAGES = {
+  signIn: 'Sign in to save places to your Favorites.',
+  saved: 'Saved to your Favorites.',
+  removed: 'Removed from your Favorites.',
+  saveFailed: "Couldn't save this place. Check your connection and try again.",
+  removeFailed: "Couldn't remove this place from your Favorites. Check your connection and try again.",
+} as const;
+
+/** Whether the signed-in user has saved this place, and a way to change it. */
+function useSavedPlace(placeId: string, setNotice: (notice: Notice) => void) {
+  const { auth } = useAuth();
+  const userId = auth.status === 'signedIn' ? auth.user.id : null;
+  const [saved, setSaved] = useState(false);
+  const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    setSaved(false);
+    if (!userId) return;
+    isFavorite(placeId)
+      .then((value) => {
+        if (!cancelled) setSaved(value);
+      })
+      .catch(() => {
+        // Leave the button as "not saved"; pressing it will save the place.
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [placeId, userId]);
+
+  async function toggle() {
+    if (!userId) {
+      setNotice({ kind: 'signIn' });
+      return;
+    }
+    if (busy) return;
+    setBusy(true);
+    try {
+      if (saved) {
+        await removeFavorite(placeId);
+        setSaved(false);
+        setNotice({ kind: 'info', text: SAVE_MESSAGES.removed });
+      } else {
+        await saveFavorite(placeId);
+        setSaved(true);
+        setNotice({ kind: 'info', text: SAVE_MESSAGES.saved });
+      }
+    } catch {
+      setNotice({ kind: 'error', text: saved ? SAVE_MESSAGES.removeFailed : SAVE_MESSAGES.saveFailed });
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return { saved, toggle };
+}
 
 function useBackLink(): { to: string; label: string } {
   const state = useLocation().state as PlaceLinkState | null;
@@ -65,12 +130,13 @@ export default function PlaceDetailsPage() {
   const { placeId = '' } = useParams();
   const back = useBackLink();
   const [state, setState] = useState<LoadState>({ status: 'loading' });
-  const [notice, setNotice] = useState('');
+  const [notice, setNotice] = useState<Notice>(null);
+  const save = useSavedPlace(placeId, setNotice);
 
   useEffect(() => {
     let cancelled = false;
     setState({ status: 'loading' });
-    setNotice('');
+    setNotice(null);
     getPlace(placeId)
       .then((place) => {
         if (!cancelled) setState({ status: 'ready', place });
@@ -130,19 +196,27 @@ export default function PlaceDetailsPage() {
       <div className="place-details__toolbar">
         {backLink}
         <div className="place-details__actions">
-          <button type="button" className="action-button" aria-disabled="true" onClick={() => setNotice(COMING_SOON_MESSAGES.save)}>
+          <button type="button" className="action-button" aria-pressed={save.saved} onClick={save.toggle}>
             <Heart className="action-button__icon" aria-hidden="true" />
             Save
-            <span className="soon-tag">Coming soon</span>
           </button>
-          <button type="button" className="action-button" aria-disabled="true" onClick={() => setNotice(COMING_SOON_MESSAGES.share)}>
+          <button
+            type="button"
+            className="action-button"
+            aria-disabled="true"
+            onClick={() => setNotice({ kind: 'info', text: COMING_SOON_MESSAGES.share })}
+          >
             <Share2 className="action-button__icon" aria-hidden="true" />
             Share
             <span className="soon-tag">Coming soon</span>
           </button>
         </div>
       </div>
-      <p role="status" className={notice ? 'notice' : 'visually-hidden'}>{notice}</p>
+      <div role="status" className={notice && notice.kind !== 'error' ? undefined : 'visually-hidden'}>
+        {notice?.kind === 'info' && <p className="notice">{notice.text}</p>}
+        {notice?.kind === 'signIn' && <SignInPrompt message={SAVE_MESSAGES.signIn} />}
+      </div>
+      {notice?.kind === 'error' && <p role="alert" className="notice notice--error">{notice.text}</p>}
 
       <header className="place-hero">
         {place.imageUrl ? (
@@ -158,13 +232,15 @@ export default function PlaceDetailsPage() {
             <p className="place-hero__meta">{categoryLabels[place.category]} • {place.city}</p>
           </div>
 
-          {place.reviewCount > 0 ? (
+          {place.reviewCount > 0 && place.rating !== null ? (
             <p className="place-hero__rating">
               <Star className="place-hero__star" aria-hidden="true" />
               <span>
-                {place.rating.toFixed(1)} ({place.reviewCount} reviews)
+                {place.rating.toFixed(1)} ({reviewCountLabel(place.reviewCount)})
               </span>
             </p>
+          ) : place.reviewCount > 0 ? (
+            <p className="place-hero__rating">{reviewCountLabel(place.reviewCount)}</p>
           ) : (
             <p className="place-hero__rating">No reviews yet</p>
           )}

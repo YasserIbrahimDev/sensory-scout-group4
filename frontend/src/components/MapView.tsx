@@ -3,13 +3,13 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import type { Place } from '../types/place';
+import type { LocatedPlace } from '../types/place';
 import type { PlaceLinkState } from './PlaceCard';
-import { categoryLabels } from '../lib/sensoryLabels';
+import { categoryLabels, crowdLabels, lightingLabels, noiseLabels, notReportedLabel } from '../lib/sensoryLabels';
 import SimpleMap from './SimpleMap';
 
 interface MapViewProps {
-  places: Place[];
+  places: LocatedPlace[];
 }
 
 export const MAP_FALLBACK_NOTE =
@@ -88,7 +88,7 @@ export default function MapView({ places }: MapViewProps) {
       duration: 0,
     });
 
-    function popupContent(place: Place): HTMLElement {
+    function popupContent(place: LocatedPlace): HTMLElement {
       const wrapper = document.createElement('div');
       wrapper.className = 'map-popup';
 
@@ -107,9 +107,9 @@ export default function MapView({ places }: MapViewProps) {
       sensoryList.className = 'map-popup__sensory-list';
 
       const sensoryItems: [string, string][] = [
-        ['Noise', place.sensory.noise],
-        ['Lighting', place.sensory.lighting],
-        ['Crowds', place.sensory.crowd],
+        ['Noise', place.sensory.noise ? noiseLabels[place.sensory.noise] : notReportedLabel],
+        ['Lighting', place.sensory.lighting ? lightingLabels[place.sensory.lighting] : notReportedLabel],
+        ['Crowds', place.sensory.crowd ? crowdLabels[place.sensory.crowd] : notReportedLabel],
         ['Temperature', place.sensory.temperature ?? 'Not available'],
         ['Scents', place.sensory.scents ?? 'Not available'],
       ];
