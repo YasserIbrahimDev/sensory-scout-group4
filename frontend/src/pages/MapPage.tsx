@@ -31,6 +31,7 @@ export default function MapPage() {
   const loadPlaces = useCallback(() => {
     let cancelled = false;
     setState({ status: 'loading' });
+
     getPlaces()
       .then((places) => {
         if (!cancelled) setState({ status: 'ready', places });
@@ -38,12 +39,21 @@ export default function MapPage() {
       .catch(() => {
         if (!cancelled) setState({ status: 'error' });
       });
+
     return () => {
       cancelled = true;
     };
   }, []);
 
   useEffect(() => loadPlaces(), [loadPlaces]);
+
+  const mappedPlaces =
+    state.status === 'ready' ? state.places.filter(hasLocation) : [];
+
+  const missingLocationCount =
+    state.status === 'ready'
+      ? state.places.length - mappedPlaces.length
+      : 0;
 
   return (
     <div className="page page--wide">
@@ -82,16 +92,16 @@ export default function MapPage() {
               </p>
             }
           >
-            <MapView places={state.places} />
+            <MapView places={mappedPlaces} />
           </Suspense>
 
-          {/* The same places as a list, for screen reader users and anyone who prefers a list. */}
           <section aria-labelledby="map-list-heading" className="map-list">
             <h2 id="map-list-heading" className="section-title">
-              Places on the map ({state.places.length})
+              Places on the map ({mappedPlaces.length})
             </h2>
+
             <ul className="map-list__items">
-              {state.places.map((place) => (
+              {mappedPlaces.map((place) => (
                 <li key={place.id} className="map-list__item">
                   <Link
                     to={`/places/${place.id}`}
@@ -100,13 +110,24 @@ export default function MapPage() {
                   >
                     {place.name}
                   </Link>
+
                   <p className="map-list__meta">
                     {categoryLabels[place.category]} • {place.city}
                   </p>
+
                   <p className="map-list__meta">{place.address}</p>
                 </li>
               ))}
             </ul>
+
+            {missingLocationCount > 0 && (
+              <div className="status-message">
+                <p>{missingLocationMessage(missingLocationCount)}</p>
+                <Link to="/search">
+                  Find it on the Search page
+                </Link>
+              </div>
+            )}
           </section>
         </div>
       )}
