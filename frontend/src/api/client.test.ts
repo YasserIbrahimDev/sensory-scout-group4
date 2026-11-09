@@ -1,4 +1,12 @@
-import { getNearbyPlaces, getPlace, getPlaces, getPopularPlaces, getReviews, searchPlaces } from './client';
+
+import {
+  getNearbyPlaces,
+  getPlace,
+  getPlaces,
+  getPopularPlaces,
+  getReviews,
+  searchPlaces,
+} from './client';
 import { emptyFilters } from '../lib/searchFilters';
 
 const names = (places: { name: string }[]) => places.map((p) => p.name);
@@ -26,6 +34,7 @@ describe('api client (mock data)', () => {
   it('TC-SEARCH-06: any selected level in a group matches; every group must match', async () => {
     const quietOrModerate = await searchPlaces({ ...emptyFilters, noise: ['low', 'moderate'] });
     expect(quietOrModerate).toHaveLength(5);
+
     const quietAndDim = await searchPlaces({ ...emptyFilters, noise: ['low'], lighting: ['dim'] });
     expect(names(quietAndDim)).toEqual([]);
   });
@@ -33,7 +42,7 @@ describe('api client (mock data)', () => {
   it('TC-SEARCH-07: filters by place type, crowd level, and accessibility', async () => {
     expect(names(await searchPlaces({ ...emptyFilters, category: 'park' }))).toEqual(['North Lakes Park']);
     expect(names(await searchPlaces({ ...emptyFilters, crowd: ['high'] }))).toEqual([]);
-    expect(names(await searchPlaces({ ...emptyFilters, sensoryRoom: true }))).toEqual([]);
+    expect(names(await searchPlaces({ ...emptyFilters, sensoryRoom: true }))).toEqual([]);    
     expect(await searchPlaces({ ...emptyFilters, wheelchair: true })).toHaveLength(0);
   });
 
@@ -43,12 +52,18 @@ describe('api client (mock data)', () => {
 
   it('TC-DETAILS-20: returns reviews for one place, newest first', async () => {
     const reviews = await getReviews('north-lakes-park');
-    expect(reviews).toEqual([]);
+
+    expect(reviews).toHaveLength(9);
+
+    const reviewDates = reviews.map((review) => new Date(review.date).getTime());
+    expect(reviewDates).toEqual([...reviewDates].sort((a, b) => b - a));
+
     expect(await getReviews('missing')).toEqual([]);
   });
 
   it('TC-DETAILS-21: returns the nearest other places, closest first', async () => {
     const nearby = await getNearbyPlaces('denton-public-library', 2);
+
     expect(nearby).toHaveLength(2);
     expect(nearby.map((n) => n.place.id)).not.toContain('denton-public-library');
     expect(nearby[0].distanceMiles).toBeLessThanOrEqual(nearby[1].distanceMiles);
@@ -59,9 +74,20 @@ describe('api client (mock data)', () => {
   it('TC-DETAILS-24: each place rating and review count match its reviews', async () => {
     for (const place of await getPlaces()) {
       const reviews = await getReviews(place.id);
-      expect(reviews).toEqual([]);
-      expect(place.reviewCount).toBe(0);
-      expect(place.rating).toBe(0);
+
+      expect(place.reviewCount).toBe(reviews.length);
+
+      const expectedRating =
+        reviews.length > 0
+          ? Number(
+            (
+              reviews.reduce((total, review) => total + review.rating, 0) /
+              reviews.length
+            ).toFixed(1),
+          )
+          : 0;
+
+      expect(place.rating).toBe(expectedRating);
     }
   });
 });
