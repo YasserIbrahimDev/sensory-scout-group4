@@ -4,7 +4,10 @@ import userEvent from '@testing-library/user-event';
 import { Route, Routes } from 'react-router-dom';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import PlaceDetailsPage, { COMING_SOON_MESSAGES, SAVE_MESSAGES } from './PlaceDetailsPage';
-import { WRITE_REVIEW_MESSAGE } from '../components/placeTabs/ReviewsTab';
+import {
+  WRITE_REVIEW_MESSAGE,
+  REVIEW_TEXT_UNAVAILABLE,
+} from '../components/placeTabs/ReviewsTab';
 import App from '../App';
 import { renderWithRouter } from '../test/renderWithRouter';
 import * as client from '../api/client';
@@ -158,17 +161,35 @@ describe('PlaceDetailsPage', () => {
 
     await userEvent.click(within(panel).getByRole('button', { name: 'Try again' }));
 
-    expect(await within(panel).findByText('No reviews yet.')).toBeInTheDocument();
+    expect(await within(panel).findByText(REVIEW_TEXT_UNAVAILABLE))
+      .toBeInTheDocument();
+
     expect(spy).toHaveBeenCalledTimes(2);
   });
 
   it('TC-DETAILS-15: Reviews tab says when there are no reviews', async () => {
+    const place = await client.getPlace('harmony-coffee');
+
+    if (!place) {
+      throw new Error('Expected demo place to exist.');
+    }
+
+    vi.spyOn(client, 'getPlace').mockResolvedValueOnce({
+      ...place,
+      reviewCount: 0,
+      rating: null,
+    });
+
     vi.spyOn(client, 'getReviews').mockResolvedValueOnce([]);
 
     renderDetails('harmony-coffee');
-    await userEvent.click(await screen.findByRole('tab', { name: 'Reviews (7)' }));
 
-    expect(await screen.findByText('No reviews yet.')).toBeInTheDocument();
+    await userEvent.click(await screen.findByRole('tab', { name: 'Reviews (0)' }));
+
+    const panel = screen.getByRole('tabpanel', { name: 'Reviews (0)' });
+
+    expect(await within(panel).findByText('No reviews yet.'))
+      .toBeInTheDocument();
   });
 
   it('TC-DETAILS-16: Photos tab shows photos with descriptions for screen readers', async () => {
