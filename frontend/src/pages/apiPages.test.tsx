@@ -104,7 +104,9 @@ describe('Sprint 1 pages on the API', () => {
     expect(await screen.findByRole('heading', { name: 'Places on the map (2)' })).toBeInTheDocument();
     expect(screen.getByText(missingLocationMessage(1), { exact: false })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Find it on the Search page' })).toHaveAttribute('href', '/search');
-    const map = screen.getByRole('region', { name: /Simple map/ });
+    const map = await screen.findByRole('region', {
+      name: /Map showing place locations/,
+    });
     expect(within(map).getAllByRole('button')).toHaveLength(2);
   });
 
