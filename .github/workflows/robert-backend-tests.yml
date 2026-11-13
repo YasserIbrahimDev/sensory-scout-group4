@@ -35,5 +35,5 @@ jobs:
           pip install httpx2
 
 
-      - name: Run place tests
-        run: python -m pytest tests/test_places.py -v
+      - name: Run place and recommendation tests
+        run: python -m pytest tests/test_places.py tests/test_recommendations.py -v
