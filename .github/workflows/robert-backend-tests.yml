@@ -36,4 +36,4 @@ jobs:
 
 
       - name: Run place and recommendation tests
-        run: python -m pytest tests/test_places.py tests/test_preferences.py tests/test_recommendations.py -v
+        run: python -m pytest tests/test_places.py tests/test_preferences.py tests/test_search_filters.py tests/test_recommendations.py -v
