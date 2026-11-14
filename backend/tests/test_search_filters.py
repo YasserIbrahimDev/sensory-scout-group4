@@ -1,4 +1,4 @@
-from sqlalchemy import select
+from sqlalchemy import func, select
 
 from app.models import Venue
 from app.seed import seed_data
@@ -15,7 +15,9 @@ def test_search_name_and_city(client, db):
 def test_category_filter(client, db):
     seed_data(db)
     result = client.get("/api/v1/places", params={"category": "LIBRARY"}).json()
-    assert result["total_items"] == 2
+    expected_count = db.scalar(select(func.count()).select_from(Venue).where(Venue.category == "library"))
+    assert result["total_items"] == expected_count
+    assert len(result["items"]) == expected_count
     assert all(v["category"] == "library" for v in result["items"])
 
 
