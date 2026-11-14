@@ -1,6 +1,6 @@
 import type { LatLng, NearbyPlace, Place, Review } from '../types/place';
 import { hasLocation } from '../types/place';
-import type { AppSettings, SensoryPreferences, SignInDetails, SignUpDetails, User } from '../types/user';
+import type { AppSettings, DemoSensoryPreferences, SavedSensoryPreferences, SignInDetails, SignUpDetails, User } from '../types/user';
 import type { SearchFilters } from '../lib/searchFilters';
 import type { Recommendation } from '../lib/recommendations';
 import { recommendPlaces } from '../lib/recommendations';
@@ -9,10 +9,16 @@ import { mockPlaces } from '../data/mockPlaces';
 import { mockReviews } from '../data/mockReviews';
 import { mockAccountStore } from '../data/mockAccount';
 import { fetchAllPlaces, fetchPlace } from './placeAdapter';
+import { fetchDemoPreferences, fetchDemoRecommendations, saveDemoPreferences } from './demoApi';
 
 // All data loading goes through this file. Pages never import mock data directly.
 // Places come from the FastAPI backend at VITE_API_URL. Set VITE_USE_MOCK_DATA=true
 // to use the mock places instead (for working without the backend, and in tests).
+
+/** True only for the explicitly enabled local development demo-user experience. */
+export function usingDemoMode(): boolean {
+  return import.meta.env.VITE_DEMO_MODE === 'true';
+}
 
 /** True when the app should use mock places instead of the API. */
 export function usingMockData(): boolean {
@@ -96,11 +102,23 @@ export const SIGNED_OUT_MESSAGE = 'Please sign in to continue.';
 
 /** The signed-in user, or null when signed out. */
 export async function getCurrentUser(): Promise<User | null> {
+  if (usingDemoMode()) {
+    const response = await fetchDemoPreferences();
+    const user: User = { id: 'development-demo-user', name: response.demo_user, email: 'sensory-scout-demo@example.invalid' };
+    // Keep unrelated, still-local account features from crashing during the demo.
+    let account = mockAccountStore.accounts.find((entry) => entry.user.id === user.id);
+    if (!account) {
+      mockAccountStore.accounts.push({ user, password: '', preferences: { noise: null, lighting: null, crowd: null }, favoriteIds: [] });
+    }
+    mockAccountStore.currentUserId = user.id;
+    return user;
+  }
   const account = currentAccount();
   return account ? { ...account.user } : null;
 }
 
 export async function signIn({ email, password }: SignInDetails): Promise<User> {
+  if (usingDemoMode()) throw new AccountError('Sign-in is not part of the development demo. The demo identity is provided by the backend.');
   const account = mockAccountStore.accounts.find((a) => a.user.email === normalizeEmail(email));
   if (!account || account.password !== password) {
     throw new AccountError('The email or password is incorrect.');
@@ -110,6 +128,7 @@ export async function signIn({ email, password }: SignInDetails): Promise<User> 
 }
 
 export async function signUp({ name, email, password }: SignUpDetails): Promise<User> {
+  if (usingDemoMode()) throw new AccountError('Account creation is disabled in the development demo.');
   const normalized = normalizeEmail(email);
   if (mockAccountStore.accounts.some((a) => a.user.email === normalized)) {
     throw new AccountError('An account with this email already exists. Try signing in instead.');
@@ -126,16 +145,22 @@ export async function signUp({ name, email, password }: SignUpDetails): Promise<
 }
 
 export async function signOut(): Promise<void> {
+  if (usingDemoMode()) return;
   mockAccountStore.currentUserId = null;
 }
 
-export async function getPreferences(): Promise<SensoryPreferences> {
+export async function getPreferences(): Promise<SavedSensoryPreferences> {
+  if (usingDemoMode()) return (await fetchDemoPreferences()).preferences;
   return { ...requireAccount().preferences };
 }
 
-export async function savePreferences(preferences: SensoryPreferences): Promise<SensoryPreferences> {
+export async function savePreferences(preferences: SavedSensoryPreferences): Promise<SavedSensoryPreferences> {
+  if (usingDemoMode()) {
+    const numeric = preferences as DemoSensoryPreferences;
+    return saveDemoPreferences(numeric);
+  }
   const account = requireAccount();
-  account.preferences = { ...preferences };
+  account.preferences = { ...preferences } as typeof account.preferences;
   return { ...account.preferences };
 }
 
@@ -155,7 +180,11 @@ export async function getFavorites(): Promise<Place[]> {
  */
 export async function getRecommendations(
   limit = 3,
-): Promise<{ preferences: SensoryPreferences; recommendations: Recommendation[] }> {
+): Promise<{ preferences: SavedSensoryPreferences; recommendations: Recommendation[] }> {
+  if (usingDemoMode()) {
+    const [response, recommendations] = await Promise.all([fetchDemoPreferences(), fetchDemoRecommendations(limit)]);
+    return { preferences: response.preferences, recommendations };
+  }
   const preferences = { ...requireAccount().preferences };
   const recommendations = recommendPlaces(await loadAllPlaces(), preferences).slice(0, limit);
   return { preferences, recommendations };
