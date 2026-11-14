@@ -36,4 +36,4 @@ jobs:
 
 
       - name: Run place tests
-        run: python -m pytest tests/test_places.py tests/test_preferences.py -v
+        run: python -m pytest tests/test_places.py tests/test_preferences.py tests/test_search_filters.py -v
