@@ -70,7 +70,16 @@ export async function getPlaces(): Promise<Place[]> {
  * across groups every group must match.
  */
 export async function searchPlaces(filters: SearchFilters): Promise<Place[]> {
-  return (await loadAllPlaces()).filter((place) => matchesFilters(place, filters));
+  // Search and category are applied in PostgreSQL before pagination.
+  // Multi-select sensory filters retain the UI's OR-within-group semantics;
+  // the backend's threshold filters cannot express those exact selections yet.
+  const places = usingMockData()
+    ? mockPlaces
+    : await fetchAllPlaces({
+        ...(filters.q.trim() ? { q: filters.q.trim() } : {}),
+        ...(filters.category ? { category: filters.category } : {}),
+      });
+  return places.filter((place) => matchesFilters(place, filters));
 }
 
 // ---------- Account, favorites, preferences, and settings ----------
