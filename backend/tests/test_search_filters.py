@@ -15,7 +15,9 @@ def test_search_name_and_city(client, db):
 def test_category_filter(client, db):
     seed_data(db)
     result = client.get("/api/v1/places", params={"category": "LIBRARY"}).json()
-    expected_count = db.scalar(select(func.count()).select_from(Venue).where(Venue.category == "library"))
+    expected_count = db.scalar(
+        select(func.count()).select_from(Venue).where(Venue.category == "library")
+    )
     assert result["total_items"] == expected_count
     assert len(result["items"]) == expected_count
     assert all(v["category"] == "library" for v in result["items"])
@@ -45,7 +47,10 @@ def test_invalid_filter_values(client):
 
 def test_filtered_pagination(client, db):
     seed_data(db)
-    result = client.get("/api/v1/places", params={"city": "Sample City", "page_size": 3, "page": 2}).json()
+    result = client.get(
+        "/api/v1/places",
+        params={"city": "Sample City", "page_size": 3, "page": 2},
+    ).json()
     assert result["total_items"] == 10
     assert result["page"] == 2
     assert len(result["items"]) == 3

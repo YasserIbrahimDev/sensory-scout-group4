@@ -64,9 +64,12 @@ def rank_venues(db: Session, profile: SensoryProfile, limit: int = 3) -> list[Ra
         if conflict or not matches:
             continue
         score = 100 * len(matches) - 10 * unknown - 5 * near
-        reason = "Matches your " + ", ".join(matches) + " preference" + ("s" if len(matches) > 1 else "")
+        preference_label = ", ".join(matches)
+        plural_suffix = "s" if len(matches) > 1 else ""
+        reason = f"Matches your {preference_label} preference{plural_suffix}"
         if unknown:
             reason += "; some sensory ratings are not reported"
-        results.append((-len(matches), unknown, near, venue.name, RankedVenue(venue.id, score, reason)))
+        ranked_venue = RankedVenue(venue.id, score, reason)
+        results.append((-len(matches), unknown, near, venue.name, ranked_venue))
     results.sort(key=lambda item: (item[0], item[1], item[2], item[3], item[4].venue_id))
     return [item[4] for item in results[:limit]]

@@ -1,6 +1,7 @@
 from datetime import datetime
+from typing import Annotated
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field, StrictInt
 
 
 class SensorySummary(BaseModel):
@@ -55,3 +56,29 @@ class PaginatedVenues(BaseModel):
     total_pages: int
     has_previous: bool
     has_next: bool
+
+
+class DemoPreferences(BaseModel):
+    """Nullable sensory preferences, each using the project's 1–5 scale."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    noise: Annotated[StrictInt, Field(ge=1, le=5)] | None = None
+    lighting: Annotated[StrictInt, Field(ge=1, le=5)] | None = None
+    crowd: Annotated[StrictInt, Field(ge=1, le=5)] | None = None
+
+
+class DemoPreferencesResponse(BaseModel):
+    demo_user: str
+    preferences: DemoPreferences
+
+
+class RecommendedVenue(BaseModel):
+    venue: VenueDetail
+    score: int
+    reason: str
+
+
+class DemoRecommendationsResponse(BaseModel):
+    demo_user: str
+    items: list[RecommendedVenue]
