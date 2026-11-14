@@ -33,7 +33,10 @@ def test_missing_profile_is_created_once(db):
     save_preferences(db, user, Preferences(1, 2, 3))
     db.commit()
     assert get_preferences(db, user) == Preferences(1, 2, 3)
-    assert len(db.scalars(select(SensoryProfile).where(SensoryProfile.user_id == user.id)).all()) == 1
+    profiles = db.scalars(
+        select(SensoryProfile).where(SensoryProfile.user_id == user.id)
+    ).all()
+    assert len(profiles) == 1
 
 
 @pytest.mark.parametrize("value", [0, 6, -1, 1.5, True, "3"])
