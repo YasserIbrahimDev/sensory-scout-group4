@@ -23,7 +23,7 @@ function cardTitles(container: HTMLElement) {
 }
 
 describe('Recommended for you on Home', () => {
-  it('TC-HOME-25: sits below the search bar and above "Popular near you"', async () => {
+  it('TC-REC-07: sits below the search bar and above "Popular near you"', async () => {
     signInAsDemo();
     renderWithRouter(<App />);
     const section = await recommendedSection();
@@ -34,7 +34,7 @@ describe('Recommended for you on Home', () => {
     await screen.findAllByRole('article');
   });
 
-  it('TC-HOME-26: signed-out users are asked to sign in', async () => {
+  it('TC-REC-08: signed-out users are asked to sign in', async () => {
     renderWithRouter(<App />);
     const section = await recommendedSection();
     expect(within(section).getByText(RECOMMENDED_MESSAGES.signIn)).toBeInTheDocument();
@@ -42,7 +42,7 @@ describe('Recommended for you on Home', () => {
     await screen.findAllByRole('article');
   });
 
-  it('TC-HOME-27: shows matching places with a short reason, and a card opens place details', async () => {
+  it('TC-REC-09: shows matching places with a short reason, and a card opens place details', async () => {
     // The demo account prefers quiet, dim places.
     signInAsDemo();
     renderWithRouter(<App />);
@@ -56,7 +56,7 @@ describe('Recommended for you on Home', () => {
     expect(await screen.findByRole('heading', { level: 1, name: 'Emily Fowler Central Library' })).toBeInTheDocument();
   });
 
-  it('TC-HOME-28: asks users with no preferences to set some', async () => {
+  it('TC-REC-10: asks users with no preferences to set some', async () => {
     signInAsDemo();
     await client.savePreferences({ noise: null, lighting: null, crowd: null });
     renderWithRouter(<App />);
@@ -65,7 +65,7 @@ describe('Recommended for you on Home', () => {
     expect(within(section).getByRole('link', { name: 'Set your preferences' })).toHaveAttribute('href', '/profile');
   });
 
-  it('TC-HOME-29: explains when no place matches', async () => {
+  it('TC-REC-11: explains when no place matches', async () => {
     signInAsDemo();
     await client.savePreferences({ noise: 'high', lighting: 'dim', crowd: 'low' });
     renderWithRouter(<App />);
@@ -74,7 +74,7 @@ describe('Recommended for you on Home', () => {
     expect(within(section).queryByRole('article')).not.toBeInTheDocument();
   });
 
-  it('TC-HOME-30: shows an error with Try again, and the rest of Home still loads', async () => {
+  it('TC-REC-12: shows an error with Try again, and the rest of Home still loads', async () => {
     signInAsDemo();
     vi.spyOn(client, 'getRecommendations').mockRejectedValueOnce(new Error('Network'));
     renderWithRouter(<App />);
