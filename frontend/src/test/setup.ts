@@ -13,6 +13,9 @@ window.scrollTo = vi.fn() as unknown as typeof window.scrollTo;
 beforeEach(() => {
   mapboxState.reset();
   vi.stubEnv('VITE_MAPBOX_TOKEN', 'pk.test-token');
+  // Keep the established component tests isolated from a developer's .env.local.
+  // Individual demo-mode tests opt in explicitly with vi.stubEnv(..., 'true').
+  vi.stubEnv('VITE_DEMO_MODE', 'false');
   // Tests use the mock places unless a test turns this off to check the API path.
   vi.stubEnv('VITE_USE_MOCK_DATA', 'true');
 });

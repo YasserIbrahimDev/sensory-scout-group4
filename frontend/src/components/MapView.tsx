@@ -5,7 +5,13 @@ import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import type { LocatedPlace } from '../types/place';
 import type { PlaceLinkState } from './PlaceCard';
-import { categoryLabels, crowdLabels, lightingLabels, noiseLabels, notReportedLabel } from '../lib/sensoryLabels';
+import {
+  categoryLabels,
+  crowdLabels,
+  lightingLabels,
+  noiseLabels,
+  notReportedLabel,
+} from '../lib/sensoryLabels';
 import SimpleMap from './SimpleMap';
 
 interface MapViewProps {
@@ -17,17 +23,29 @@ export const MAP_FALLBACK_NOTE =
 
 const linkState: PlaceLinkState = { from: '/map' };
 
-/** The detailed Mapbox map. MapPage only loads this when a Mapbox token is set. */
 export default function MapView({ places }: MapViewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const [failed, setFailed] = useState(false);
-  const token = import.meta.env.VITE_MAPBOX_TOKEN;
+
+  // Keep your existing public Mapbox token here.
+  const token = 'pk.eyJ1IjoiYXIxOTkzIiwiYSI6ImNtdmg1bWN1djAxZWYyeW9rZ3ZqcHBma2MifQ.hwoTi2xKVbBL4lGcU0IXSQ';
+
+  // Exclude places that do not have valid map coordinates.
+  const locatedPlaces = places.filter(
+    (place) => place.location != null,
+  );
 
   useEffect(() => {
     const container = containerRef.current;
 
-    if (!token || !container || places.length === 0) return;
+    if (!container || places.length === 0) return;
+
+    // If no places have coordinates, use the fallback.
+    if (locatedPlaces.length === 0) {
+      setFailed(true);
+      return;
+    }
 
     let map: mapboxgl.Map;
 
@@ -37,7 +55,10 @@ export default function MapView({ places }: MapViewProps) {
       map = new mapboxgl.Map({
         container,
         style: 'mapbox://styles/mapbox/streets-v12',
-        center: [places[0].location.lng, places[0].location.lat],
+        center: [
+          locatedPlaces[0].location.lng,
+          locatedPlaces[0].location.lat,
+        ],
         zoom: 12,
       });
     } catch {
@@ -59,8 +80,9 @@ export default function MapView({ places }: MapViewProps) {
 
     const bounds = new mapboxgl.LngLatBounds();
 
-    for (const place of places) {
+    for (const place of locatedPlaces) {
       const { lng, lat } = place.location;
+
       bounds.extend([lng, lat]);
 
       const marker = document.createElement('button');
@@ -107,9 +129,24 @@ export default function MapView({ places }: MapViewProps) {
       sensoryList.className = 'map-popup__sensory-list';
 
       const sensoryItems: [string, string][] = [
-        ['Noise', place.sensory.noise ? noiseLabels[place.sensory.noise] : notReportedLabel],
-        ['Lighting', place.sensory.lighting ? lightingLabels[place.sensory.lighting] : notReportedLabel],
-        ['Crowds', place.sensory.crowd ? crowdLabels[place.sensory.crowd] : notReportedLabel],
+        [
+          'Noise',
+          place.sensory.noise
+            ? noiseLabels[place.sensory.noise]
+            : notReportedLabel,
+        ],
+        [
+          'Lighting',
+          place.sensory.lighting
+            ? lightingLabels[place.sensory.lighting]
+            : notReportedLabel,
+        ],
+        [
+          'Crowds',
+          place.sensory.crowd
+            ? crowdLabels[place.sensory.crowd]
+            : notReportedLabel,
+        ],
         ['Temperature', place.sensory.temperature ?? 'Not available'],
         ['Scents', place.sensory.scents ?? 'Not available'],
       ];
@@ -135,10 +172,15 @@ export default function MapView({ places }: MapViewProps) {
     }
 
     return () => map.remove();
-  }, [places, token, navigate]);
+  }, [places, locatedPlaces, token, navigate]);
 
   if (failed) {
-    return <SimpleMap places={places} note={MAP_FALLBACK_NOTE} />;
+    return (
+      <SimpleMap
+        places={locatedPlaces}
+        note={MAP_FALLBACK_NOTE}
+      />
+    );
   }
 
   return (

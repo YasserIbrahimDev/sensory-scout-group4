@@ -13,6 +13,17 @@ export interface SensoryPreferences {
   crowd: CrowdLevel | null;
 }
 
+/** Five-point preferences persisted by the development demo API. */
+export type PreferenceScore = 1 | 2 | 3 | 4 | 5;
+
+export interface DemoSensoryPreferences {
+  noise: PreferenceScore | null;
+  lighting: PreferenceScore | null;
+  crowd: PreferenceScore | null;
+}
+
+export type SavedSensoryPreferences = SensoryPreferences | DemoSensoryPreferences;
+
 export interface AppSettings {
   /** When false, the app never asks for location; search by name or address still works. */
   locationAccess: boolean;

@@ -3,11 +3,13 @@ import { getRecommendations } from '../api/client';
 import { useAuth } from '../lib/auth';
 import { useLoad } from '../lib/useLoad';
 import { hasPreferences } from '../lib/recommendations';
+import { usingDemoMode } from '../api/client';
 import PlaceCard from './PlaceCard';
 import SignInPrompt from './SignInPrompt';
 
 export const RECOMMENDED_MESSAGES = {
   signIn: 'Sign in and set your sensory preferences to see places picked for you.',
+  demoUnavailable: 'The development demo is not connected. Start the backend and check that demo mode is enabled.',
   loadFailed: "Couldn't load your recommendations. Check your connection and try again.",
   noPreferences: 'Set your noise, lighting, and crowd preferences to see places picked for you.',
   empty:
@@ -78,7 +80,9 @@ export default function RecommendedForYou() {
         )}
       </div>
 
-      {auth.status === 'signedOut' ? (
+      {auth.status === 'signedOut' && usingDemoMode() ? (
+        <p className="status-message" role="alert">{RECOMMENDED_MESSAGES.demoUnavailable}</p>
+      ) : auth.status === 'signedOut' ? (
         <SignInPrompt message={RECOMMENDED_MESSAGES.signIn} />
       ) : (
         <Recommendations userId={auth.user.id} />

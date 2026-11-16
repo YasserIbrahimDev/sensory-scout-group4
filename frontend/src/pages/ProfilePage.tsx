@@ -3,8 +3,8 @@ import type { FormEvent, RefObject } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { LogOut } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import type { SensoryPreferences, User } from '../types/user';
-import { AccountError, getPreferences, savePreferences } from '../api/client';
+import type { DemoSensoryPreferences, PreferenceScore, SensoryPreferences, User } from '../types/user';
+import { AccountError, getPreferences, savePreferences, usingDemoMode } from '../api/client';
 import { useAuth } from '../lib/auth';
 import { useLoad } from '../lib/useLoad';
 import { CROWD_LEVELS, LIGHTING_LEVELS, NOISE_LEVELS } from '../lib/searchFilters';
@@ -223,6 +223,77 @@ function PreferenceGroup<T extends string>({ legend, name, levels, labels, icons
   );
 }
 
+const DEMO_PREFERENCE_LEVELS: PreferenceScore[] = [1, 2, 3, 4, 5];
+const DEMO_PREFERENCE_LABELS = {
+  noise: ['Very quiet', 'Quiet', 'Moderate', 'Lively', 'Very loud'],
+  lighting: ['Very dim', 'Dim', 'Balanced', 'Bright', 'Very bright'],
+  crowd: ['Very few people', 'Few people', 'Moderate', 'Busy', 'Very crowded'],
+} as const;
+
+function DemoPreferenceGroup({
+  legend, name, value, labels, onChange,
+}: {
+  legend: string;
+  name: string;
+  value: PreferenceScore | null;
+  labels: readonly string[];
+  onChange: (value: PreferenceScore | null) => void;
+}) {
+  return (
+    <fieldset className="filter-group">
+      <legend className="filter-group__legend">{legend}</legend>
+      <div className="choice-grid">
+        <label className="choice">
+          <input type="radio" name={name} checked={value === null} onChange={() => onChange(null)} />
+          No preference
+        </label>
+        {DEMO_PREFERENCE_LEVELS.map((level) => (
+          <label className="choice" key={level}>
+            <input type="radio" name={name} checked={value === level} onChange={() => onChange(level)} />
+            {labels[level - 1]}
+          </label>
+        ))}
+      </div>
+    </fieldset>
+  );
+}
+
+function DemoPreferencesForm({ initial }: { initial: DemoSensoryPreferences }) {
+  const [preferences, setPreferences] = useState(initial);
+  const [result, setResult] = useState<{ ok: boolean; text: string } | null>(null);
+  const [busy, setBusy] = useState(false);
+  function update(change: Partial<DemoSensoryPreferences>) {
+    setPreferences((current) => ({ ...current, ...change }));
+    setResult(null);
+  }
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (busy) return;
+    setBusy(true);
+    setResult(null);
+    try {
+      const saved = await savePreferences(preferences) as DemoSensoryPreferences;
+      setPreferences(saved);
+      setResult({ ok: true, text: PROFILE_MESSAGES.preferencesSaved });
+    } catch (error) {
+      setResult({ ok: false, text: errorMessage(error, PROFILE_MESSAGES.preferencesSaveFailed) });
+    } finally {
+      setBusy(false);
+    }
+  }
+  return (
+    <form className="preferences-form" aria-labelledby="preferences-heading" onSubmit={handleSubmit}>
+      <p className="profile-card__intro">Choose the levels you are most comfortable with. The five descriptive choices are saved as a consistent 1–5 scale for recommendations. You can leave any category as No preference.</p>
+      <DemoPreferenceGroup legend="Noise level" name="pref-noise" value={preferences.noise} labels={DEMO_PREFERENCE_LABELS.noise} onChange={(noise) => update({ noise })} />
+      <DemoPreferenceGroup legend="Lighting" name="pref-lighting" value={preferences.lighting} labels={DEMO_PREFERENCE_LABELS.lighting} onChange={(lighting) => update({ lighting })} />
+      <DemoPreferenceGroup legend="Crowd level" name="pref-crowd" value={preferences.crowd} labels={DEMO_PREFERENCE_LABELS.crowd} onChange={(crowd) => update({ crowd })} />
+      <p role="status" className={result?.ok ? 'notice' : 'visually-hidden'}>{result?.ok ? result.text : ''}</p>
+      {result && !result.ok && <p role="alert" className="notice notice--error">{result.text}</p>}
+      <button type="submit" className="button button--primary" aria-disabled={busy || undefined}>{busy ? 'Saving…' : 'Save preferences'}</button>
+    </form>
+  );
+}
+
 function PreferencesForm({ initial }: { initial: SensoryPreferences }) {
   const [preferences, setPreferences] = useState(initial);
   const [result, setResult] = useState<{ ok: boolean; text: string } | null>(null);
@@ -239,7 +310,7 @@ function PreferencesForm({ initial }: { initial: SensoryPreferences }) {
     setBusy(true);
     setResult(null);
     try {
-      setPreferences(await savePreferences(preferences));
+      setPreferences(await savePreferences(preferences) as SensoryPreferences);
       setResult({ ok: true, text: PROFILE_MESSAGES.preferencesSaved });
     } catch (error) {
       setResult({ ok: false, text: errorMessage(error, PROFILE_MESSAGES.preferencesSaveFailed) });
@@ -304,7 +375,11 @@ function SensoryPreferencesSection({ userId }: { userId: string }) {
           </button>
         </div>
       )}
-      {state.status === 'ready' && <PreferencesForm initial={state.data} />}
+      {state.status === 'ready' && (
+        usingDemoMode()
+          ? <DemoPreferencesForm initial={state.data as DemoSensoryPreferences} />
+          : <PreferencesForm initial={state.data as SensoryPreferences} />
+      )}
     </section>
   );
 }
@@ -330,10 +405,14 @@ function AccountSection({ user }: { user: User }) {
           Signed in as <strong>{user.name}</strong>
           <span className="account-summary__email">{user.email}</span>
         </p>
-        <button type="button" className="button button--secondary" onClick={handleSignOut}>
-          <LogOut className="button__icon" aria-hidden="true" />
-          Sign out
-        </button>
+        {usingDemoMode() ? (
+          <span className="notice">Development demo user</span>
+        ) : (
+          <button type="button" className="button button--secondary" onClick={handleSignOut}>
+            <LogOut className="button__icon" aria-hidden="true" />
+            Sign out
+          </button>
+        )}
       </div>
       {error && <p role="alert" className="notice notice--error">{error}</p>}
     </section>
@@ -390,7 +469,7 @@ export default function ProfilePage() {
         <p className="page__subtitle">
           {auth.status === 'signedIn'
             ? 'Manage your account and the sensory conditions you prefer.'
-            : 'Sign in or create an account to save places and set your sensory preferences.'}
+            : usingDemoMode() ? 'Development demo mode is enabled. Connect to the backend to load the demo profile.' : 'Sign in or create an account to save places and set your sensory preferences.'}
         </p>
       </header>
 
@@ -398,10 +477,11 @@ export default function ProfilePage() {
 
       <div ref={contentRef} className="profile__content">
         {auth.status === 'loading' && <p className="status-message" role="status">Loading…</p>}
-        {auth.status === 'signedOut' && mode === 'signIn' && (
+        {auth.status === 'signedOut' && usingDemoMode() && <p className="status-message" role="alert">The development demo is unavailable. Start the backend and confirm DEMO_MODE_ENABLED=true.</p>}
+        {auth.status === 'signedOut' && !usingDemoMode() && mode === 'signIn' && (
           <SignInFormSection onSwitch={() => switchMode('signUp')} onDone={handleSignedIn} />
         )}
-        {auth.status === 'signedOut' && mode === 'signUp' && (
+        {auth.status === 'signedOut' && !usingDemoMode() && mode === 'signUp' && (
           <SignUpFormSection onSwitch={() => switchMode('signIn')} onDone={handleSignedIn} />
         )}
         {auth.status === 'signedIn' && (

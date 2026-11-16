@@ -1,5 +1,5 @@
 import type { Place } from '../types/place';
-import type { SensoryPreferences } from '../types/user';
+import type { SavedSensoryPreferences, SensoryPreferences } from '../types/user';
 import { CROWD_LEVELS, LIGHTING_LEVELS, NOISE_LEVELS } from './searchFilters';
 import { crowdLabels, lightingLabels, noiseLabels, sensoryTypeLabels } from './sensoryLabels';
 
@@ -31,7 +31,7 @@ export interface Recommendation {
 }
 
 /** True when the user has chosen at least one level; "No preference" everywhere means nothing to match. */
-export function hasPreferences(preferences: SensoryPreferences): boolean {
+export function hasPreferences(preferences: SavedSensoryPreferences): boolean {
   return PREFERENCE_KEYS.some((key) => preferences[key] !== null);
 }
 

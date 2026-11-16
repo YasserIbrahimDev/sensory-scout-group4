@@ -15,6 +15,10 @@ class Settings(BaseSettings):
         "postgresql+psycopg://scout_dev:scout_local_only@localhost:5432/sensory_scout_diagram"
     )
     cors_origins: list[str] = ["http://localhost:5173", "http://127.0.0.1:5173"]
+    # Keep disabled by default. Enable only in a local development environment.
+    demo_mode_enabled: bool = False
+    demo_user_email: str = "sensory-scout-demo@example.invalid"
+    demo_user_name: str = "Sensory Scout Development Demo"
 
     @field_validator("database_url")
     @classmethod

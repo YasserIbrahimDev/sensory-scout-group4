@@ -67,12 +67,12 @@ def test_conflicting_accessibility_reports_are_not_collapsed(client, db):
 
 def test_seeding_twice_preserves_counts_and_edits(db):
     counts = seed_data(db)
-    assert counts["venues"] == 10 and counts["users"] == 3
+    assert counts["venues"] == 16 and counts["users"] == 3
     venue = db.scalar(select(Venue).where(Venue.slug == "willow-reading-room"))
     venue.description = "Edited by teammate"
     db.commit()
     assert all(n == 0 for n in seed_data(db).values())
-    assert db.scalar(select(func.count()).select_from(Venue)) == 10
+    assert db.scalar(select(func.count()).select_from(Venue)) == 16
     db.refresh(venue)
     assert venue.description == "Edited by teammate"
 
@@ -87,13 +87,13 @@ def test_list_places_returns_seeded_data(client, db):
     assert response.status_code == 200
 
     body = response.json()
-    assert body["total_items"] == 10
+    assert body["total_items"] == 16
     assert body["page"] == 1
     assert body["page_size"] == 12
-    assert body["total_pages"] == 1
+    assert body["total_pages"] == 2
     assert body["has_previous"] is False
-    assert body["has_next"] is False
-    assert len(body["items"]) == 10
+    assert body["has_next"] is True
+    assert len(body["items"]) == 12
 
     place = body["items"][0]
     assert "id" in place
@@ -117,8 +117,8 @@ def test_list_places_pagination(client, db):
     second_body = second.json()
 
     assert len(first_body["items"]) == 3
-    assert first_body["total_items"] == 10
-    assert first_body["total_pages"] == 4
+    assert first_body["total_items"] == 16
+    assert first_body["total_pages"] == 6
     assert first_body["has_previous"] is False
     assert first_body["has_next"] is True
 
@@ -134,11 +134,11 @@ def test_list_places_pagination(client, db):
 def test_list_places_final_page(client, db):
     seed_data(db)
 
-    response = client.get("/api/v1/places?page=4&page_size=3")
+    response = client.get("/api/v1/places?page=6&page_size=3")
     assert response.status_code == 200
 
     body = response.json()
-    assert body["page"] == 4
+    assert body["page"] == 6
     assert len(body["items"]) == 1
     assert body["has_previous"] is True
     assert body["has_next"] is False
@@ -151,7 +151,7 @@ def test_list_places_clamps_page(client, db):
     assert response.status_code == 200
 
     body = response.json()
-    assert body["page"] == 4
+    assert body["page"] == 6
     assert len(body["items"]) == 1
 
 

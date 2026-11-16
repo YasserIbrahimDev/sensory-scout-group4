@@ -1,8 +1,13 @@
-import { screen, waitFor, within } from '@testing-library/react';
+
+import { screen, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Route, Routes } from 'react-router-dom';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import PlaceDetailsPage, { COMING_SOON_MESSAGES, SAVE_MESSAGES } from './PlaceDetailsPage';
-import { WRITE_REVIEW_MESSAGE } from '../components/placeTabs/ReviewsTab';
+import {
+  WRITE_REVIEW_MESSAGE,
+  REVIEW_TEXT_UNAVAILABLE,
+} from '../components/placeTabs/ReviewsTab';
 import App from '../App';
 import { renderWithRouter } from '../test/renderWithRouter';
 import * as client from '../api/client';
@@ -27,6 +32,7 @@ describe('PlaceDetailsPage', () => {
     expect(await screen.findByRole('heading', { level: 1, name: 'Jupiter House' })).toBeInTheDocument();
     expect(screen.getByText('Cafe • Denton, TX')).toBeInTheDocument();
   });
+
   it('TC-DETAILS-02: shows five sensory tiles with text labels', async () => {
     renderDetails('harmony-coffee');
     const section = await screen.findByRole('region', { name: /Sensory Information/ });
@@ -35,6 +41,7 @@ describe('PlaceDetailsPage', () => {
     expect(within(section).getAllByRole('definition').map((d) => d.textContent))
       .toEqual(['Moderate noise', 'Normal light', 'Moderate crowds', 'Not verified', 'Not verified']);
   });
+
   it('TC-DETAILS-03: sensory information comes before the tabs', async () => {
     renderDetails('harmony-coffee');
     const sensory = await screen.findByRole('region', { name: /Sensory Information/ });
@@ -51,6 +58,7 @@ describe('PlaceDetailsPage', () => {
     const section = await screen.findByRole('region', { name: /Sensory Information/ });
     expect(within(section).getAllByText('Not reported yet')).toHaveLength(2);
   });
+
   it('TC-DETAILS-05: Overview tab shows address, hours, description, and Get Directions', async () => {
     renderDetails('harmony-coffee');
     const panel = await screen.findByRole('tabpanel', { name: 'Overview' });
@@ -59,63 +67,138 @@ describe('PlaceDetailsPage', () => {
     expect(within(panel).getByText(/coffee shop in downtown Denton/)).toBeInTheDocument();
     expect(within(panel).getByRole('link', { name: 'Get Directions (opens in a new tab)' })).toBeInTheDocument();
   });
+
   it('TC-DETAILS-06: tabs work with arrow keys, Home, and End', async () => {
     renderDetails('harmony-coffee');
     const overview = await screen.findByRole('tab', { name: 'Overview' });
     overview.focus();
     await userEvent.keyboard('{ArrowRight}');
-    expect(screen.getByRole('tab', { name: 'Reviews (0)' })).toHaveFocus();
+    expect(screen.getByRole('tab', { name: 'Reviews (7)' })).toHaveFocus();
     await userEvent.keyboard('{End}');
     expect(screen.getByRole('tab', { name: 'Nearby' })).toHaveFocus();
     await userEvent.keyboard('{Home}');
     expect(screen.getByRole('tab', { name: 'Overview' })).toHaveFocus();
   });
+
   it('TC-DETAILS-12: Reviews tab shows the average and the 5 newest reviews first', async () => {
     renderDetails('harmony-coffee');
-    await userEvent.click(await screen.findByRole('tab', { name: 'Reviews (0)' }));
-    expect(await screen.findByText('No reviews yet.')).toBeInTheDocument();
+    await userEvent.click(await screen.findByRole('tab', { name: 'Reviews (7)' }));
+
+    const panel = screen.getByRole('tabpanel', { name: 'Reviews (7)' });
+
+    expect(within(panel).getByText('7 reviews')).toBeInTheDocument();
+    expect(within(panel).getByText(/Most recent reviews/)).toHaveTextContent('showing 5 of 7');
+
+    const reviews = within(panel).getAllByRole('listitem');
+    expect(reviews).toHaveLength(5);
+
+    const reviewDates = reviews.map((review) =>
+      new Date(review.querySelector('time')?.getAttribute('datetime') ?? '').getTime(),
+    );
+
+    expect(reviewDates).toEqual([...reviewDates].sort((a, b) => b - a));
   });
+
   it('TC-DETAILS-23: Show more reveals the rest and moves focus to the first new review', async () => {
     renderDetails('harmony-coffee');
-    await userEvent.click(await screen.findByRole('tab', { name: 'Reviews (0)' }));
-    const panel = screen.getByRole('tabpanel', { name: 'Reviews (0)' });
-    expect(within(panel).queryByRole('button', { name: /Show more reviews/ })).not.toBeInTheDocument();
+    await userEvent.click(await screen.findByRole('tab', { name: 'Reviews (7)' }));
+
+    const panel = screen.getByRole('tabpanel', { name: 'Reviews (7)' });
+
+    expect(within(panel).getAllByRole('listitem')).toHaveLength(5);
+
+    await userEvent.click(
+      within(panel).getByRole('button', { name: 'Show more reviews (2 more)' }),
+    );
+
+    expect(within(panel).getAllByRole('listitem')).toHaveLength(7);
+    expect(within(panel).getByText(/Most recent reviews/)).toHaveTextContent('showing 7 of 7');
+    expect(within(panel).getAllByRole('listitem')[5]).toHaveFocus();
+
+    expect(
+      within(panel).queryByRole('button', { name: /Show more reviews/ }),
+    ).not.toBeInTheDocument();
   });
+
   it('TC-DETAILS-28: places with 5 reviews or fewer show them all with no Show more button', async () => {
     renderDetails('unt-art-gallery');
-    await userEvent.click(await screen.findByRole('tab', { name: 'Reviews (0)' }));
-    const panel = screen.getByRole('tabpanel', { name: 'Reviews (0)' });
-    expect(within(panel).queryByRole('button', { name: /Show more/ })).not.toBeInTheDocument();
+    await userEvent.click(await screen.findByRole('tab', { name: 'Reviews (5)' }));
+
+    const panel = screen.getByRole('tabpanel', { name: 'Reviews (5)' });
+
+    expect(within(panel).getAllByRole('listitem')).toHaveLength(5);
+    expect(within(panel).getByText(/Most recent reviews/)).toHaveTextContent('showing 5 of 5');
+    expect(
+      within(panel).queryByRole('button', { name: /Show more/ }),
+    ).not.toBeInTheDocument();
   });
+
   it('TC-DETAILS-13: Write a review explains that an account is needed', async () => {
     renderDetails('harmony-coffee');
-    await userEvent.click(await screen.findByRole('tab', { name: 'Reviews (0)' }));
+    await userEvent.click(await screen.findByRole('tab', { name: 'Reviews (7)' }));
+
     const button = screen.getByRole('button', { name: 'Write a review Coming soon' });
     expect(button).toHaveAttribute('aria-disabled', 'true');
+
     await userEvent.click(button);
-    expect(screen.getByRole('tabpanel', { name: 'Reviews (0)' })).toHaveTextContent(WRITE_REVIEW_MESSAGE);
+
+    expect(screen.getByRole('tabpanel', { name: 'Reviews (7)' }))
+      .toHaveTextContent(WRITE_REVIEW_MESSAGE);
   });
+
   it('TC-DETAILS-14: Reviews tab explains how to fix a failed load, and Try again works', async () => {
-    const spy = vi.spyOn(client, 'getReviews').mockRejectedValueOnce(new Error('Network'));
+    const spy = vi.spyOn(client, 'getReviews')
+      .mockRejectedValueOnce(new Error('Network'))
+      .mockResolvedValueOnce([]);
+
     renderDetails('harmony-coffee');
-    await userEvent.click(await screen.findByRole('tab', { name: 'Reviews (0)' }));
-    const panel = screen.getByRole('tabpanel', { name: 'Reviews (0)' });
-    expect(await within(panel).findByRole('alert')).toHaveTextContent("We couldn't load reviews.");
+    await userEvent.click(await screen.findByRole('tab', { name: 'Reviews (7)' }));
+
+    const panel = screen.getByRole('tabpanel', { name: 'Reviews (7)' });
+
+    expect(await within(panel).findByRole('alert'))
+      .toHaveTextContent("We couldn't load reviews.");
+
     await userEvent.click(within(panel).getByRole('button', { name: 'Try again' }));
-    expect(await within(panel).findByText('No reviews yet.')).toBeInTheDocument();
+
+    expect(await within(panel).findByText(REVIEW_TEXT_UNAVAILABLE))
+      .toBeInTheDocument();
+
     expect(spy).toHaveBeenCalledTimes(2);
   });
+
   it('TC-DETAILS-15: Reviews tab says when there are no reviews', async () => {
+    const place = await client.getPlace('harmony-coffee');
+
+    if (!place) {
+      throw new Error('Expected demo place to exist.');
+    }
+
+    vi.spyOn(client, 'getPlace').mockResolvedValueOnce({
+      ...place,
+      reviewCount: 0,
+      rating: null,
+    });
+
+    vi.spyOn(client, 'getReviews').mockResolvedValueOnce([]);
+
     renderDetails('harmony-coffee');
+
     await userEvent.click(await screen.findByRole('tab', { name: 'Reviews (0)' }));
-    expect(await screen.findByText('No reviews yet.')).toBeInTheDocument();
+
+    const panel = screen.getByRole('tabpanel', { name: 'Reviews (0)' });
+
+    expect(await within(panel).findByText('No reviews yet.'))
+      .toBeInTheDocument();
   });
+
   it('TC-DETAILS-16: Photos tab shows photos with descriptions for screen readers', async () => {
     renderDetails('harmony-coffee');
     await userEvent.click(await screen.findByRole('tab', { name: 'Photos' }));
     const panel = screen.getByRole('tabpanel', { name: 'Photos' });
     expect(within(panel).getByText('No photos yet.')).toBeInTheDocument();
   });
+
   it('TC-DETAILS-17: Photos tab says when there are no photos', async () => {
     vi.spyOn(client, 'getPlace').mockResolvedValueOnce({
       ...(await client.getPlace('harmony-coffee'))!,
@@ -134,13 +217,22 @@ describe('PlaceDetailsPage', () => {
     expect(links.length).toBeGreaterThan(0);
     expect(links.map((l) => l.textContent)).toContain('LSA Burger Co.');
   });
+
   it('TC-DETAILS-19: Nearby tab explains how to fix a failed load, and handles no results', async () => {
-    vi.spyOn(client, 'getNearbyPlaces').mockRejectedValueOnce(new Error('Network')).mockResolvedValueOnce([]);
+    vi.spyOn(client, 'getNearbyPlaces')
+      .mockRejectedValueOnce(new Error('Network'))
+      .mockResolvedValueOnce([]);
+
     renderDetails('harmony-coffee');
     await userEvent.click(await screen.findByRole('tab', { name: 'Nearby' }));
+
     const panel = screen.getByRole('tabpanel', { name: 'Nearby' });
-    expect(await within(panel).findByRole('alert')).toHaveTextContent("We couldn't load nearby places.");
+
+    expect(await within(panel).findByRole('alert'))
+      .toHaveTextContent("We couldn't load nearby places.");
+
     await userEvent.click(within(panel).getByRole('button', { name: 'Try again' }));
+
     expect(await within(panel).findByText('No nearby places found.')).toBeInTheDocument();
   });
 
@@ -164,10 +256,12 @@ describe('PlaceDetailsPage', () => {
   it('TC-FAV-02: signed-in users can save and unsave a place, with a message each time', async () => {
     signInAsDemo();
     renderDetails('harmony-coffee');
+
     const save = await screen.findByRole('button', { name: 'Save' });
     expect(save).toHaveAttribute('aria-pressed', 'false');
 
     await userEvent.click(save);
+
     expect(save).toHaveAttribute('aria-pressed', 'true');
     expect(screen.getByRole('status')).toHaveTextContent(SAVE_MESSAGES.saved);
     expect(await client.isFavorite('harmony-coffee')).toBe(true);
@@ -190,6 +284,7 @@ describe('PlaceDetailsPage', () => {
     vi.spyOn(client, 'saveFavorite').mockRejectedValueOnce(new Error('Network'));
     renderDetails('harmony-coffee');
     const save = await screen.findByRole('button', { name: 'Save' });
+
     await userEvent.click(save);
     expect(await screen.findByRole('alert')).toHaveTextContent(SAVE_MESSAGES.saveFailed);
     expect(screen.queryByText(SAVE_MESSAGES.saved)).not.toBeInTheDocument();
@@ -210,7 +305,8 @@ describe('PlaceDetailsPage', () => {
 
   it('TC-DETAILS-08: "Back to results" goes to Search when opened directly', async () => {
     renderDetails('harmony-coffee');
-    expect(await screen.findByRole('link', { name: 'Back to results' })).toHaveAttribute('href', '/search');
+    expect(await screen.findByRole('link', { name: 'Back to results' }))
+      .toHaveAttribute('href', '/search');
   });
 
   it('TC-DETAILS-09: shows "Back" to the Home page when opened from Home', async () => {
@@ -218,6 +314,7 @@ describe('PlaceDetailsPage', () => {
     await userEvent.click(await screen.findByRole('link', { name: 'Jupiter House' }));
     expect(await screen.findByRole('link', { name: 'Back' })).toHaveAttribute('href', '/');
   });
+
   it('TC-DETAILS-10: explains when a place does not exist', async () => {
     renderDetails('missing-place');
     expect(await screen.findByRole('heading', { name: 'Place not found' })).toBeInTheDocument();
@@ -226,7 +323,8 @@ describe('PlaceDetailsPage', () => {
   it('TC-DETAILS-11: explains how to recover when loading fails', async () => {
     vi.spyOn(client, 'getPlace').mockRejectedValueOnce(new Error('Network'));
     renderDetails('harmony-coffee');
-    expect(await screen.findByRole('heading', { name: "Couldn't load this place" })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: "Couldn't load this place" }))
+      .toBeInTheDocument();
     expect(screen.getByText(/Check your internet connection/)).toBeInTheDocument();
   });
 });

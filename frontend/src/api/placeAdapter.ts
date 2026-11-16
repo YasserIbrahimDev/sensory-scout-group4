@@ -1,6 +1,6 @@
 import type { Place, PlaceCategory } from '../types/place';
 import type { VenueView } from './backendAdapter';
-import { fetchBackendPlace, fetchBackendPlaces } from './backendClient';
+import { fetchBackendPlace, fetchBackendPlaces, type PlaceSearchParams } from './backendClient';
 import { categoryLabels } from '../lib/sensoryLabels';
 
 // Turns Hamza's API results (VenueView) into the Place shape the pages use.
@@ -50,10 +50,10 @@ export async function fetchPlace(placeId: string): Promise<Place | null> {
 }
 
 /** Every place from GET /places, following the pages until the last one. */
-export async function fetchAllPlaces(): Promise<Place[]> {
+export async function fetchAllPlaces(filters: Pick<PlaceSearchParams, 'q' | 'category'> = {}): Promise<Place[]> {
   const places: Place[] = [];
   for (let page = 1; page <= MAX_PAGES; page += 1) {
-    const { items, pagination } = await fetchBackendPlaces({ page, page_size: PAGE_SIZE });
+    const { items, pagination } = await fetchBackendPlaces({ ...filters, page, page_size: PAGE_SIZE });
     places.push(...items.map(toPlace));
     if (!pagination.has_next) break;
   }
