@@ -9,7 +9,7 @@ import { mockPlaces } from '../data/mockPlaces';
 import { mockReviews } from '../data/mockReviews';
 import { mockAccountStore } from '../data/mockAccount';
 import { fetchAllPlaces, fetchPlace } from './placeAdapter';
-import { addDemoFavorite, deleteDemoFavorite, fetchDemoFavorites, fetchDemoPreferences, fetchDemoRecommendations, saveDemoPreferences } from './demoApi';
+import { addDemoFavorite, deleteDemoFavorite, fetchDemoFavorites, fetchDemoPreferences, fetchDemoRecommendations, fetchDemoSettings, saveDemoPreferences, saveDemoSettings } from './demoApi';
 
 // All data loading goes through this file. Pages never import mock data directly.
 // Places come from the FastAPI backend at VITE_API_URL. Set VITE_USE_MOCK_DATA=true
@@ -209,10 +209,12 @@ export async function removeFavorite(placeId: string): Promise<void> {
 }
 
 export async function getSettings(): Promise<AppSettings> {
+  if (usingDemoMode()) return fetchDemoSettings();
   return { ...mockAccountStore.settings };
 }
 
 export async function saveSettings(settings: AppSettings): Promise<AppSettings> {
+  if (usingDemoMode()) return saveDemoSettings(settings);
   mockAccountStore.settings = { ...settings };
   return { ...mockAccountStore.settings };
 }

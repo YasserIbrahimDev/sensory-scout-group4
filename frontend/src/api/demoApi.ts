@@ -1,4 +1,4 @@
-import type { DemoSensoryPreferences, PreferenceScore } from '../types/user';
+import type { AppSettings, DemoSensoryPreferences, PreferenceScore } from '../types/user';
 import { adaptVenue } from './backendAdapter';
 import type { VenueDetail } from './backendAdapter';
 import type { Place, PlaceCategory } from '../types/place';
@@ -117,4 +117,15 @@ export async function addDemoFavorite(placeId: string, fetcher?: typeof fetch): 
 export async function deleteDemoFavorite(placeId: string, fetcher?: typeof fetch): Promise<void> {
   if (!/^[1-9]\\d*$/.test(placeId)) throw new DemoApiError('Invalid place ID.');
   await request<void>(`/demo/favorites/${placeId}`, { method: 'DELETE' }, fetcher);
+}
+
+export async function fetchDemoSettings(fetcher?: typeof fetch): Promise<AppSettings> {
+  return request<AppSettings>('/demo/settings', {}, fetcher);
+}
+
+export async function saveDemoSettings(settings: AppSettings, fetcher?: typeof fetch): Promise<AppSettings> {
+  return request<AppSettings>('/demo/settings', {
+    method: 'PUT',
+    body: JSON.stringify(settings),
+  }, fetcher);
 }

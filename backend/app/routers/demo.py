@@ -6,13 +6,15 @@ resolved exclusively from server configuration; clients cannot supply a user ID.
 
 from typing import Annotated
 
+from pydantic import BaseModel, ConfigDict
+
 from fastapi import APIRouter, Depends, HTTPException, Query, Path
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.config import Settings, get_settings
 from app.database import get_db
-from app.models import SavedPlace, SensoryProfile, User, Venue
+from app.models import SavedPlace, SensoryProfile, User, UserSettings, Venue
 from app.schemas import (
     VenueDetail,
     DemoPreferences,
@@ -170,3 +172,33 @@ def delete_demo_favorite(
     if saved is not None:
         db.delete(saved)
         db.commit()
+
+
+class DemoSettings(BaseModel):
+    model_config = ConfigDict(extra="forbid", strict=True)
+    locationAccess: bool = False
+
+
+@router.get("/settings", response_model=DemoSettings)
+def read_demo_settings(
+    user: Annotated[User, Depends(get_demo_user)],
+    db: Annotated[Session, Depends(get_db)],
+) -> DemoSettings:
+    row = db.scalar(select(UserSettings).where(UserSettings.user_id == user.id))
+    return DemoSettings(locationAccess=row.location_access if row is not None else False)
+
+
+@router.put("/settings", response_model=DemoSettings)
+def update_demo_settings(
+    payload: DemoSettings,
+    user: Annotated[User, Depends(get_demo_user)],
+    db: Annotated[Session, Depends(get_db)],
+) -> DemoSettings:
+    row = db.scalar(select(UserSettings).where(UserSettings.user_id == user.id))
+    if row is None:
+        row = UserSettings(user_id=user.id, location_access=payload.locationAccess)
+        db.add(row)
+    else:
+        row.location_access = payload.locationAccess
+    db.commit()
+    return DemoSettings(locationAccess=row.location_access)
