@@ -21,7 +21,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.cors_origins,
     allow_credentials=False,
-    allow_methods=["GET", "PUT"],
+    allow_methods=["GET", "PUT", "DELETE"],
     allow_headers=["*"],
 )
 app.include_router(health.router, prefix="/api/v1")

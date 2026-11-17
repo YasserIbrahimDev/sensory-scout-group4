@@ -9,7 +9,7 @@ import { mockPlaces } from '../data/mockPlaces';
 import { mockReviews } from '../data/mockReviews';
 import { mockAccountStore } from '../data/mockAccount';
 import { fetchAllPlaces, fetchPlace } from './placeAdapter';
-import { fetchDemoPreferences, fetchDemoRecommendations, saveDemoPreferences } from './demoApi';
+import { addDemoFavorite, deleteDemoFavorite, fetchDemoFavorites, fetchDemoPreferences, fetchDemoRecommendations, saveDemoPreferences } from './demoApi';
 
 // All data loading goes through this file. Pages never import mock data directly.
 // Places come from the FastAPI backend at VITE_API_URL. Set VITE_USE_MOCK_DATA=true
@@ -166,6 +166,7 @@ export async function savePreferences(preferences: SavedSensoryPreferences): Pro
 
 /** The signed-in user's saved places, most recently saved first. */
 export async function getFavorites(): Promise<Place[]> {
+  if (usingDemoMode()) return fetchDemoFavorites();
   const favoriteIds = [...requireAccount().favoriteIds].reverse();
   const places = await loadAllPlaces();
   return favoriteIds
@@ -191,15 +192,18 @@ export async function getRecommendations(
 }
 
 export async function isFavorite(placeId: string): Promise<boolean> {
+  if (usingDemoMode()) return (await fetchDemoFavorites()).some((place) => place.id === placeId);
   return requireAccount().favoriteIds.includes(placeId);
 }
 
 export async function saveFavorite(placeId: string): Promise<void> {
+  if (usingDemoMode()) return addDemoFavorite(placeId);
   const account = requireAccount();
   if (!account.favoriteIds.includes(placeId)) account.favoriteIds.push(placeId);
 }
 
 export async function removeFavorite(placeId: string): Promise<void> {
+  if (usingDemoMode()) return deleteDemoFavorite(placeId);
   const account = requireAccount();
   account.favoriteIds = account.favoriteIds.filter((id) => id !== placeId);
 }

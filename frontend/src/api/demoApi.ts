@@ -70,7 +70,7 @@ function category(value: string): PlaceCategory {
   return allowed.includes(value as PlaceCategory) ? value as PlaceCategory : 'other';
 }
 
-function toPlace(venue: VenueDetail): Place {
+export function toPlace(venue: VenueDetail): Place {
   const adapted = adaptVenue(venue);
   return {
     id: adapted.id,
@@ -102,4 +102,19 @@ export async function fetchDemoRecommendations(limit = 3, fetcher?: typeof fetch
 
 export function isPreferenceScore(value: unknown): value is PreferenceScore {
   return typeof value === 'number' && Number.isInteger(value) && value >= 1 && value <= 5;
+}
+
+export async function fetchDemoFavorites(fetcher?: typeof fetch): Promise<Place[]> {
+  const response = await request<VenueDetail[]>('/demo/favorites', {}, fetcher);
+  return response.map(toPlace);
+}
+
+export async function addDemoFavorite(placeId: string, fetcher?: typeof fetch): Promise<void> {
+  if (!/^[1-9]\\d*$/.test(placeId)) throw new DemoApiError('Invalid place ID.');
+  await request<void>(`/demo/favorites/${placeId}`, { method: 'PUT' }, fetcher);
+}
+
+export async function deleteDemoFavorite(placeId: string, fetcher?: typeof fetch): Promise<void> {
+  if (!/^[1-9]\\d*$/.test(placeId)) throw new DemoApiError('Invalid place ID.');
+  await request<void>(`/demo/favorites/${placeId}`, { method: 'DELETE' }, fetcher);
 }

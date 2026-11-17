@@ -6,14 +6,15 @@ resolved exclusively from server configuration; clients cannot supply a user ID.
 
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, Path
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.config import Settings, get_settings
 from app.database import get_db
-from app.models import SensoryProfile, User, Venue
+from app.models import SavedPlace, SensoryProfile, User, Venue
 from app.schemas import (
+    VenueDetail,
     DemoPreferences,
     DemoPreferencesResponse,
     DemoRecommendationsResponse,
@@ -120,3 +121,52 @@ def read_demo_recommendations(
                 )
             )
     return DemoRecommendationsResponse(demo_user=user.name, items=items)
+
+
+@router.get("/favorites", response_model=list[VenueDetail])
+def list_demo_favorites(
+    user: Annotated[User, Depends(get_demo_user)],
+    db: Annotated[Session, Depends(get_db)],
+) -> list[VenueDetail]:
+    """Return saved venues for the configured local demo identity, newest first."""
+    venues = db.scalars(
+        select(Venue)
+        .join(SavedPlace, SavedPlace.venue_id == Venue.id)
+        .where(SavedPlace.user_id == user.id)
+        .order_by(SavedPlace.saved_at.desc(), SavedPlace.id.desc())
+    ).all()
+    return [build_venue_detail(db, venue) for venue in venues]
+
+
+@router.put("/favorites/{place_id}", status_code=204)
+def add_demo_favorite(
+    place_id: Annotated[int, Path(ge=1)],
+    user: Annotated[User, Depends(get_demo_user)],
+    db: Annotated[Session, Depends(get_db)],
+) -> None:
+    if db.get(Venue, place_id) is None:
+        raise HTTPException(status_code=404, detail="Place not found")
+    exists = db.scalar(
+        select(SavedPlace.id).where(
+            SavedPlace.user_id == user.id, SavedPlace.venue_id == place_id
+        )
+    )
+    if exists is None:
+        db.add(SavedPlace(user_id=user.id, venue_id=place_id))
+        db.commit()
+
+
+@router.delete("/favorites/{place_id}", status_code=204)
+def delete_demo_favorite(
+    place_id: Annotated[int, Path(ge=1)],
+    user: Annotated[User, Depends(get_demo_user)],
+    db: Annotated[Session, Depends(get_db)],
+) -> None:
+    saved = db.scalar(
+        select(SavedPlace).where(
+            SavedPlace.user_id == user.id, SavedPlace.venue_id == place_id
+        )
+    )
+    if saved is not None:
+        db.delete(saved)
+        db.commit()
