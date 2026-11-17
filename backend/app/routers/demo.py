@@ -14,7 +14,8 @@ from app.config import Settings, get_settings
 from app.database import get_db
 from app.models import SavedPlace, SensoryProfile, User, Venue
 from app.schemas import (
-    VenueDetail,\n    DemoPreferences,
+    VenueDetail,
+    DemoPreferences,
     DemoPreferencesResponse,
     DemoRecommendationsResponse,
     RecommendedVenue,
