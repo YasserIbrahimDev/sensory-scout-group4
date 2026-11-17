@@ -19,7 +19,8 @@ def test_details_aggregate_ratings_and_reports(client, db):
     assert body["sensory_summary"]["ratings_count"] == 2
     assert body["accessibility_summary"]["accessible_reports"] == 2
     assert body["is_sample"] is True
-    assert body["latitude"] is None and body["image_url"] is None
+    assert body["latitude"] == 33.2102 and body["longitude"] == -97.1411
+    assert body["image_url"] is None
     assert "password_hash" not in body
 
 

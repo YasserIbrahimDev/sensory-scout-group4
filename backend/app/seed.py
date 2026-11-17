@@ -1,3 +1,4 @@
+import argparse
 import json
 from pathlib import Path
 
@@ -10,7 +11,7 @@ from app.models import Rating, Review, ReviewVote, SavedPlace, SensoryProfile, U
 SEED_FILE = Path(__file__).resolve().parents[1] / "data" / "sample_data.json"
 
 
-def seed_data(db: Session) -> dict[str, int]:
+def seed_data(db: Session, *, update_sample_locations: bool = False) -> dict[str, int]:
     """Seed connected fixtures once, preserving existing records and teammate edits."""
     with SEED_FILE.open(encoding="utf-8") as file:
         data = json.load(file)
@@ -42,6 +43,22 @@ def seed_data(db: Session) -> dict[str, int]:
             db.add(venue)
             db.flush()
             counts["venues"] += 1
+        elif (
+            update_sample_locations
+            and venue.is_sample
+            and row["is_sample"]
+            and venue.latitude is None
+            and venue.longitude is None
+            and row.get("latitude") is not None
+            and row.get("longitude") is not None
+        ):
+            # Explicitly backfill only missing sample coordinates, never edited positions.
+            venue.latitude = row["latitude"]
+            venue.longitude = row["longitude"]
+            if row["description"].startswith("Fictional venue"):
+                note = "Coordinates are synthetic map-test positions, not a real destination."
+                if note not in venue.description:
+                    venue.description = f"{venue.description} {note}"
         venues[venue.slug] = venue
     for row in data["reviews"]:
         user_id, venue_id = users[row["user_email"]].id, venues[row["venue_slug"]].id
@@ -100,9 +117,18 @@ def seed_data(db: Session) -> dict[str, int]:
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description="Insert Sensory Scout development fixtures.")
+    parser.add_argument(
+        "--update-sample-locations",
+        action="store_true",
+        help="Also fill missing coordinates on existing sample venues; preserve edited positions.",
+    )
+    args = parser.parse_args()
     with SessionLocal() as db:
-        counts = seed_data(db)
+        counts = seed_data(db, update_sample_locations=args.update_sample_locations)
     print(f"Inserted records by table: {counts}. Existing rows and edits preserved.")
+    if args.update_sample_locations:
+        print("Missing sample locations filled where available; existing coordinates preserved.")
 
 
 if __name__ == "__main__":
