@@ -166,6 +166,7 @@ export async function savePreferences(preferences: SavedSensoryPreferences): Pro
 
 /** The signed-in user's saved places, most recently saved first. */
 export async function getFavorites(): Promise<Place[]> {
+  if (usingDemoMode()) return fetchDemoFavorites();
   const favoriteIds = [...requireAccount().favoriteIds].reverse();
   const places = await loadAllPlaces();
   return favoriteIds
@@ -191,15 +192,18 @@ export async function getRecommendations(
 }
 
 export async function isFavorite(placeId: string): Promise<boolean> {
+  if (usingDemoMode()) return (await fetchDemoFavorites()).some((place) => place.id === placeId);
   return requireAccount().favoriteIds.includes(placeId);
 }
 
 export async function saveFavorite(placeId: string): Promise<void> {
+  if (usingDemoMode()) return addDemoFavorite(placeId);
   const account = requireAccount();
   if (!account.favoriteIds.includes(placeId)) account.favoriteIds.push(placeId);
 }
 
 export async function removeFavorite(placeId: string): Promise<void> {
+  if (usingDemoMode()) return deleteDemoFavorite(placeId);
   const account = requireAccount();
   account.favoriteIds = account.favoriteIds.filter((id) => id !== placeId);
 }
