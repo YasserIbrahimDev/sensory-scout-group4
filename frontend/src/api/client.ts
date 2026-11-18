@@ -9,7 +9,8 @@ import { mockPlaces } from '../data/mockPlaces';
 import { mockReviews } from '../data/mockReviews';
 import { mockAccountStore } from '../data/mockAccount';
 import { fetchAllPlaces, fetchPlace } from './placeAdapter';
-import { fetchDemoPreferences, fetchDemoRecommendations, saveDemoPreferences } from './demoApi';
+import { fetchBackendReviews } from './backendClient';
+import { addDemoFavorite, deleteDemoFavorite, fetchDemoFavorites, fetchDemoPreferences, fetchDemoRecommendations, fetchDemoSettings, saveDemoPreferences, saveDemoSettings } from './demoApi';
 
 // All data loading goes through this file. Pages never import mock data directly.
 // Places come from the FastAPI backend at VITE_API_URL. Set VITE_USE_MOCK_DATA=true
@@ -42,10 +43,10 @@ export async function getPlace(placeId: string): Promise<Place | null> {
 
 /**
  * Reviews for one place, newest first.
- * The API does not return review text yet, so this is empty when using the API.
+ * API mode reads written reviews from the backend; mock mode uses local fixtures.
  */
 export async function getReviews(placeId: string): Promise<Review[]> {
-  if (!usingMockData()) return [];
+  if (!usingMockData()) return fetchBackendReviews(placeId);
   return mockReviews
     .filter((review) => review.placeId === placeId)
     .sort((a, b) => b.date.localeCompare(a.date));
@@ -166,6 +167,7 @@ export async function savePreferences(preferences: SavedSensoryPreferences): Pro
 
 /** The signed-in user's saved places, most recently saved first. */
 export async function getFavorites(): Promise<Place[]> {
+  if (usingDemoMode()) return fetchDemoFavorites();
   const favoriteIds = [...requireAccount().favoriteIds].reverse();
   const places = await loadAllPlaces();
   return favoriteIds
@@ -191,24 +193,29 @@ export async function getRecommendations(
 }
 
 export async function isFavorite(placeId: string): Promise<boolean> {
+  if (usingDemoMode()) return (await fetchDemoFavorites()).some((place) => place.id === placeId);
   return requireAccount().favoriteIds.includes(placeId);
 }
 
 export async function saveFavorite(placeId: string): Promise<void> {
+  if (usingDemoMode()) return addDemoFavorite(placeId);
   const account = requireAccount();
   if (!account.favoriteIds.includes(placeId)) account.favoriteIds.push(placeId);
 }
 
 export async function removeFavorite(placeId: string): Promise<void> {
+  if (usingDemoMode()) return deleteDemoFavorite(placeId);
   const account = requireAccount();
   account.favoriteIds = account.favoriteIds.filter((id) => id !== placeId);
 }
 
 export async function getSettings(): Promise<AppSettings> {
+  if (usingDemoMode()) return fetchDemoSettings();
   return { ...mockAccountStore.settings };
 }
 
 export async function saveSettings(settings: AppSettings): Promise<AppSettings> {
+  if (usingDemoMode()) return saveDemoSettings(settings);
   mockAccountStore.settings = { ...settings };
   return { ...mockAccountStore.settings };
 }

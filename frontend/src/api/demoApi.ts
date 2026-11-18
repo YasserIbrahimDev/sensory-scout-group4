@@ -1,4 +1,4 @@
-import type { DemoSensoryPreferences, PreferenceScore } from '../types/user';
+import type { AppSettings, DemoSensoryPreferences, PreferenceScore } from '../types/user';
 import { adaptVenue } from './backendAdapter';
 import type { VenueDetail } from './backendAdapter';
 import type { Place, PlaceCategory } from '../types/place';
@@ -43,6 +43,8 @@ async function request<T>(path: string, init: RequestInit = {}, fetcher: typeof 
         : 'The demo API could not complete the request. Please try again.';
     throw new DemoApiError(message, response.status);
   }
+  // Favorites PUT/DELETE return 204 with no JSON body.
+  if (response.status === 204) return undefined as T;
   try {
     return await response.json() as T;
   } catch {
@@ -70,7 +72,7 @@ function category(value: string): PlaceCategory {
   return allowed.includes(value as PlaceCategory) ? value as PlaceCategory : 'other';
 }
 
-function toPlace(venue: VenueDetail): Place {
+export function toPlace(venue: VenueDetail): Place {
   const adapted = adaptVenue(venue);
   return {
     id: adapted.id,
@@ -102,4 +104,30 @@ export async function fetchDemoRecommendations(limit = 3, fetcher?: typeof fetch
 
 export function isPreferenceScore(value: unknown): value is PreferenceScore {
   return typeof value === 'number' && Number.isInteger(value) && value >= 1 && value <= 5;
+}
+
+export async function fetchDemoFavorites(fetcher?: typeof fetch): Promise<Place[]> {
+  const response = await request<VenueDetail[]>('/demo/favorites', {}, fetcher);
+  return response.map(toPlace);
+}
+
+export async function addDemoFavorite(placeId: string, fetcher?: typeof fetch): Promise<void> {
+  if (!/^[1-9]\d*$/.test(placeId)) throw new DemoApiError('Invalid place ID.');
+  await request<void>(`/demo/favorites/${placeId}`, { method: 'PUT' }, fetcher);
+}
+
+export async function deleteDemoFavorite(placeId: string, fetcher?: typeof fetch): Promise<void> {
+  if (!/^[1-9]\d*$/.test(placeId)) throw new DemoApiError('Invalid place ID.');
+  await request<void>(`/demo/favorites/${placeId}`, { method: 'DELETE' }, fetcher);
+}
+
+export async function fetchDemoSettings(fetcher?: typeof fetch): Promise<AppSettings> {
+  return request<AppSettings>('/demo/settings', {}, fetcher);
+}
+
+export async function saveDemoSettings(settings: AppSettings, fetcher?: typeof fetch): Promise<AppSettings> {
+  return request<AppSettings>('/demo/settings', {
+    method: 'PUT',
+    body: JSON.stringify(settings),
+  }, fetcher);
 }

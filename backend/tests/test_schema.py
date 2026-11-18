@@ -80,6 +80,11 @@ def test_empty_rating_rejected(db):
 )
 def test_duplicate_relation_rejected(db, model, fields):
     seed_data(db)
+    if model is ReviewVote:
+        review = db.scalar(select(Review).order_by(Review.id))
+        user = db.scalar(select(User).order_by(User.id))
+        db.add(ReviewVote(user_id=user.id, review_id=review.id, is_upvote=True))
+        db.commit()
     existing = db.scalar(select(model).order_by(model.id))
     kwargs = {field: getattr(existing, field) for field in fields}
     if model is Rating:
@@ -133,6 +138,6 @@ def test_migration_matches_models_and_can_downgrade():
         config.attributes["connection"] = connection
         command.upgrade(config, "head")
         assert compare_metadata(MigrationContext.configure(connection), Base.metadata) == []
-        assert len(Base.metadata.tables) == 7
+        assert len(Base.metadata.tables) == 8  # seven baseline tables plus user_settings
         command.downgrade(config, "base")
     engine.dispose()

@@ -71,11 +71,19 @@ local development placeholders. No auth, profile, review, vote or save routes ye
 
 ## Samples and API handoff
 
-`data/sample_data.json` contains 3 disabled sample users, 3 profiles,
-10 fictional venues, 10 reviews, 10 ratings, 2 votes and 3 saved places.
-It links fixtures using sample emails/slugs/review keys; seeding resolves real IDs
-and foreign keys. Re-running it preserves rows and edits. Sample accounts cannot
-log in; `!disabled-sample-account` is a disabled marker, not a password hash.
+`data/sample_data.json` contains 3 disabled sample users, 3 sensory profiles,
+37 Denton-area venues, 111 illustrative reviews, and 111 sensory ratings. The
+venue profiles intentionally span quiet-to-lively noise, dim-to-bright lighting,
+and sparse-to-crowded conditions so the search filters return meaningfully different
+sets of places. Each venue has three sample observations with small visit-to-visit
+variation. Review text and sensory scores are synthetic prototype data, not verified
+visitor reports or official venue assessments.
+
+The fixture also contains saved-place examples. It links records using sample
+emails/slugs/review keys; seeding resolves database IDs and foreign keys. Re-running
+it refreshes the fixture-owned review text and ratings without duplicating records.
+Sample accounts cannot log in; `!disabled-sample-account` is a disabled marker,
+not a password hash.
 Real authentication must hash passwords and reject disabled markers when added.
 
 Yasser owns setup/schema/seeds and GET /api/v1/places/{place_id}. The route now

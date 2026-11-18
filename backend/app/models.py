@@ -108,6 +108,7 @@ class Review(Timestamped, Base):
         ForeignKey("venues.id", ondelete="CASCADE"), nullable=False, index=True
     )
     comment: Mapped[str | None] = mapped_column(Text, nullable=True)
+    overall_rating: Mapped[int | None] = mapped_column(Integer, nullable=True)
     wheelchair_accessible: Mapped[bool | None] = mapped_column(Boolean, nullable=True)
 
 
@@ -166,3 +167,14 @@ class SavedPlace(Base):
     saved_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), nullable=False, server_default=func.now()
     )
+
+
+class UserSettings(Timestamped, Base):
+    """One settings row per user; location access is opt-in."""
+    __tablename__ = "user_settings"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    user_id: Mapped[int] = mapped_column(
+        ForeignKey("users.id", ondelete="CASCADE"), nullable=False, unique=True
+    )
+    location_access: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
