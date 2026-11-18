@@ -112,12 +112,12 @@ export async function fetchDemoFavorites(fetcher?: typeof fetch): Promise<Place[
 }
 
 export async function addDemoFavorite(placeId: string, fetcher?: typeof fetch): Promise<void> {
-  if (!/^[1-9]\\d*$/.test(placeId)) throw new DemoApiError('Invalid place ID.');
+  if (!/^[1-9]\d*$/.test(placeId)) throw new DemoApiError('Invalid place ID.');
   await request<void>(`/demo/favorites/${placeId}`, { method: 'PUT' }, fetcher);
 }
 
 export async function deleteDemoFavorite(placeId: string, fetcher?: typeof fetch): Promise<void> {
-  if (!/^[1-9]\\d*$/.test(placeId)) throw new DemoApiError('Invalid place ID.');
+  if (!/^[1-9]\d*$/.test(placeId)) throw new DemoApiError('Invalid place ID.');
   await request<void>(`/demo/favorites/${placeId}`, { method: 'DELETE' }, fetcher);
 }
 
