@@ -27,8 +27,8 @@ export function toPlace(venue: VenueView): Place {
     city: venue.city,
     address: venue.address,
     description: venue.description,
-    // The API has review counts but no star ratings yet.
-    rating: null,
+    // Overall rating is calculated from the written review star scores.
+    rating: venue.overallRating,
     reviewCount: venue.reviewCount,
     imageUrl: venue.imageUrl ?? undefined,
     location: venue.location,

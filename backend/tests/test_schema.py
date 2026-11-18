@@ -80,6 +80,11 @@ def test_empty_rating_rejected(db):
 )
 def test_duplicate_relation_rejected(db, model, fields):
     seed_data(db)
+    if model is ReviewVote:
+        review = db.scalar(select(Review).order_by(Review.id))
+        user = db.scalar(select(User).order_by(User.id))
+        db.add(ReviewVote(user_id=user.id, review_id=review.id, is_upvote=True))
+        db.commit()
     existing = db.scalar(select(model).order_by(model.id))
     kwargs = {field: getattr(existing, field) for field in fields}
     if model is Rating:

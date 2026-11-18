@@ -81,7 +81,7 @@ describe('api client (mock data)', () => {
         reviews.length > 0
           ? Number(
             (
-              reviews.reduce((total, review) => total + review.rating, 0) /
+              reviews.reduce((total, review) => total + (review.rating ?? 0), 0) /
               reviews.length
             ).toFixed(1),
           )
