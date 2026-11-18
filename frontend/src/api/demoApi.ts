@@ -43,6 +43,8 @@ async function request<T>(path: string, init: RequestInit = {}, fetcher: typeof 
         : 'The demo API could not complete the request. Please try again.';
     throw new DemoApiError(message, response.status);
   }
+  // Favorites PUT/DELETE return 204 with no JSON body.
+  if (response.status === 204) return undefined as T;
   try {
     return await response.json() as T;
   } catch {
