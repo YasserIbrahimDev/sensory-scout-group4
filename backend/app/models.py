@@ -178,3 +178,15 @@ class UserSettings(Timestamped, Base):
         ForeignKey("users.id", ondelete="CASCADE"), nullable=False, unique=True
     )
     location_access: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+
+
+class AuthSession(Base):
+    """Opaque bearer tokens are stored as hashes, never plaintext."""
+    __tablename__ = "auth_sessions"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    user_id: Mapped[int] = mapped_column(
+        ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True
+    )
+    token_hash: Mapped[str] = mapped_column(String(64), nullable=False, unique=True)
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
