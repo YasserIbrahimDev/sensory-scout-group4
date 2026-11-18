@@ -133,6 +133,6 @@ def test_migration_matches_models_and_can_downgrade():
         config.attributes["connection"] = connection
         command.upgrade(config, "head")
         assert compare_metadata(MigrationContext.configure(connection), Base.metadata) == []
-        assert len(Base.metadata.tables) == 8  # seven baseline tables plus user_settings
+        assert len(Base.metadata.tables) == 9  # seven baseline tables, user_settings, auth_sessions
         command.downgrade(config, "base")
     engine.dispose()
