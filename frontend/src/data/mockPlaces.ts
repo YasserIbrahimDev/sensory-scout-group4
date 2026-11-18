@@ -8,7 +8,8 @@ type PlaceWithoutStats = Omit<LocatedPlace, 'rating' | 'reviewCount'>;
 function withReviewStats(place: PlaceWithoutStats): LocatedPlace {
   const ratings = mockReviews
     .filter((review) => review.placeId === place.id)
-    .map((review) => review.rating);
+    .map((review) => review.rating)
+    .filter((rating): rating is number => rating !== null);
 
   const average = ratings.length
     ? ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length

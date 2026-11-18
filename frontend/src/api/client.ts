@@ -9,6 +9,7 @@ import { mockPlaces } from '../data/mockPlaces';
 import { mockReviews } from '../data/mockReviews';
 import { mockAccountStore } from '../data/mockAccount';
 import { fetchAllPlaces, fetchPlace } from './placeAdapter';
+import { fetchBackendReviews } from './backendClient';
 import { addDemoFavorite, deleteDemoFavorite, fetchDemoFavorites, fetchDemoPreferences, fetchDemoRecommendations, fetchDemoSettings, saveDemoPreferences, saveDemoSettings } from './demoApi';
 
 // All data loading goes through this file. Pages never import mock data directly.
@@ -42,10 +43,10 @@ export async function getPlace(placeId: string): Promise<Place | null> {
 
 /**
  * Reviews for one place, newest first.
- * The API does not return review text yet, so this is empty when using the API.
+ * API mode reads written reviews from the backend; mock mode uses local fixtures.
  */
 export async function getReviews(placeId: string): Promise<Review[]> {
-  if (!usingMockData()) return [];
+  if (!usingMockData()) return fetchBackendReviews(placeId);
   return mockReviews
     .filter((review) => review.placeId === placeId)
     .sort((a, b) => b.date.localeCompare(a.date));

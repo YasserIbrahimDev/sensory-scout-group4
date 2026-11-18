@@ -6,10 +6,10 @@ from app.seed import seed_data
 
 def test_search_name_and_city(client, db):
     seed_data(db)
-    result = client.get("/api/v1/places", params={"q": "Willow"})
+    result = client.get("/api/v1/places", params={"q": "Denton North"})
     assert result.status_code == 200
-    assert [v["slug"] for v in result.json()["items"]] == ["willow-reading-room"]
-    assert client.get("/api/v1/places", params={"city": "SAMPLE CITY"}).json()["total_items"] == 10
+    assert [v["slug"] for v in result.json()["items"]] == ["denton-north-library"]
+    assert client.get("/api/v1/places", params={"city": "DENTON"}).json()["total_items"] == 37
 
 
 def test_category_filter(client, db):
@@ -25,7 +25,17 @@ def test_category_filter(client, db):
 
 def test_unrated_venues_do_not_match_sensory_filters(client, db):
     seed_data(db)
-    venue = db.scalar(select(Venue).where(Venue.slug == "new-venue"))
+    venue = Venue(
+        slug="unreviewed-test-place",
+        name="Unreviewed Test Place",
+        category="community",
+        description="Test fixture venue without ratings.",
+        address="1 Test Lane",
+        city="Denton",
+        is_sample=True,
+    )
+    db.add(venue)
+    db.commit()
     for key in ("max_noise", "min_light", "max_light", "max_crowd"):
         result = client.get("/api/v1/places", params={key: 5})
         assert result.status_code == 200
@@ -49,8 +59,8 @@ def test_filtered_pagination(client, db):
     seed_data(db)
     result = client.get(
         "/api/v1/places",
-        params={"city": "Sample City", "page_size": 3, "page": 2},
+        params={"city": "Denton", "page_size": 3, "page": 2},
     ).json()
-    assert result["total_items"] == 10
+    assert result["total_items"] == 37
     assert result["page"] == 2
     assert len(result["items"]) == 3
