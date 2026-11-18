@@ -193,7 +193,7 @@ describe('Recommended for you on Home', () => {
       vi.spyOn(realAuth, 'currentUser').mockResolvedValue({ id: '1', name: 'Demo User', email: 'demo@example.test' });
       vi.spyOn(realAuth, 'readPreferences').mockResolvedValue({ noise: 2, lighting: 2, crowd: 2 });
       vi.spyOn(realAuth, 'readRecommendations').mockResolvedValue(
-        recommendPlaces(syntheticVenues.map(toPlace), { noise: 'low', lighting: 'dim', crowd: 'low' }).slice(0, 3).map(item => ({ ...item, score: 1 })),
+        recommendPlaces(syntheticVenues.map(toPlace), { noise: 'low', lighting: 'dim', crowd: null }).slice(0, 3).map(item => ({ ...item, score: 1 })),
       );
 
       renderWithRouter(<App />);
@@ -221,7 +221,7 @@ describe('Recommended for you on Home', () => {
     it('TC-API-30: shows the no-match message when no API place suits the preferences', async () => {
       mockApi(noMatchVenues);
       vi.spyOn(realAuth, 'currentUser').mockResolvedValue({ id: '1', name: 'Demo User', email: 'demo@example.test' });
-      vi.spyOn(realAuth, 'readPreferences').mockResolvedValue(noMatchPreferences);
+      vi.spyOn(realAuth, 'readPreferences').mockResolvedValue({ noise: 5, lighting: null, crowd: 1 });
       vi.spyOn(realAuth, 'readRecommendations').mockResolvedValue([]);
 
       renderWithRouter(<App />);
