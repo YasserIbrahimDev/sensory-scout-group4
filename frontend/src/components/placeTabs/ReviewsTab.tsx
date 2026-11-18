@@ -87,7 +87,7 @@ export default function ReviewsTab({ place }: { place: Place }) {
                       <time dateTime={review.date}>{dateFormat.format(new Date(review.date))}</time>
                     </p>
                   </div>
-                  <StarRating rating={review.rating} />
+                  {review.rating !== null && <StarRating rating={review.rating} />}
                 </div>
                 <p className="review__text">{review.text}</p>
               </li>

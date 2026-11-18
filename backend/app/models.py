@@ -108,6 +108,7 @@ class Review(Timestamped, Base):
         ForeignKey("venues.id", ondelete="CASCADE"), nullable=False, index=True
     )
     comment: Mapped[str | None] = mapped_column(Text, nullable=True)
+    overall_rating: Mapped[int | None] = mapped_column(Integer, nullable=True)
     wheelchair_accessible: Mapped[bool | None] = mapped_column(Boolean, nullable=True)
 
 

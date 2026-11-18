@@ -1,7 +1,7 @@
 /**
  * Hamza: API contract adapter.
  * This is intentionally independent of the mock-only Place UI model.
- * The backend does not supply an overall star rating, review text, hours,
+ * The backend supplies optional overall ratings and review text, but not hours
  * or guaranteed coordinates. Unknown values must remain unknown.
  */
 export interface SensorySummary {
@@ -37,6 +37,7 @@ export interface VenueDetail {
   created_at: string;
   updated_at: string;
   review_count: number;
+  overall_rating?: number | null;
   sensory_summary: SensorySummary;
   accessibility_summary: AccessibilitySummary;
 }
@@ -64,8 +65,8 @@ export interface VenueView {
   imageUrl: string | null;
   isSample: boolean;
   reviewCount: number;
-  /** The API does not provide an overall star rating. */
-  overallRating: null;
+  /** Average overall star rating, or null when no overall ratings are available. */
+  overallRating: number | null;
   location: { lat: number; lng: number } | null;
   sensory: {
     noise: Intensity | null;
@@ -107,7 +108,7 @@ export function adaptVenue(venue: VenueDetail): VenueView {
     imageUrl: venue.image_url,
     isSample: venue.is_sample,
     reviewCount: venue.review_count,
-    overallRating: null,
+    overallRating: venue.overall_rating ?? null,
     location: hasCoordinates ? { lat: venue.latitude!, lng: venue.longitude! } : null,
     sensory: {
       noise: intensityFromScore(venue.sensory_summary.noise_rating),

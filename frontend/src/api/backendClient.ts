@@ -82,3 +82,20 @@ export async function fetchBackendPlaces(
   const { items, ...pagination } = data;
   return { items: items.map(adaptVenue), pagination };
 }
+
+
+export interface BackendReview {
+  id: string;
+  placeId: string;
+  author: string;
+  rating: number | null;
+  date: string;
+  text: string;
+}
+
+/** Read written reviews from GET /places/{id}/reviews. */
+export async function fetchBackendReviews(placeId: string, fetcher?: typeof fetch): Promise<BackendReview[]> {
+  const id = parsePlaceId(placeId);
+  if (id === null) return [];
+  return requestJson<BackendReview[]>(`/places/${id}/reviews`, fetcher);
+}
