@@ -51,8 +51,10 @@ async function request<T>(path: string, init: RequestInit = {}, authenticated = 
   }
   if (!response.ok) {
     if (response.status === 401 && authenticated) setToken(null);
-    const fallback = response.status === 401 ? 'Invalid credentials or expired session.'
-      : response.status === 409 ? 'An account with this email already exists.'
+    const fallback = response.status === 401
+      ? (authenticated ? 'Your session has expired. Please sign in again.' : 'The email or password is incorrect.')
+      : response.status === 409 ? 'An account with this email already exists. Try signing in instead.'
+      : response.status === 422 && !authenticated ? 'Check your name, email address, and password, then try again.'
       : response.status === 404 ? 'Place not found.'
       : 'The request could not be completed.';
     throw new AuthApiError(fallback, response.status);
