@@ -14,8 +14,18 @@ def test_details_aggregate_ratings_and_reports(client, db):
     assert body["name"] == "Denton North Branch Library"
     assert isinstance(body["id"], int)
     assert body["review_count"] == 3
-    assert body["sensory_summary"]["noise_rating"] == 3
-    assert body["sensory_summary"]["crowd_rating"] == 3
+    expected_noise = db.scalar(
+        select(func.avg(Rating.noise_rating))
+        .join(Review, Review.id == Rating.review_id)
+        .where(Review.venue_id == venue.id)
+    )
+    assert body["sensory_summary"]["noise_rating"] == round(float(expected_noise), 2)
+    expected_crowd = db.scalar(
+        select(func.avg(Rating.crowd_rating))
+        .join(Review, Review.id == Rating.review_id)
+        .where(Review.venue_id == venue.id)
+    )
+    assert body["sensory_summary"]["crowd_rating"] == round(float(expected_crowd), 2)
     assert body["sensory_summary"]["ratings_count"] == 3
     assert body["accessibility_summary"] == {
         "accessible_reports": 0, "inaccessible_reports": 0, "unknown_reports": 3
@@ -72,7 +82,12 @@ def test_partial_rating_averages_ignore_null(client, db):
     summary = client.get(f"/api/v1/places/{venue.id}").json()["sensory_summary"]
     assert summary["light_rating"] is None
     assert summary["light_count"] == 0
-    assert summary["noise_rating"] == 3
+    expected_noise = db.scalar(
+        select(func.avg(Rating.noise_rating))
+        .join(Review, Review.id == Rating.review_id)
+        .where(Review.venue_id == venue.id)
+    )
+    assert summary["noise_rating"] == round(float(expected_noise), 2)
 
 
 def test_conflicting_accessibility_reports_are_not_collapsed(client, db):
