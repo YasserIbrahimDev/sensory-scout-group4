@@ -58,6 +58,8 @@ class RecommendationsResponse(BaseModel):
 @router.post("/auth/register", response_model=TokenResponse, status_code=201)
 def register(payload: RegisterRequest, db: Annotated[Session, Depends(get_db)]):
     email = str(payload.email).strip().lower()
+    if not payload.name.strip():
+        raise HTTPException(status_code=422, detail="Name cannot be blank")
     if db.scalar(select(User.id).where(User.email == email)) is not None:
         raise HTTPException(status_code=409, detail="Email already registered")
     user = User(
@@ -77,6 +79,8 @@ def register(payload: RegisterRequest, db: Annotated[Session, Depends(get_db)]):
 
 @router.post("/auth/login", response_model=TokenResponse)
 def login(payload: LoginRequest, db: Annotated[Session, Depends(get_db)]):
+    if len(payload.password) > 128:
+        raise HTTPException(status_code=401, detail="Invalid email or password")
     user = db.scalar(select(User).where(User.email == str(payload.email).strip().lower()))
     if user is None or not verify_password(payload.password, user.password_hash):
         raise HTTPException(status_code=401, detail="Invalid email or password")
