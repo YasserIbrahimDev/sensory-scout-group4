@@ -12,6 +12,9 @@ import {
   syntheticVenues,
 } from '../test/syntheticVenues';
 import * as client from '../api/client';
+import * as realAuth from '../api/authApi';
+import { toPlace } from '../api/demoApi';
+import { recommendPlaces } from '../lib/recommendations';
 
 afterEach(() => {
   vi.restoreAllMocks();
@@ -187,7 +190,11 @@ describe('Recommended for you on Home', () => {
 
     it('TC-API-29: ranks API places and shows the top three, each linking to its API id', async () => {
       mockApi(syntheticVenues);
-      signInAsDemo();
+      vi.spyOn(realAuth, 'currentUser').mockResolvedValue({ id: '1', name: 'Demo User', email: 'demo@example.test' });
+      vi.spyOn(realAuth, 'readPreferences').mockResolvedValue({ noise: 2, lighting: 2, crowd: 2 });
+      vi.spyOn(realAuth, 'readRecommendations').mockResolvedValue(
+        recommendPlaces(syntheticVenues.map(toPlace), { noise: 'low', lighting: 'dim', crowd: 'low' }).slice(0, 3).map(item => ({ ...item, score: 1 })),
+      );
 
       renderWithRouter(<App />);
       const section = await recommendedSection();
@@ -213,9 +220,9 @@ describe('Recommended for you on Home', () => {
 
     it('TC-API-30: shows the no-match message when no API place suits the preferences', async () => {
       mockApi(noMatchVenues);
-      signInAsDemo();
-
-      await client.savePreferences(noMatchPreferences);
+      vi.spyOn(realAuth, 'currentUser').mockResolvedValue({ id: '1', name: 'Demo User', email: 'demo@example.test' });
+      vi.spyOn(realAuth, 'readPreferences').mockResolvedValue(noMatchPreferences);
+      vi.spyOn(realAuth, 'readRecommendations').mockResolvedValue([]);
 
       renderWithRouter(<App />);
       const section = await recommendedSection();
