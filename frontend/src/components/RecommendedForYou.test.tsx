@@ -7,7 +7,6 @@ import { renderWithRouter } from '../test/renderWithRouter';
 import { signInAsDemo } from '../test/account';
 import { mockApi, useApiData } from '../test/fakeApi';
 import {
-  noMatchPreferences,
   noMatchVenues,
   syntheticVenues,
 } from '../test/syntheticVenues';
