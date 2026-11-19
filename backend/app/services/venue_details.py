@@ -6,8 +6,17 @@ from app.schemas import AccessibilitySummary, SensorySummary, VenueDetail, Venue
 
 
 def build_venue_detail(db: Session, venue: Venue) -> VenueDetail:
-    ratings = db.execute(
+    return build_venue_details(db, [venue])[0]
+
+
+def build_venue_details(db: Session, venues: list[Venue]) -> list[VenueDetail]:
+    """Load summaries in two grouped queries, independent of page size."""
+    if not venues:
+        return []
+    ids = [venue.id for venue in venues]
+    rating_rows = db.execute(
         select(
+            Review.venue_id,
             func.count(Rating.id),
             func.avg(Rating.noise_rating),
             func.avg(Rating.light_rating),
@@ -17,16 +26,31 @@ def build_venue_detail(db: Session, venue: Venue) -> VenueDetail:
             func.count(Rating.crowd_rating),
         )
         .join(Review, Rating.review_id == Review.id)
-        .where(Review.venue_id == venue.id)
-    ).one()
-    reports = db.execute(
+        .where(Review.venue_id.in_(ids))
+        .group_by(Review.venue_id)
+    ).all()
+    report_rows = db.execute(
         select(
+            Review.venue_id,
             func.count(Review.id),
             func.count(case((Review.wheelchair_accessible.is_(True), 1))),
             func.count(case((Review.wheelchair_accessible.is_(False), 1))),
             func.count(case((Review.wheelchair_accessible.is_(None), 1))),
-        ).where(Review.venue_id == venue.id)
-    ).one()
+        ).where(Review.venue_id.in_(ids)).group_by(Review.venue_id)
+    ).all()
+    ratings_by_id = {row[0]: tuple(row[1:]) for row in rating_rows}
+    reports_by_id = {row[0]: tuple(row[1:]) for row in report_rows}
+    return [
+        _venue_detail(
+            venue,
+            ratings_by_id.get(venue.id, (0, None, None, None, 0, 0, 0)),
+            reports_by_id.get(venue.id, (0, 0, 0, 0)),
+        )
+        for venue in venues
+    ]
+
+
+def _venue_detail(venue: Venue, ratings: tuple, reports: tuple) -> VenueDetail:
     averages = [None if value is None else round(float(value), 2) for value in ratings[1:4]]
     return VenueDetail(
         **VenueSummary.model_validate(venue).model_dump(),

@@ -50,7 +50,7 @@ export async function fetchPlace(placeId: string): Promise<Place | null> {
 }
 
 /** Every place from GET /places, following the pages until the last one. */
-export async function fetchAllPlaces(filters: Pick<PlaceSearchParams, 'q' | 'category'> = {}): Promise<Place[]> {
+async function loadPlaces(filters: Pick<PlaceSearchParams, 'q' | 'category'> = {}): Promise<Place[]> {
   const places: Place[] = [];
   for (let page = 1; page <= MAX_PAGES; page += 1) {
     const { items, pagination } = await fetchBackendPlaces({ ...filters, page, page_size: PAGE_SIZE });
@@ -58,4 +58,29 @@ export async function fetchAllPlaces(filters: Pick<PlaceSearchParams, 'q' | 'cat
     if (!pagination.has_next) break;
   }
   return places;
+}
+
+// Share in-flight loads across components and React development remounts.
+// Briefly reuse completed results when navigating between pages.
+const placeLoads = new Map<string, { promise: Promise<Place[]>; expires: number }>();
+const CACHE_MS = 15_000;
+
+export function fetchAllPlaces(filters: Pick<PlaceSearchParams, 'q' | 'category'> = {}): Promise<Place[]> {
+  const key = JSON.stringify([import.meta.env.VITE_API_URL, filters.q ?? '', filters.category ?? '']);
+  const cached = placeLoads.get(key);
+  if (cached && cached.expires > Date.now()) return cached.promise;
+  const entry = { promise: Promise.resolve([] as Place[]), expires: Infinity };
+  entry.promise = loadPlaces(filters).then((places) => {
+    entry.expires = Date.now() + CACHE_MS;
+    return places;
+  }).catch((error) => {
+    if (placeLoads.get(key) === entry) placeLoads.delete(key);
+    throw error;
+  });
+  placeLoads.set(key, entry);
+  return entry.promise;
+}
+
+export function clearPlacesCache(): void {
+  placeLoads.clear();
 }
