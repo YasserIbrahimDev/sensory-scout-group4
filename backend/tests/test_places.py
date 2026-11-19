@@ -31,7 +31,9 @@ def test_details_aggregate_ratings_and_reports(client, db):
         "accessible_reports": 0, "inaccessible_reports": 0, "unknown_reports": 3
     }
     assert body["is_sample"] is False
-    assert body["latitude"] is None and body["image_url"] is None
+    assert body["latitude"] == pytest.approx(33.242624)
+    assert body["longitude"] == pytest.approx(-97.131748)
+    assert body["image_url"] is None
     assert "password_hash" not in body
 
 

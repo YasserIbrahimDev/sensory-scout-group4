@@ -118,3 +118,21 @@ Remove-Item Env:RUN_POSTGRES_TESTS
 ```
 
 Run these only on a migrated/seeded development database. CI remains Robert's task.
+
+### Venue map locations (2026-11-18)
+
+All 37 fixture venues now include map coordinates. The existing six pairs are
+unchanged; 31 missing pairs were filled and placeholder addresses replaced.
+`data/venue_location_sources.json` records each source and accuracy limitation.
+Most new points are Census address-range estimates, not surveyed building or
+accessible entrance positions. Shared sites intentionally share coordinates;
+North Lakes Park Trail uses the existing park point, not a verified trailhead.
+Explorium and Patchouli Joe's retain historical location pins with status notes;
+a map pin does not establish that a business is open. Sensory reviews remain
+illustrative prototype data, not verified community reports.
+
+Run `python -m app.seed` after applying current migrations. The existing seed
+routine refreshes canonical fixture-owned fields and preserves row IDs and linked
+records. It can overwrite edits to those fixture-owned fields. No schema change
+is needed for these coordinates. Do not use the obsolete older-branch
+`--update-sample-locations` flag.

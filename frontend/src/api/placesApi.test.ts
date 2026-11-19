@@ -1,3 +1,4 @@
+import { clearPlacesCache } from './placeAdapter';
 import { getNearbyPlaces, getPlace, getPlaces, getPopularPlaces, getReviews, searchPlaces, usingMockData } from './client';
 import { emptyFilters } from '../lib/searchFilters';
 import { allVenues, lounge, mockApi, readingRoom, useApiData, venue } from '../test/fakeApi';
@@ -5,6 +6,7 @@ import { allVenues, lounge, mockApi, readingRoom, useApiData, venue } from '../t
 const names = (places: { name: string }[]) => places.map((p) => p.name);
 
 beforeEach(() => {
+  clearPlacesCache();
   useApiData();
 });
 
@@ -108,3 +110,19 @@ describe('api client (live API)', () => {
     expect(String(fetcher.mock.calls[0][0])).toBe('http://api.test/api/v1/places/1/reviews');
   });
 });
+
+ it('shares concurrent list loads and reuses a completed response', async () => {
+   const fetcher = mockApi();
+   await Promise.all([getPlaces(), getPopularPlaces(), getPlaces()]);
+   expect(fetcher).toHaveBeenCalledTimes(1);
+   await getPlaces();
+   expect(fetcher).toHaveBeenCalledTimes(1);
+ });
+
+ it('retries failed loads instead of caching errors', async () => {
+   mockApi(allVenues, () => 'offline');
+   await expect(getPlaces()).rejects.toThrow();
+   const fetcher = mockApi();
+   expect(await getPlaces()).toHaveLength(3);
+   expect(fetcher).toHaveBeenCalledTimes(1);
+ });

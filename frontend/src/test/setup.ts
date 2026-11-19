@@ -1,3 +1,4 @@
+import { clearPlacesCache } from '../api/placeAdapter';
 import '@testing-library/jest-dom/vitest';
 import { cleanup } from '@testing-library/react';
 import { afterEach, beforeEach, vi } from 'vitest';
@@ -11,6 +12,7 @@ vi.mock('mapbox-gl', () => import('./mapboxMock'));
 window.scrollTo = vi.fn() as unknown as typeof window.scrollTo;
 
 beforeEach(() => {
+  clearPlacesCache();
   mapboxState.reset();
   vi.stubEnv('VITE_MAPBOX_TOKEN', 'pk.test-token');
   // Keep the established component tests isolated from a developer's .env.local.

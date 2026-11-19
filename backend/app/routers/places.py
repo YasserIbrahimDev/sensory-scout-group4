@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models import Rating, Review, Venue
 from app.schemas import PaginatedVenues, VenueDetail
-from app.services.venue_details import build_venue_detail
+from app.services.venue_details import build_venue_detail, build_venue_details
 
 router = APIRouter(prefix="/places", tags=["places"])
 
@@ -76,7 +76,7 @@ def list_places(
         .offset((page - 1) * page_size).limit(page_size)
     ).all()
     return PaginatedVenues(
-        items=[build_venue_detail(db, venue) for venue in venues],
+        items=build_venue_details(db, venues),
         total_items=total_items, page=page, page_size=page_size,
         total_pages=total_pages, has_previous=page > 1, has_next=page < total_pages,
     )
