@@ -72,7 +72,7 @@ describe('ProfilePage: sign in and sign up', () => {
     expect(screen.getByLabelText('Name')).toHaveAccessibleDescription('Enter your name.');
     expect(screen.getByLabelText('Name')).toHaveFocus();
     expect(screen.getByLabelText('Password')).toHaveAccessibleDescription(
-      'At least 8 characters. Use at least 8 characters for your password.',
+      'At least 12 characters. Use at least 12 characters for your password.',
     );
     expect(screen.getByLabelText('Confirm password')).toHaveAccessibleDescription('The passwords do not match.');
     expect(await client.getCurrentUser()).toBeNull();
@@ -83,8 +83,8 @@ describe('ProfilePage: sign in and sign up', () => {
     await userEvent.click(await screen.findByRole('button', { name: 'Create an account' }));
     await userEvent.type(screen.getByLabelText('Name'), 'Sam Lee');
     await userEvent.type(screen.getByLabelText('Email'), 'sam@example.com');
-    await userEvent.type(screen.getByLabelText('Password'), 'longenough');
-    await userEvent.type(screen.getByLabelText('Confirm password'), 'longenough');
+    await userEvent.type(screen.getByLabelText('Password'), 'long-enough-pw');
+    await userEvent.type(screen.getByLabelText('Confirm password'), 'long-enough-pw');
     await userEvent.click(screen.getByRole('button', { name: 'Create account' }));
     expect(await screen.findByText('You are signed in as Sam Lee.')).toBeInTheDocument();
     expect(await screen.findAllByRole('radio', { name: 'No preference', checked: true })).toHaveLength(3);
@@ -95,8 +95,8 @@ describe('ProfilePage: sign in and sign up', () => {
     await userEvent.click(await screen.findByRole('button', { name: 'Create an account' }));
     await userEvent.type(screen.getByLabelText('Name'), 'Someone');
     await userEvent.type(screen.getByLabelText('Email'), DEMO_ACCOUNT.email);
-    await userEvent.type(screen.getByLabelText('Password'), 'longenough');
-    await userEvent.type(screen.getByLabelText('Confirm password'), 'longenough');
+    await userEvent.type(screen.getByLabelText('Password'), 'long-enough-pw');
+    await userEvent.type(screen.getByLabelText('Confirm password'), 'long-enough-pw');
     await userEvent.click(screen.getByRole('button', { name: 'Create account' }));
     expect(await screen.findByRole('alert')).toHaveTextContent('An account with this email already exists.');
   });

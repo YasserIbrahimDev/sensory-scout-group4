@@ -95,10 +95,19 @@ describe('api client (live API)', () => {
     expect(await getNearbyPlaces(String(lounge.id))).toEqual([]);
   });
 
-  it('TC-API-10: review text is empty because the API does not send it yet', async () => {
+  it('TC-API-10: loads written reviews from the place reviews endpoint', async () => {
     const fetcher = mockApi();
-    expect(await getReviews('1')).toEqual([]);
-    expect(fetcher).not.toHaveBeenCalled();
+    expect(await getReviews('1')).toEqual([
+      {
+        id: 'review-1', placeId: '1', author: 'Alex R.', rating: 4,
+        date: '2026-10-14', text: 'A calm space with comfortable lighting.',
+      },
+      {
+        id: 'review-2', placeId: '1', author: 'Jordan M.', rating: 5,
+        date: '2026-10-12', text: 'I enjoyed the quiet reading areas.',
+      },
+    ]);
+    expect(String(fetcher.mock.calls[0][0])).toBe('http://api.test/api/v1/places/1/reviews');
   });
 });
 

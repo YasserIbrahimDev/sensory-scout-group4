@@ -4,7 +4,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { LogOut } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import type { DemoSensoryPreferences, PreferenceScore, SensoryPreferences, User } from '../types/user';
-import { AccountError, getPreferences, savePreferences, usingDemoMode } from '../api/client';
+import { AccountError, getPreferences, savePreferences, usingDemoMode, usingMockData } from '../api/client';
+import { AuthApiError } from '../api/authApi';
 import { useAuth } from '../lib/auth';
 import { useLoad } from '../lib/useLoad';
 import { CROWD_LEVELS, LIGHTING_LEVELS, NOISE_LEVELS } from '../lib/searchFilters';
@@ -27,7 +28,10 @@ export const PROFILE_MESSAGES = {
 
 /** Shows the server's own message when it gave one (like a wrong password), or a general one. */
 function errorMessage(error: unknown, fallback: string): string {
-  return error instanceof AccountError ? error.message : fallback;
+  if (error instanceof AccountError) return error.message;
+  // Status 0 means the API couldn't be reached, so the general "check your connection" message fits.
+  if (error instanceof AuthApiError && error.status !== 0) return error.message;
+  return fallback;
 }
 
 /** After a failed submit, moves focus to the first field with an error. */
@@ -376,7 +380,8 @@ function SensoryPreferencesSection({ userId }: { userId: string }) {
         </div>
       )}
       {state.status === 'ready' && (
-        usingDemoMode()
+        // The backend (demo and real accounts) stores preferences on a 1–5 scale; only mock data uses levels.
+        usingDemoMode() || !usingMockData()
           ? <DemoPreferencesForm initial={state.data as DemoSensoryPreferences} />
           : <PreferencesForm initial={state.data as SensoryPreferences} />
       )}

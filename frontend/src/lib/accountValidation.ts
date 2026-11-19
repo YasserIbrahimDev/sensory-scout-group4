@@ -1,4 +1,7 @@
-export const MIN_PASSWORD_LENGTH = 8;
+// These match the backend's POST /auth/register rules, so the form catches them first.
+export const MIN_PASSWORD_LENGTH = 12;
+export const MAX_PASSWORD_LENGTH = 128;
+export const MAX_NAME_LENGTH = 160;
 
 export interface SignInForm {
   email: string;
@@ -34,12 +37,15 @@ export function validateSignIn(form: SignInForm): FormErrors<SignInForm> {
 export function validateSignUp(form: SignUpForm): FormErrors<SignUpForm> {
   const errors: FormErrors<SignUpForm> = {};
   if (!form.name.trim()) errors.name = 'Enter your name.';
+  else if (form.name.trim().length > MAX_NAME_LENGTH) errors.name = `Use ${MAX_NAME_LENGTH} characters or fewer for your name.`;
   const email = emailError(form.email);
   if (email) errors.email = email;
   if (!form.password) {
     errors.password = 'Create a password.';
   } else if (form.password.length < MIN_PASSWORD_LENGTH) {
     errors.password = `Use at least ${MIN_PASSWORD_LENGTH} characters for your password.`;
+  } else if (form.password.length > MAX_PASSWORD_LENGTH) {
+    errors.password = `Use ${MAX_PASSWORD_LENGTH} characters or fewer for your password.`;
   }
   if (!form.confirmPassword) {
     errors.confirmPassword = 'Enter your password again.';

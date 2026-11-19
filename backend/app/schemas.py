@@ -42,6 +42,7 @@ class VenueDetail(VenueSummary):
     created_at: datetime
     updated_at: datetime
     review_count: int
+    overall_rating: float | None
     sensory_summary: SensorySummary
     accessibility_summary: AccessibilitySummary
 

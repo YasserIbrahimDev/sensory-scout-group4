@@ -34,8 +34,8 @@ export interface Review {
   placeId: string;
   /** First name and last initial only. */
   author: string;
-  /** Whole stars, 1 to 5. */
-  rating: number;
+  /** Whole stars, 1 to 5, or null when no overall rating was supplied. */
+  rating: number | null;
   /** ISO date, for example 2026-09-28. */
   date: string;
   text: string;

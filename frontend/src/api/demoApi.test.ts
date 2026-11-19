@@ -1,4 +1,4 @@
-import { fetchDemoPreferences, fetchDemoRecommendations, saveDemoPreferences } from './demoApi';
+import { addDemoFavorite, deleteDemoFavorite, fetchDemoPreferences, fetchDemoRecommendations, fetchDemoSettings, saveDemoPreferences, saveDemoSettings } from './demoApi';
 
 const preferences = { noise: 1 as const, lighting: 3 as const, crowd: null };
 function jsonResponse(body: unknown, status = 200): Response {
@@ -33,6 +33,31 @@ describe('development demo API client', () => {
     const fetcher = vi.fn().mockResolvedValue(jsonResponse({ demo_user: 'Demo', items: [{ venue, score: 95, reason: 'Matches your noise preference' }] }));
     const result = await fetchDemoRecommendations(3, fetcher);
     expect(result[0]).toMatchObject({ place: { id: '12', name: 'Quiet Library', category: 'library', sensory: { noise: 'low', lighting: 'normal' } }, score: 95, reason: 'Matches your noise preference' });
+  });
+
+
+  it('handles empty 204 favorites responses without reporting a false failure', async () => {
+    const fetcher = vi.fn().mockResolvedValue(new Response(null, { status: 204 }));
+    await expect(addDemoFavorite('12', fetcher)).resolves.toBeUndefined();
+    await expect(deleteDemoFavorite('12', fetcher)).resolves.toBeUndefined();
+    expect(fetcher).toHaveBeenNthCalledWith(1, expect.stringContaining('/demo/favorites/12'), expect.objectContaining({ method: 'PUT' }));
+    expect(fetcher).toHaveBeenNthCalledWith(2, expect.stringContaining('/demo/favorites/12'), expect.objectContaining({ method: 'DELETE' }));
+  });
+
+  it('rejects non-numeric favorite identifiers before sending requests', async () => {
+    const fetcher = vi.fn();
+    await expect(addDemoFavorite('not-a-number', fetcher)).rejects.toThrow(/invalid place ID/i);
+    expect(fetcher).not.toHaveBeenCalled();
+  });
+
+  it('reads and persists Settings through the demo backend', async () => {
+    const fetcher = vi.fn().mockResolvedValueOnce(jsonResponse({ locationAccess: false }))
+      .mockResolvedValueOnce(jsonResponse({ locationAccess: true }));
+    await expect(fetchDemoSettings(fetcher)).resolves.toEqual({ locationAccess: false });
+    await expect(saveDemoSettings({ locationAccess: true }, fetcher)).resolves.toEqual({ locationAccess: true });
+    expect(fetcher).toHaveBeenLastCalledWith(expect.stringContaining('/demo/settings'), expect.objectContaining({
+      method: 'PUT', body: JSON.stringify({ locationAccess: true }),
+    }));
   });
 
   it('provides a useful error when demo mode is disabled on the backend', async () => {
