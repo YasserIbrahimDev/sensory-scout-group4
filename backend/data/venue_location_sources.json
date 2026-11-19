@@ -1,0 +1,285 @@
+{
+  "checked_on": "2026-11-18",
+  "notes": "Location estimates for map display, not verified accessible entrances. Existing six coordinate pairs unchanged. Sensory reviews remain illustrative, not verified observations. Shared sites intentionally share pins. Census matches are street-segment interpolations and should not be described as surveyed coordinates.",
+  "locations": [
+    {
+      "slug": "denton-north-library",
+      "latitude": 33.242624,
+      "longitude": -97.131748,
+      "address": "3020 N Locust St, Denton, TX 76209",
+      "coordinate_source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=3020+N+Locust+St%2C+Denton%2C+TX+76209&benchmark=Public_AR_Current&format=json",
+      "method": "Census address-range interpolation, approximate street location; not a rooftop/entrance survey",
+      "address_source": "Existing team address; Census matched address retained in geocoding audit"
+    },
+    {
+      "slug": "denton-south-library",
+      "latitude": 33.173648,
+      "longitude": -97.113106,
+      "address": "3228 Teasley Ln, Denton, TX 76210",
+      "coordinate_source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=3228+Teasley+Ln%2C+Denton%2C+TX+76210&benchmark=Public_AR_Current&format=json",
+      "method": "Census address-range interpolation, approximate street location; not a rooftop/entrance survey",
+      "address_source": "Existing team address; Census matched address retained in geocoding audit"
+    },
+    {
+      "slug": "patterson-appleton-arts-center",
+      "latitude": 33.214412,
+      "longitude": -97.128153,
+      "address": "400 E Hickory St, Denton, TX 76201",
+      "coordinate_source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=400+E+Hickory+St%2C+Denton%2C+TX+76201&benchmark=Public_AR_Current&format=json",
+      "method": "Census address-range interpolation, approximate street location; not a rooftop/entrance survey",
+      "address_source": "Existing team address; Census matched address retained in geocoding audit"
+    },
+    {
+      "slug": "courthouse-square-museum",
+      "latitude": 33.214585,
+      "longitude": -97.132624,
+      "address": "110 W Hickory St, Denton, TX 76201",
+      "coordinate_source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=110+W+Hickory+St%2C+Denton%2C+TX+76201&benchmark=Public_AR_Current&format=json",
+      "method": "Census address-range interpolation, approximate street location; not a rooftop/entrance survey",
+      "address_source": "Existing team address; Census matched address retained in geocoding audit"
+    },
+    {
+      "slug": "historical-park",
+      "latitude": 33.213477,
+      "longitude": -97.13548,
+      "address": "317 W Mulberry St, Denton, TX 76201",
+      "coordinate_source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=317+W+Mulberry+St%2C+Denton%2C+TX+76201&benchmark=Public_AR_Current&format=json",
+      "method": "Census address-range interpolation, approximate street location; not a rooftop/entrance survey",
+      "address_source": "Existing team address; Census matched address retained in geocoding audit"
+    },
+    {
+      "slug": "bayless-selby-house",
+      "latitude": 33.213477,
+      "longitude": -97.13548,
+      "address": "317 W Mulberry St, Denton, TX 76201",
+      "coordinate_source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=317+W+Mulberry+St%2C+Denton%2C+TX+76201&benchmark=Public_AR_Current&format=json",
+      "method": "Census address-range interpolation, approximate street location; not a rooftop/entrance survey",
+      "address_source": "Existing team address; Census matched address retained in geocoding audit"
+    },
+    {
+      "slug": "quakertown-park",
+      "latitude": 33.218821,
+      "longitude": -97.1296,
+      "address": "700 Oakland St, Denton, TX 76201",
+      "coordinate_source": "https://commons.wikimedia.org/wiki/File:QuakertownParkDentonTexas.jpg",
+      "method": "Photographer-supplied park object location; not camera position or verified entrance",
+      "address_source": "Existing team address; Census matched address retained in geocoding audit"
+    },
+    {
+      "slug": "west-oak-coffee",
+      "latitude": 33.215643,
+      "longitude": -97.132637,
+      "address": "114 W Oak St, Denton, TX 76201",
+      "coordinate_source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=114+W+Oak+St%2C+Denton%2C+TX+76201&benchmark=Public_AR_Current&format=json",
+      "method": "Census address-range interpolation, approximate street location; not a rooftop/entrance survey",
+      "address_source": "Existing team address; Census matched address retained in geocoding audit"
+    },
+    {
+      "slug": "triptych-coffee",
+      "latitude": 33.212442,
+      "longitude": -97.132392,
+      "address": "301 S Locust St, Denton, TX 76201",
+      "coordinate_source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=301+S+Locust+St%2C+Denton%2C+TX+76201&benchmark=Public_AR_Current&format=json",
+      "method": "Census address-range interpolation, approximate street location; not a rooftop/entrance survey",
+      "address_source": "https://www.triptychcoffeeco.com/"
+    },
+    {
+      "slug": "avon-dale-park",
+      "latitude": 33.243506,
+      "longitude": -97.106992,
+      "address": "2021 Devonshire Dr, Denton, TX 76201",
+      "coordinate_source": "https://www.cityofdenton.com/DocumentCenter/View/10582/FY-2025-29-Capital-Improvement-Program?bidId=",
+      "method": "City playground project point; rejected Census Devonshire CT mismatch",
+      "address_source": "Existing team address; Census matched address retained in geocoding audit"
+    },
+    {
+      "slug": "bowling-green-park",
+      "latitude": 33.236224,
+      "longitude": -97.149288,
+      "address": "2200 Bowling Green St, Denton, TX 76201",
+      "coordinate_source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=2200+Bowling+Green+St%2C+Denton%2C+TX+76201&benchmark=Public_AR_Current&format=json",
+      "method": "Census address-range interpolation, approximate street location; not a rooftop/entrance survey",
+      "address_source": "Existing team address; Census matched address retained in geocoding audit"
+    },
+    {
+      "slug": "clear-creek-natural-heritage-center",
+      "latitude": 33.255245,
+      "longitude": -97.060947,
+      "address": "3310 Collins Rd, Denton, TX",
+      "coordinate_source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=3310+Collins+Rd%2C+Denton%2C+TX&benchmark=Public_AR_Current&format=json",
+      "method": "Census address-range interpolation, approximate street location; not a rooftop/entrance survey",
+      "address_source": "https://www.cityofdenton.com/facilities/facility/details/Clear-Creek-Natural-Heritage-Center-32"
+    },
+    {
+      "slug": "denton-firefighters-museum",
+      "latitude": 33.214419,
+      "longitude": -97.129199,
+      "address": "332 E Hickory St, Denton, TX 76201",
+      "coordinate_source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=332+E+Hickory+St%2C+Denton%2C+TX+76201&benchmark=Public_AR_Current&format=json",
+      "method": "Census address-range interpolation, approximate street location; not a rooftop/entrance survey",
+      "address_source": "Existing team address; Census matched address retained in geocoding audit"
+    },
+    {
+      "slug": "quakertown-house-museum",
+      "latitude": 33.213477,
+      "longitude": -97.13548,
+      "address": "317 W Mulberry St, Denton, TX 76201",
+      "coordinate_source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=317+W+Mulberry+St%2C+Denton%2C+TX+76201&benchmark=Public_AR_Current&format=json",
+      "method": "Census address-range interpolation, approximate street location; not a rooftop/entrance survey",
+      "address_source": "Existing team address; Census matched address retained in geocoding audit"
+    },
+    {
+      "slug": "discover-denton-visitor-center",
+      "latitude": 33.214471,
+      "longitude": -97.132632,
+      "address": "111 W Hickory St, Denton, TX 76201",
+      "coordinate_source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=111+W+Hickory+St%2C+Denton%2C+TX+76201&benchmark=Public_AR_Current&format=json",
+      "method": "Census address-range interpolation, approximate street location; not a rooftop/entrance survey",
+      "address_source": "Existing team address; Census matched address retained in geocoding audit"
+    },
+    {
+      "slug": "campus-theatre",
+      "latitude": 33.214625,
+      "longitude": -97.134504,
+      "address": "214 W Hickory St, Denton, TX 76201",
+      "coordinate_source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=214+W+Hickory+St%2C+Denton%2C+TX+76201&benchmark=Public_AR_Current&format=json",
+      "method": "Census address-range interpolation, approximate street location; not a rooftop/entrance survey",
+      "address_source": "https://www.discoverdenton.com/things-to-do/attractions/campus-theatre/"
+    },
+    {
+      "slug": "explorium-childrens-museum",
+      "latitude": 33.251877,
+      "longitude": -97.176862,
+      "address": "5800 N Interstate 35, Denton, TX 76207",
+      "coordinate_source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=5800+N+Interstate+35%2C+Denton%2C+TX+76207&benchmark=Public_AR_Current&format=json",
+      "method": "Census address-range interpolation, approximate street location; not a rooftop/entrance survey",
+      "address_source": "https://www.discoverdenton.com/listing/explorium-childrens-museum/628/"
+    },
+    {
+      "slug": "beth-maries-ice-cream",
+      "latitude": 33.214474,
+      "longitude": -97.132697,
+      "address": "117 W Hickory St, Denton, TX 76201",
+      "coordinate_source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=117+W+Hickory+St%2C+Denton%2C+TX+76201&benchmark=Public_AR_Current&format=json",
+      "method": "Census address-range interpolation, approximate street location; not a rooftop/entrance survey",
+      "address_source": "https://www.bethmaries.com/contacts--locations.html"
+    },
+    {
+      "slug": "chestnut-tree-bistro",
+      "latitude": 33.214468,
+      "longitude": -97.132588,
+      "address": "107 W Hickory St, Denton, TX 76201",
+      "coordinate_source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=107+W+Hickory+St%2C+Denton%2C+TX+76201&benchmark=Public_AR_Current&format=json",
+      "method": "Census address-range interpolation, approximate street location; not a rooftop/entrance survey",
+      "address_source": "https://business.denton-chamber.org/list/ql/restaurants-food-beverages-46"
+    },
+    {
+      "slug": "komodo-loco",
+      "latitude": 33.214614,
+      "longitude": -97.129938,
+      "address": "109 Oakland St, Denton, TX 76201",
+      "coordinate_source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=109+Oakland+St%2C+Denton%2C+TX+76201&benchmark=Public_AR_Current&format=json",
+      "method": "Census address-range interpolation, approximate street location; not a rooftop/entrance survey",
+      "address_source": "https://www.komodoloco.com/"
+    },
+    {
+      "slug": "ta-an-eatery",
+      "latitude": 33.214516,
+      "longitude": -97.13405,
+      "address": "209 W Hickory St, Denton, TX 76201",
+      "coordinate_source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=209+W+Hickory+St%2C+Denton%2C+TX+76201&benchmark=Public_AR_Current&format=json",
+      "method": "Census address-range interpolation, approximate street location; not a rooftop/entrance survey",
+      "address_source": "https://dentonmainstreet.org/blogs/restaurants/taan-eatery"
+    },
+    {
+      "slug": "patchouli-joes",
+      "latitude": 33.214511,
+      "longitude": -97.134422,
+      "address": "221 W Hickory St, Denton, TX 76201",
+      "coordinate_source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=221+W+Hickory+St%2C+Denton%2C+TX+76201&benchmark=Public_AR_Current&format=json",
+      "method": "Census address-range interpolation, approximate street location; not a rooftop/entrance survey",
+      "address_source": "https://dentonmainstreet.org/blogs/specialty-shop/patchouli-joes-books-indulgences"
+    },
+    {
+      "slug": "taqueria-monterrey",
+      "latitude": 33.175783,
+      "longitude": -97.08821,
+      "address": "3305 S Mayhill Rd, Denton, TX 76208",
+      "coordinate_source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=3305+S+Mayhill+Rd%2C+Denton%2C+TX+76208&benchmark=Public_AR_Current&format=json",
+      "method": "Census address-range interpolation, approximate street location; not a rooftop/entrance survey",
+      "address_source": "https://taqueriamty.com/"
+    },
+    {
+      "slug": "mellow-mushroom-denton",
+      "latitude": 33.214545,
+      "longitude": -97.13019,
+      "address": "217 E Hickory St, Denton, TX 76201",
+      "coordinate_source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=217+E+Hickory+St%2C+Denton%2C+TX+76201&benchmark=Public_AR_Current&format=json",
+      "method": "Census address-range interpolation, approximate street location; not a rooftop/entrance survey",
+      "address_source": "https://dentonmainstreet.org/blogs/restaurants/tagged/dining?page=2"
+    },
+    {
+      "slug": "rusty-taco-denton",
+      "latitude": 33.214625,
+      "longitude": -97.134462,
+      "address": "210 W Hickory St, Denton, TX 76201",
+      "coordinate_source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=210+W+Hickory+St%2C+Denton%2C+TX+76201&benchmark=Public_AR_Current&format=json",
+      "method": "Census address-range interpolation, approximate street location; not a rooftop/entrance survey",
+      "address_source": "https://rustytaco.com/locations/denton-tx/"
+    },
+    {
+      "slug": "the-cookie-crave",
+      "latitude": 33.208486,
+      "longitude": -97.132441,
+      "address": "519 S Locust St, Denton, TX 76201",
+      "coordinate_source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=519+S+Locust+St%2C+Denton%2C+TX+76201&benchmark=Public_AR_Current&format=json",
+      "method": "Census address-range interpolation, approximate street location; not a rooftop/entrance survey",
+      "address_source": "https://www.thecookiecrave.com/"
+    },
+    {
+      "slug": "atomic-candy",
+      "latitude": 33.214467,
+      "longitude": -97.132567,
+      "address": "105 W Hickory St, Denton, TX 76201",
+      "coordinate_source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=105+W+Hickory+St%2C+Denton%2C+TX+76201&benchmark=Public_AR_Current&format=json",
+      "method": "Census address-range interpolation, approximate street location; not a rooftop/entrance survey",
+      "address_source": "https://atomic-candy.com/contact-us"
+    },
+    {
+      "slug": "greater-denton-arts-council",
+      "latitude": 33.214412,
+      "longitude": -97.128153,
+      "address": "400 E Hickory St, Denton, TX 76201",
+      "coordinate_source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=400+E+Hickory+St%2C+Denton%2C+TX+76201&benchmark=Public_AR_Current&format=json",
+      "method": "Census address-range interpolation, approximate street location; not a rooftop/entrance survey",
+      "address_source": "Existing team address; Census matched address retained in geocoding audit"
+    },
+    {
+      "slug": "little-chapel-in-the-woods",
+      "latitude": 33.229646,
+      "longitude": -97.128536,
+      "address": "415 Chapel Dr, Denton, TX 76204",
+      "coordinate_source": "https://texashistory.unt.edu/ark:/67531/metadc1924013/",
+      "method": "UNT Libraries archival place coordinates; approximate building location",
+      "address_source": "Existing team address; Census matched address retained in geocoding audit"
+    },
+    {
+      "slug": "north-lakes-park-trail",
+      "latitude": 33.23981,
+      "longitude": -97.15225,
+      "address": "2001 W Windsor Dr, Denton, TX",
+      "coordinate_source": "backend/data/sample_data.json: north-lakes-park",
+      "method": "Shared park point retained from existing North Lakes Park fixture, not a verified trailhead",
+      "address_source": "Existing team address; Census matched address retained in geocoding audit"
+    },
+    {
+      "slug": "american-legion-senior-center",
+      "latitude": 33.209034,
+      "longitude": -97.124113,
+      "address": "629 Lakey St, Denton, TX 76201",
+      "coordinate_source": "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=629+Lakey+St%2C+Denton%2C+TX+76201&benchmark=Public_AR_Current&format=json",
+      "method": "Census address-range interpolation, approximate street location; not a rooftop/entrance survey",
+      "address_source": "Existing team address; Census matched address retained in geocoding audit"
+    }
+  ]
+}
