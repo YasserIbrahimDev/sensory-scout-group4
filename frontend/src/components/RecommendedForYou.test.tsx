@@ -7,11 +7,13 @@ import { renderWithRouter } from '../test/renderWithRouter';
 import { signInAsDemo } from '../test/account';
 import { mockApi, useApiData } from '../test/fakeApi';
 import {
-  noMatchPreferences,
   noMatchVenues,
   syntheticVenues,
 } from '../test/syntheticVenues';
 import * as client from '../api/client';
+import * as realAuth from '../api/authApi';
+import { toPlace } from '../api/demoApi';
+import { recommendPlaces } from '../lib/recommendations';
 
 afterEach(() => {
   vi.restoreAllMocks();
@@ -33,7 +35,7 @@ function cardTitles(container: HTMLElement) {
 }
 
 describe('Recommended for you on Home', () => {
-  it('TC-HOME-25: sits below the search bar and above "Popular near you"', async () => {
+  it('TC-REC-13: sits below the search bar and above "Popular near you"', async () => {
     signInAsDemo();
     renderWithRouter(<App />);
     const section = await recommendedSection();
@@ -56,7 +58,7 @@ describe('Recommended for you on Home', () => {
     await screen.findAllByRole('article');
   });
 
-  it('TC-HOME-26: signed-out users are asked to sign in', async () => {
+  it('TC-REC-14: signed-out users are asked to sign in', async () => {
     renderWithRouter(<App />);
     const section = await recommendedSection();
 
@@ -72,7 +74,7 @@ describe('Recommended for you on Home', () => {
     await screen.findAllByRole('article');
   });
 
-  it('TC-HOME-27: shows matching places with a short reason, and a card opens place details', async () => {
+  it('TC-REC-15: shows matching places with a short reason, and a card opens place details', async () => {
     // The demo account prefers quiet, dim places.
     signInAsDemo();
     renderWithRouter(<App />);
@@ -108,7 +110,7 @@ describe('Recommended for you on Home', () => {
     ).toBeInTheDocument();
   });
 
-  it('TC-HOME-28: asks users with no preferences to set some', async () => {
+  it('TC-REC-16: asks users with no preferences to set some', async () => {
     signInAsDemo();
 
     await client.savePreferences({
@@ -133,7 +135,7 @@ describe('Recommended for you on Home', () => {
     ).toHaveAttribute('href', '/profile');
   });
 
-  it('TC-HOME-29: explains when no place matches', async () => {
+  it('TC-REC-17: explains when no place matches', async () => {
     signInAsDemo();
 
     await client.savePreferences({
@@ -155,7 +157,7 @@ describe('Recommended for you on Home', () => {
       .not.toBeInTheDocument();
   });
 
-  it('TC-HOME-30: shows an error with Try again, and the rest of Home still loads', async () => {
+  it('TC-REC-18: shows an error with Try again, and the rest of Home still loads', async () => {
     signInAsDemo();
 
     vi.spyOn(client, 'getRecommendations')
@@ -187,7 +189,11 @@ describe('Recommended for you on Home', () => {
 
     it('TC-API-29: ranks API places and shows the top three, each linking to its API id', async () => {
       mockApi(syntheticVenues);
-      signInAsDemo();
+      vi.spyOn(realAuth, 'currentUser').mockResolvedValue({ id: '1', name: 'Demo User', email: 'demo@example.test' });
+      vi.spyOn(realAuth, 'readPreferences').mockResolvedValue({ noise: 2, lighting: 2, crowd: 2 });
+      vi.spyOn(realAuth, 'readRecommendations').mockResolvedValue(
+        recommendPlaces(syntheticVenues.map(toPlace), { noise: 'low', lighting: 'dim', crowd: null }).slice(0, 3).map(item => ({ ...item, score: 1 })),
+      );
 
       renderWithRouter(<App />);
       const section = await recommendedSection();
@@ -213,9 +219,9 @@ describe('Recommended for you on Home', () => {
 
     it('TC-API-30: shows the no-match message when no API place suits the preferences', async () => {
       mockApi(noMatchVenues);
-      signInAsDemo();
-
-      await client.savePreferences(noMatchPreferences);
+      vi.spyOn(realAuth, 'currentUser').mockResolvedValue({ id: '1', name: 'Demo User', email: 'demo@example.test' });
+      vi.spyOn(realAuth, 'readPreferences').mockResolvedValue({ noise: 5, lighting: null, crowd: 1 });
+      vi.spyOn(realAuth, 'readRecommendations').mockResolvedValue([]);
 
       renderWithRouter(<App />);
       const section = await recommendedSection();

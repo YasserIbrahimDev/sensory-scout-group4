@@ -1,3 +1,4 @@
+import * as realAuth from './authApi';
 import type { LatLng, NearbyPlace, Place, Review } from '../types/place';
 import { hasLocation } from '../types/place';
 import type { AppSettings, DemoSensoryPreferences, SavedSensoryPreferences, SignInDetails, SignUpDetails, User } from '../types/user';
@@ -9,6 +10,7 @@ import { mockPlaces } from '../data/mockPlaces';
 import { mockReviews } from '../data/mockReviews';
 import { mockAccountStore } from '../data/mockAccount';
 import { fetchAllPlaces, fetchPlace } from './placeAdapter';
+import { fetchBackendReviews } from './backendClient';
 import { addDemoFavorite, deleteDemoFavorite, fetchDemoFavorites, fetchDemoPreferences, fetchDemoRecommendations, fetchDemoSettings, saveDemoPreferences, saveDemoSettings } from './demoApi';
 
 // All data loading goes through this file. Pages never import mock data directly.
@@ -42,10 +44,10 @@ export async function getPlace(placeId: string): Promise<Place | null> {
 
 /**
  * Reviews for one place, newest first.
- * The API does not return review text yet, so this is empty when using the API.
+ * API mode reads written reviews from the backend; mock mode uses local fixtures.
  */
 export async function getReviews(placeId: string): Promise<Review[]> {
-  if (!usingMockData()) return [];
+  if (!usingMockData()) return fetchBackendReviews(placeId);
   return mockReviews
     .filter((review) => review.placeId === placeId)
     .sort((a, b) => b.date.localeCompare(a.date));
@@ -113,12 +115,14 @@ export async function getCurrentUser(): Promise<User | null> {
     mockAccountStore.currentUserId = user.id;
     return user;
   }
+  if (!usingMockData()) return realAuth.currentUser();
   const account = currentAccount();
   return account ? { ...account.user } : null;
 }
 
 export async function signIn({ email, password }: SignInDetails): Promise<User> {
   if (usingDemoMode()) throw new AccountError('Sign-in is not part of the development demo. The demo identity is provided by the backend.');
+  if (!usingMockData()) return realAuth.login({ email, password });
   const account = mockAccountStore.accounts.find((a) => a.user.email === normalizeEmail(email));
   if (!account || account.password !== password) {
     throw new AccountError('The email or password is incorrect.');
@@ -129,6 +133,7 @@ export async function signIn({ email, password }: SignInDetails): Promise<User> 
 
 export async function signUp({ name, email, password }: SignUpDetails): Promise<User> {
   if (usingDemoMode()) throw new AccountError('Account creation is disabled in the development demo.');
+  if (!usingMockData()) return realAuth.register({ name, email, password });
   const normalized = normalizeEmail(email);
   if (mockAccountStore.accounts.some((a) => a.user.email === normalized)) {
     throw new AccountError('An account with this email already exists. Try signing in instead.');
@@ -146,11 +151,13 @@ export async function signUp({ name, email, password }: SignUpDetails): Promise<
 
 export async function signOut(): Promise<void> {
   if (usingDemoMode()) return;
+  if (!usingMockData()) return realAuth.logout();
   mockAccountStore.currentUserId = null;
 }
 
 export async function getPreferences(): Promise<SavedSensoryPreferences> {
   if (usingDemoMode()) return (await fetchDemoPreferences()).preferences;
+  if (!usingMockData()) return realAuth.readPreferences();
   return { ...requireAccount().preferences };
 }
 
@@ -159,6 +166,7 @@ export async function savePreferences(preferences: SavedSensoryPreferences): Pro
     const numeric = preferences as DemoSensoryPreferences;
     return saveDemoPreferences(numeric);
   }
+  if (!usingMockData()) return realAuth.writePreferences(preferences as DemoSensoryPreferences);
   const account = requireAccount();
   account.preferences = { ...preferences } as typeof account.preferences;
   return { ...account.preferences };
@@ -167,6 +175,7 @@ export async function savePreferences(preferences: SavedSensoryPreferences): Pro
 /** The signed-in user's saved places, most recently saved first. */
 export async function getFavorites(): Promise<Place[]> {
   if (usingDemoMode()) return fetchDemoFavorites();
+  if (!usingMockData()) return realAuth.readFavorites();
   const favoriteIds = [...requireAccount().favoriteIds].reverse();
   const places = await loadAllPlaces();
   return favoriteIds
@@ -186,6 +195,10 @@ export async function getRecommendations(
     const [response, recommendations] = await Promise.all([fetchDemoPreferences(), fetchDemoRecommendations(limit)]);
     return { preferences: response.preferences, recommendations };
   }
+  if (!usingMockData()) {
+    const [preferences, recommendations] = await Promise.all([realAuth.readPreferences(), realAuth.readRecommendations(limit)]);
+    return { preferences, recommendations };
+  }
   const preferences = { ...requireAccount().preferences };
   const recommendations = recommendPlaces(await loadAllPlaces(), preferences).slice(0, limit);
   return { preferences, recommendations };
@@ -193,28 +206,33 @@ export async function getRecommendations(
 
 export async function isFavorite(placeId: string): Promise<boolean> {
   if (usingDemoMode()) return (await fetchDemoFavorites()).some((place) => place.id === placeId);
+  if (!usingMockData()) return (await realAuth.readFavorites()).some((place) => place.id === placeId);
   return requireAccount().favoriteIds.includes(placeId);
 }
 
 export async function saveFavorite(placeId: string): Promise<void> {
   if (usingDemoMode()) return addDemoFavorite(placeId);
+  if (!usingMockData()) return realAuth.addFavorite(placeId);
   const account = requireAccount();
   if (!account.favoriteIds.includes(placeId)) account.favoriteIds.push(placeId);
 }
 
 export async function removeFavorite(placeId: string): Promise<void> {
   if (usingDemoMode()) return deleteDemoFavorite(placeId);
+  if (!usingMockData()) return realAuth.deleteFavorite(placeId);
   const account = requireAccount();
   account.favoriteIds = account.favoriteIds.filter((id) => id !== placeId);
 }
 
 export async function getSettings(): Promise<AppSettings> {
   if (usingDemoMode()) return fetchDemoSettings();
+  if (!usingMockData()) return realAuth.readSettings();
   return { ...mockAccountStore.settings };
 }
 
 export async function saveSettings(settings: AppSettings): Promise<AppSettings> {
   if (usingDemoMode()) return saveDemoSettings(settings);
+  if (!usingMockData()) return realAuth.writeSettings(settings);
   mockAccountStore.settings = { ...settings };
   return { ...mockAccountStore.settings };
 }

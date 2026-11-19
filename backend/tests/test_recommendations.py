@@ -16,7 +16,17 @@ def test_missing_ratings_never_count_as_matches(db):
     seed_data(db)
     profile = db.scalar(select(SensoryProfile).where(SensoryProfile.pref_noise == 1))
     results = rank_venues(db, profile, limit=100)
-    unreviewed = db.scalar(select(Venue).where(Venue.slug == "new-venue"))
+    unreviewed = Venue(
+        slug="unreviewed-test-place",
+        name="Unreviewed Test Place",
+        category="community",
+        description="Test fixture venue without ratings.",
+        address="1 Test Lane",
+        city="Denton",
+        is_sample=True,
+    )
+    db.add(unreviewed)
+    db.commit()
     assert unreviewed.id not in [result.venue_id for result in results]
     assert all(result.reason and result.score > 0 for result in results)
 

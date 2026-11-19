@@ -25,8 +25,7 @@ Wheelchair accessibility is a reviewer report. The details response counts yes/n
 unknown reports rather than converting conflicting reports into a definitive fact.
 External map ID is a provider identifier, not an IP address or secret API key.
 Provider and ID are either both set or both null. Latitude/longitude must be paired.
-Image URL is optional. Fictional sample venues use clearly labeled synthetic map positions;
-external map identifiers and images remain unset.
+Image URL is optional. Maps/image fields remain null in fictional sample venues.
 PostGIS geography is unnecessary for this starter; use ordinary coordinate columns.
 
 ## Fresh database required for this revised baseline
@@ -72,12 +71,19 @@ local development placeholders. No auth, profile, review, vote or save routes ye
 
 ## Samples and API handoff
 
-`data/sample_data.json` contains 3 disabled sample users, 3 profiles,
-16 sample venues (10 fictional and 6 Denton locations), 16 reviews, 16 synthetic
-ratings, 2 votes and 3 saved places.
-It links fixtures using sample emails/slugs/review keys; seeding resolves real IDs
-and foreign keys. Re-running it preserves rows and edits. Sample accounts cannot
-log in; `!disabled-sample-account` is a disabled marker, not a password hash.
+`data/sample_data.json` contains 3 disabled sample users, 3 sensory profiles,
+37 Denton-area venues, 111 illustrative reviews, and 111 sensory ratings. The
+venue profiles intentionally span quiet-to-lively noise, dim-to-bright lighting,
+and sparse-to-crowded conditions so the search filters return meaningfully different
+sets of places. Each venue has three sample observations with small visit-to-visit
+variation. Review text and sensory scores are synthetic prototype data, not verified
+visitor reports or official venue assessments.
+
+The fixture also contains saved-place examples. It links records using sample
+emails/slugs/review keys; seeding resolves database IDs and foreign keys. Re-running
+it refreshes the fixture-owned review text and ratings without duplicating records.
+Sample accounts cannot log in; `!disabled-sample-account` is a disabled marker,
+not a password hash.
 Real authentication must hash passwords and reject disabled markers when added.
 
 Yasser owns setup/schema/seeds and GET /api/v1/places/{place_id}. The route now
@@ -112,27 +118,3 @@ Remove-Item Env:RUN_POSTGRES_TESTS
 ```
 
 Run these only on a migrated/seeded development database. CI remains Robert's task.
-
-## Refresh map and sensory demonstration data
-
-The seed contains 16 venues: 10 fictional venues with synthetic map positions near
-Denton and 6 existing Denton venue locations with invented sensory assessments.
-All are marked `is_sample=true`. The fictional addresses do not correspond to the
-map positions. Do not use these records as real travel or accessibility guidance.
-The Denton ratings are test values, not visitor observations. Their accessibility
-is unknown. Sample New Venue remains unrated to exercise missing-data behavior.
-The complete dataset has 16 reviews and 16 ratings; no real login is created.
-
-For a fresh database, use the normal `python -m app.seed` command. For an already
-seeded development database, run from `backend` in PowerShell:
-
-```powershell
-.\.venv\Scripts\python.exe -m app.seed --update-sample-locations
-```
-
-This inserts the six missing synthetic assessments and fills coordinates only
-when both coordinates of an existing sample venue are missing. Existing IDs,
-non-sample records, edited coordinates, ratings and comments are preserved. The
-original description is retained and a synthetic-coordinate note is appended
-when a fictional venue is backfilled. Repeating the command adds no duplicates.
-This is a data refresh, not a schema change; do not reset or delete the database.

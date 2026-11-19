@@ -83,6 +83,23 @@ export function mockApi(venues = allVenues, override?: (url: URL) => FakeRespons
 }
 
 function defaultAnswer(url: URL, venues: VenueDetail[]): FakeResponse {
+  const reviews = url.pathname.match(/\/api\/v1\/places\/(\d+)\/reviews$/);
+  if (reviews) {
+    const placeId = reviews[1];
+    return {
+      status: 200,
+      body: placeId === '1' ? [
+        {
+          id: 'review-1', placeId, author: 'Alex R.', rating: 4,
+          date: '2026-10-14', text: 'A calm space with comfortable lighting.',
+        },
+        {
+          id: 'review-2', placeId, author: 'Jordan M.', rating: 5,
+          date: '2026-10-12', text: 'I enjoyed the quiet reading areas.',
+        },
+      ] : [],
+    };
+  }
   const detail = url.pathname.match(/\/api\/v1\/places\/(\d+)$/);
   if (detail) {
     const found = venues.find((v) => v.id === Number(detail[1]));

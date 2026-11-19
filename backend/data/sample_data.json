@@ -22,9 +22,9 @@
     },
     {
       "user_email": "scout.two@example.invalid",
-      "pref_noise": 2,
-      "pref_light": 3,
-      "pref_crowd": 2
+      "pref_noise": 4,
+      "pref_light": 4,
+      "pref_crowd": 3
     },
     {
       "user_email": "scout.three@example.invalid",
@@ -35,141 +35,127 @@
   ],
   "venues": [
     {
-      "slug": "willow-reading-room",
-      "name": "Sample Willow Reading Room",
+      "slug": "denton-north-library",
+      "name": "Denton North Branch Library",
       "category": "library",
-      "description": "Fictional venue for testing Sensory Scout. Not a real destination. Coordinates are synthetic map-test positions near Denton, not the location of this fictional address.",
-      "address": "1 Example Lane (fictional address)",
-      "city": "Sample City",
-      "latitude": 33.2102,
-      "longitude": -97.1411,
-      "is_sample": true,
+      "description": "Denton North Branch Library is a real location in Denton, Texas. Sensory observations and demonstration reviews in this prototype are illustrative, not verified visitor reports.",
+      "address": "3020 N Locust St, Denton, TX 76209",
+      "city": "Denton",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": false,
       "external_map_provider": null,
       "external_map_id": null,
       "image_url": null
     },
     {
-      "slug": "cedar-cafe",
-      "name": "Sample Cedar Cafe",
-      "category": "cafe",
-      "description": "Fictional venue for testing Sensory Scout. Not a real destination. Coordinates are synthetic map-test positions near Denton, not the location of this fictional address.",
-      "address": "2 Example Lane (fictional address)",
-      "city": "Sample City",
-      "latitude": 33.2114,
-      "longitude": -97.1384,
-      "is_sample": true,
+      "slug": "denton-south-library",
+      "name": "Denton South Branch Library",
+      "category": "library",
+      "description": "Denton South Branch Library is a real location in Denton, Texas. Sensory observations and demonstration reviews in this prototype are illustrative, not verified visitor reports.",
+      "address": "3228 Teasley Ln, Denton, TX 76210",
+      "city": "Denton",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": false,
       "external_map_provider": null,
       "external_map_id": null,
       "image_url": null
     },
     {
-      "slug": "meadow-park",
-      "name": "Sample Meadow Park",
-      "category": "park",
-      "description": "Fictional venue for testing Sensory Scout. Not a real destination. Coordinates are synthetic map-test positions near Denton, not the location of this fictional address.",
-      "address": "3 Example Lane (fictional address)",
-      "city": "Sample City",
-      "latitude": 33.2136,
-      "longitude": -97.1397,
-      "is_sample": true,
-      "external_map_provider": null,
-      "external_map_id": null,
-      "image_url": null
-    },
-    {
-      "slug": "market-square",
-      "name": "Sample Market Square",
-      "category": "market",
-      "description": "Fictional venue for testing Sensory Scout. Not a real destination. Coordinates are synthetic map-test positions near Denton, not the location of this fictional address.",
-      "address": "4 Example Lane (fictional address)",
-      "city": "Sample City",
-      "latitude": 33.2158,
-      "longitude": -97.1379,
-      "is_sample": true,
-      "external_map_provider": null,
-      "external_map_id": null,
-      "image_url": null
-    },
-    {
-      "slug": "evening-gallery",
-      "name": "Sample Evening Gallery",
+      "slug": "patterson-appleton-arts-center",
+      "name": "Patterson-Appleton Arts Center",
       "category": "museum",
-      "description": "Fictional venue for testing Sensory Scout. Not a real destination. Coordinates are synthetic map-test positions near Denton, not the location of this fictional address.",
-      "address": "5 Example Lane (fictional address)",
-      "city": "Sample City",
-      "latitude": 33.2173,
-      "longitude": -97.1406,
-      "is_sample": true,
+      "description": "Patterson-Appleton Arts Center is a real location in Denton, Texas. Sensory observations and demonstration reviews in this prototype are illustrative, not verified visitor reports.",
+      "address": "400 E Hickory St, Denton, TX 76201",
+      "city": "Denton",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": false,
       "external_map_provider": null,
       "external_map_id": null,
       "image_url": null
     },
     {
-      "slug": "community-lounge",
-      "name": "Sample Community Lounge",
-      "category": "community",
-      "description": "Fictional venue for testing Sensory Scout. Not a real destination. Coordinates are synthetic map-test positions near Denton, not the location of this fictional address.",
-      "address": "6 Example Lane (fictional address)",
-      "city": "Sample City",
-      "latitude": 33.2191,
-      "longitude": -97.1372,
-      "is_sample": true,
+      "slug": "courthouse-square-museum",
+      "name": "Denton County Courthouse-on-the-Square Museum",
+      "category": "museum",
+      "description": "Denton County Courthouse-on-the-Square Museum is a real location in Denton, Texas. Sensory observations and demonstration reviews in this prototype are illustrative, not verified visitor reports.",
+      "address": "110 W Hickory St, Denton, TX 76201",
+      "city": "Denton",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": false,
       "external_map_provider": null,
       "external_map_id": null,
       "image_url": null
     },
     {
-      "slug": "riverside-cafe",
-      "name": "Sample Riverside Cafe",
+      "slug": "historical-park",
+      "name": "Denton County Historical Park",
+      "category": "park",
+      "description": "Denton County Historical Park is a real location in Denton, Texas. Sensory observations and demonstration reviews in this prototype are illustrative, not verified visitor reports.",
+      "address": "317 W Mulberry St, Denton, TX 76201",
+      "city": "Denton",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": false,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    },
+    {
+      "slug": "bayless-selby-house",
+      "name": "Bayless-Selby House Museum",
+      "category": "museum",
+      "description": "Bayless-Selby House Museum is a real location in Denton, Texas. Sensory observations and demonstration reviews in this prototype are illustrative, not verified visitor reports.",
+      "address": "317 W Mulberry St, Denton, TX 76201",
+      "city": "Denton",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": false,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    },
+    {
+      "slug": "quakertown-park",
+      "name": "Quakertown Park",
+      "category": "park",
+      "description": "Quakertown Park is a real location in Denton, Texas. Sensory observations and demonstration reviews in this prototype are illustrative, not verified visitor reports.",
+      "address": "700 Oakland St, Denton, TX 76201",
+      "city": "Denton",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": false,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    },
+    {
+      "slug": "west-oak-coffee",
+      "name": "West Oak Coffee Bar",
       "category": "cafe",
-      "description": "Fictional venue for testing Sensory Scout. Not a real destination. Coordinates are synthetic map-test positions near Denton, not the location of this fictional address.",
-      "address": "7 Example Lane (fictional address)",
-      "city": "Sample City",
-      "latitude": 33.2204,
-      "longitude": -97.1348,
-      "is_sample": true,
+      "description": "West Oak Coffee Bar is a real location in Denton, Texas. Sensory observations and demonstration reviews in this prototype are illustrative, not verified visitor reports.",
+      "address": "114 W Oak St, Denton, TX 76201",
+      "city": "Denton",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": false,
       "external_map_provider": null,
       "external_map_id": null,
       "image_url": null
     },
     {
-      "slug": "busy-food-hall",
-      "name": "Sample Busy Food Hall",
-      "category": "restaurant",
-      "description": "Fictional venue for testing Sensory Scout. Not a real destination. Coordinates are synthetic map-test positions near Denton, not the location of this fictional address.",
-      "address": "8 Example Lane (fictional address)",
-      "city": "Sample City",
-      "latitude": 33.2221,
-      "longitude": -97.1389,
-      "is_sample": true,
-      "external_map_provider": null,
-      "external_map_id": null,
-      "image_url": null
-    },
-    {
-      "slug": "study-corner",
-      "name": "Sample Study Corner",
-      "category": "library",
-      "description": "Fictional venue for testing Sensory Scout. Not a real destination. Coordinates are synthetic map-test positions near Denton, not the location of this fictional address.",
-      "address": "9 Example Lane (fictional address)",
-      "city": "Sample City",
-      "latitude": 33.2236,
-      "longitude": -97.1418,
-      "is_sample": true,
-      "external_map_provider": null,
-      "external_map_id": null,
-      "image_url": null
-    },
-    {
-      "slug": "new-venue",
-      "name": "Sample New Venue",
-      "category": "community",
-      "description": "Fictional venue for testing Sensory Scout. Not a real destination. Coordinates are synthetic map-test positions near Denton, not the location of this fictional address.",
-      "address": "10 Example Lane (fictional address)",
-      "city": "Sample City",
-      "latitude": 33.2251,
-      "longitude": -97.1361,
-      "is_sample": true,
+      "slug": "triptych-coffee",
+      "name": "Triptych Coffee",
+      "category": "cafe",
+      "description": "Triptych Coffee is a real location in Denton, Texas. Sensory observations and demonstration reviews in this prototype are illustrative, not verified visitor reports.",
+      "address": "Denton, TX (street address not verified)",
+      "city": "Denton",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": false,
       "external_map_provider": null,
       "external_map_id": null,
       "image_url": null
@@ -178,12 +164,12 @@
       "slug": "denton-public-library",
       "name": "Emily Fowler Central Library",
       "category": "library",
-      "description": "Real Denton venue location from the team's frontend demo dataset. Address and coordinates should be verified before public use. Sensory ratings are synthetic demonstration data, not real visitor observations or verified venue conditions.",
+      "description": "Real Denton venue location from the team's frontend demo dataset. Address and coordinates should be verified before public use. Sensory ratings, if added later, are synthetic demonstration data and not real visitor observations.",
       "address": "502 Oakland St, Denton, TX 76201",
       "city": "Denton",
       "latitude": 33.21863601456154,
       "longitude": -97.13008743253772,
-      "is_sample": true,
+      "is_sample": false,
       "external_map_provider": null,
       "external_map_id": null,
       "image_url": null
@@ -192,12 +178,12 @@
       "slug": "north-lakes-park",
       "name": "North Lakes Park",
       "category": "park",
-      "description": "Real Denton venue location from the team's frontend demo dataset. Address and coordinates should be verified before public use. Sensory ratings are synthetic demonstration data, not real visitor observations or verified venue conditions.",
+      "description": "Real Denton venue location from the team's frontend demo dataset. Address and coordinates should be verified before public use. Sensory ratings, if added later, are synthetic demonstration data and not real visitor observations.",
       "address": "2001 W Windsor Dr, Denton, TX",
       "city": "Denton",
       "latitude": 33.23981,
       "longitude": -97.15225,
-      "is_sample": true,
+      "is_sample": false,
       "external_map_provider": null,
       "external_map_id": null,
       "image_url": null
@@ -206,12 +192,12 @@
       "slug": "harmony-coffee",
       "name": "Jupiter House",
       "category": "cafe",
-      "description": "Real Denton venue location from the team's frontend demo dataset. Address and coordinates should be verified before public use. Sensory ratings are synthetic demonstration data, not real visitor observations or verified venue conditions.",
+      "description": "Real Denton venue location from the team's frontend demo dataset. Address and coordinates should be verified before public use. Sensory ratings, if added later, are synthetic demonstration data and not real visitor observations.",
       "address": "106 N Locust St, Denton, TX 76201",
       "city": "Denton",
       "latitude": 33.21500606757385,
       "longitude": -97.13223691534338,
-      "is_sample": true,
+      "is_sample": false,
       "external_map_provider": null,
       "external_map_id": null,
       "image_url": null
@@ -220,12 +206,12 @@
       "slug": "unt-art-gallery",
       "name": "UNT Art Building",
       "category": "museum",
-      "description": "Real Denton venue location from the team's frontend demo dataset. Address and coordinates should be verified before public use. Sensory ratings are synthetic demonstration data, not real visitor observations or verified venue conditions.",
+      "description": "Real Denton venue location from the team's frontend demo dataset. Address and coordinates should be verified before public use. Sensory ratings, if added later, are synthetic demonstration data and not real visitor observations.",
       "address": "1201 W Mulberry St, Denton, TX 76201",
       "city": "Denton",
       "latitude": 33.21312,
       "longitude": -97.14525,
-      "is_sample": true,
+      "is_sample": false,
       "external_map_provider": null,
       "external_map_id": null,
       "image_url": null
@@ -234,12 +220,12 @@
       "slug": "square-burger-co",
       "name": "LSA Burger Co.",
       "category": "restaurant",
-      "description": "Real Denton venue location from the team's frontend demo dataset. Address and coordinates should be verified before public use. Sensory ratings are synthetic demonstration data, not real visitor observations or verified venue conditions.",
+      "description": "Real Denton venue location from the team's frontend demo dataset. Address and coordinates should be verified before public use. Sensory ratings, if added later, are synthetic demonstration data and not real visitor observations.",
       "address": "113 W Hickory St, Denton, TX 76201",
       "city": "Denton",
       "latitude": 33.21458342041195,
       "longitude": -97.13316561534339,
-      "is_sample": true,
+      "is_sample": false,
       "external_map_provider": null,
       "external_map_id": null,
       "image_url": null
@@ -248,12 +234,320 @@
       "slug": "calm-corner-books",
       "name": "Recycled Books, Records & CDs",
       "category": "store",
-      "description": "Real Denton venue location from the team's frontend demo dataset. Address and coordinates should be verified before public use. Sensory ratings are synthetic demonstration data, not real visitor observations or verified venue conditions.",
+      "description": "Real Denton venue location from the team's frontend demo dataset. Address and coordinates should be verified before public use. Sensory ratings, if added later, are synthetic demonstration data and not real visitor observations.",
       "address": "200 N Locust St, Denton, TX 76201",
       "city": "Denton",
       "latitude": 33.215960928314374,
       "longitude": -97.13228479999998,
-      "is_sample": true,
+      "is_sample": false,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    },
+    {
+      "slug": "avon-dale-park",
+      "name": "Avondale Park",
+      "category": "park",
+      "description": "Avondale Park is listed as a Denton-area destination in local visitor or public-facility directories. Sensory observations and demonstration reviews are illustrative, not verified visitor reports.",
+      "address": "2021 Devonshire Dr, Denton, TX 76201",
+      "city": "Denton",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": false,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    },
+    {
+      "slug": "bowling-green-park",
+      "name": "Bowling Green Park & Community Garden",
+      "category": "park",
+      "description": "Bowling Green Park & Community Garden is listed as a Denton-area destination in local visitor or public-facility directories. Sensory observations and demonstration reviews are illustrative, not verified visitor reports.",
+      "address": "2200 Bowling Green St, Denton, TX 76201",
+      "city": "Denton",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": false,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    },
+    {
+      "slug": "clear-creek-natural-heritage-center",
+      "name": "Clear Creek Natural Heritage Center",
+      "category": "park",
+      "description": "Clear Creek Natural Heritage Center is listed as a Denton-area destination in local visitor or public-facility directories. Sensory observations and demonstration reviews are illustrative, not verified visitor reports.",
+      "address": "Denton, TX (verify visitor entrance before routing)",
+      "city": "Denton",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": false,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    },
+    {
+      "slug": "denton-firefighters-museum",
+      "name": "Denton Firefighters Museum",
+      "category": "museum",
+      "description": "Denton Firefighters Museum is listed as a Denton-area destination in local visitor or public-facility directories. Sensory observations and demonstration reviews are illustrative, not verified visitor reports.",
+      "address": "332 E Hickory St, Denton, TX 76201",
+      "city": "Denton",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": false,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    },
+    {
+      "slug": "quakertown-house-museum",
+      "name": "Quakertown House Museum",
+      "category": "museum",
+      "description": "Quakertown House Museum is listed as a Denton-area destination in local visitor or public-facility directories. Sensory observations and demonstration reviews are illustrative, not verified visitor reports.",
+      "address": "317 W Mulberry St, Denton, TX 76201",
+      "city": "Denton",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": false,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    },
+    {
+      "slug": "discover-denton-visitor-center",
+      "name": "Discover Denton Visitor Center",
+      "category": "community",
+      "description": "Discover Denton Visitor Center is listed as a Denton-area destination in local visitor or public-facility directories. Sensory observations and demonstration reviews are illustrative, not verified visitor reports.",
+      "address": "111 W Hickory St, Denton, TX 76201",
+      "city": "Denton",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": false,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    },
+    {
+      "slug": "campus-theatre",
+      "name": "Campus Theatre",
+      "category": "community",
+      "description": "Campus Theatre is listed as a Denton-area destination in local visitor or public-facility directories. Sensory observations and demonstration reviews are illustrative, not verified visitor reports.",
+      "address": "Denton, TX (street address not verified)",
+      "city": "Denton",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": false,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    },
+    {
+      "slug": "explorium-childrens-museum",
+      "name": "Explorium - Denton Children’s Museum",
+      "category": "museum",
+      "description": "Explorium - Denton Children’s Museum is listed as a Denton-area destination in local visitor or public-facility directories. Sensory observations and demonstration reviews are illustrative, not verified visitor reports.",
+      "address": "Denton, TX (street address not verified)",
+      "city": "Denton",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": false,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    },
+    {
+      "slug": "beth-maries-ice-cream",
+      "name": "Beth Marie’s Old Fashioned Ice Cream",
+      "category": "cafe",
+      "description": "Beth Marie’s Old Fashioned Ice Cream is listed as a Denton-area destination in local visitor or public-facility directories. Sensory observations and demonstration reviews are illustrative, not verified visitor reports.",
+      "address": "Denton, TX (street address not verified)",
+      "city": "Denton",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": false,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    },
+    {
+      "slug": "chestnut-tree-bistro",
+      "name": "Chestnut Tree Tea House & Bistro",
+      "category": "restaurant",
+      "description": "Chestnut Tree Tea House & Bistro is listed as a Denton-area destination in local visitor or public-facility directories. Sensory observations and demonstration reviews are illustrative, not verified visitor reports.",
+      "address": "Denton, TX (street address not verified)",
+      "city": "Denton",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": false,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    },
+    {
+      "slug": "komodo-loco",
+      "name": "Komodo Loco",
+      "category": "restaurant",
+      "description": "Komodo Loco is listed as a Denton-area destination in local visitor or public-facility directories. Sensory observations and demonstration reviews are illustrative, not verified visitor reports.",
+      "address": "Denton, TX (street address not verified)",
+      "city": "Denton",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": false,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    },
+    {
+      "slug": "ta-an-eatery",
+      "name": "Taan Eatery",
+      "category": "restaurant",
+      "description": "Taan Eatery is listed as a Denton-area destination in local visitor or public-facility directories. Sensory observations and demonstration reviews are illustrative, not verified visitor reports.",
+      "address": "Denton, TX (street address not verified)",
+      "city": "Denton",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": false,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    },
+    {
+      "slug": "patchouli-joes",
+      "name": "Patchouli Joe’s Books & Indulgences",
+      "category": "store",
+      "description": "Patchouli Joe’s Books & Indulgences is listed as a Denton-area destination in local visitor or public-facility directories. Sensory observations and demonstration reviews are illustrative, not verified visitor reports.",
+      "address": "Denton, TX (street address not verified)",
+      "city": "Denton",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": false,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    },
+    {
+      "slug": "taqueria-monterrey",
+      "name": "Taqueria Monterrey",
+      "category": "restaurant",
+      "description": "Taqueria Monterrey is a Denton-area destination listed in local directories or public-facility information. Sensory observations and demonstration reviews are illustrative, not verified visitor reports.",
+      "address": "Denton, TX (street address not verified)",
+      "city": "Denton",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": false,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    },
+    {
+      "slug": "mellow-mushroom-denton",
+      "name": "Mellow Mushroom",
+      "category": "restaurant",
+      "description": "Mellow Mushroom is a Denton-area destination listed in local directories or public-facility information. Sensory observations and demonstration reviews are illustrative, not verified visitor reports.",
+      "address": "Denton, TX (street address not verified)",
+      "city": "Denton",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": false,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    },
+    {
+      "slug": "rusty-taco-denton",
+      "name": "Rusty Taco",
+      "category": "restaurant",
+      "description": "Rusty Taco is a Denton-area destination listed in local directories or public-facility information. Sensory observations and demonstration reviews are illustrative, not verified visitor reports.",
+      "address": "Denton, TX (street address not verified)",
+      "city": "Denton",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": false,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    },
+    {
+      "slug": "the-cookie-crave",
+      "name": "The Cookie Crave",
+      "category": "cafe",
+      "description": "The Cookie Crave is a Denton-area destination listed in local directories or public-facility information. Sensory observations and demonstration reviews are illustrative, not verified visitor reports.",
+      "address": "Denton, TX (street address not verified)",
+      "city": "Denton",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": false,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    },
+    {
+      "slug": "atomic-candy",
+      "name": "Atomic Candy",
+      "category": "store",
+      "description": "Atomic Candy is a Denton-area destination listed in local directories or public-facility information. Sensory observations and demonstration reviews are illustrative, not verified visitor reports.",
+      "address": "Denton, TX (street address not verified)",
+      "city": "Denton",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": false,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    },
+    {
+      "slug": "greater-denton-arts-council",
+      "name": "Greater Denton Arts Council",
+      "category": "community",
+      "description": "Greater Denton Arts Council is a Denton-area destination listed in local directories or public-facility information. Sensory observations and demonstration reviews are illustrative, not verified visitor reports.",
+      "address": "400 E Hickory St, Denton, TX 76201",
+      "city": "Denton",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": false,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    },
+    {
+      "slug": "little-chapel-in-the-woods",
+      "name": "Little Chapel in the Woods",
+      "category": "community",
+      "description": "Little Chapel in the Woods is a Denton-area destination listed in local directories or public-facility information. Sensory observations and demonstration reviews are illustrative, not verified visitor reports.",
+      "address": "415 Chapel Dr, Denton, TX 76204",
+      "city": "Denton",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": false,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    },
+    {
+      "slug": "north-lakes-park-trail",
+      "name": "North Lakes Park Trail",
+      "category": "park",
+      "description": "North Lakes Park Trail is a Denton-area destination listed in local directories or public-facility information. Sensory observations and demonstration reviews are illustrative, not verified visitor reports.",
+      "address": "2001 W Windsor Dr, Denton, TX",
+      "city": "Denton",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": false,
+      "external_map_provider": null,
+      "external_map_id": null,
+      "image_url": null
+    },
+    {
+      "slug": "american-legion-senior-center",
+      "name": "American Legion Hall Senior Center",
+      "category": "community",
+      "description": "American Legion Hall Senior Center is a Denton-area destination listed in local directories or public-facility information. Sensory observations and demonstration reviews are illustrative, not verified visitor reports.",
+      "address": "629 Lakey St, Denton, TX 76201",
+      "city": "Denton",
+      "latitude": null,
+      "longitude": null,
+      "is_sample": false,
       "external_map_provider": null,
       "external_map_id": null,
       "image_url": null
@@ -261,228 +555,1563 @@
   ],
   "reviews": [
     {
-      "key": "sample-review-1",
+      "key": "denton-north-library-review-1",
       "user_email": "scout.one@example.invalid",
-      "venue_slug": "willow-reading-room",
-      "comment": "Fictional sample review for development only.",
-      "wheelchair_accessible": true
+      "venue_slug": "denton-north-library",
+      "comment": "Prototype observation at Denton North Branch Library: reading area felt very quiet, the lighting was softly lit, and the space was sparsely occupied during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
     },
     {
-      "key": "sample-review-2",
-      "user_email": "scout.one@example.invalid",
-      "venue_slug": "cedar-cafe",
-      "comment": "Fictional sample review for development only.",
-      "wheelchair_accessible": true
-    },
-    {
-      "key": "sample-review-3",
-      "user_email": "scout.one@example.invalid",
-      "venue_slug": "meadow-park",
-      "comment": "Fictional sample review for development only.",
-      "wheelchair_accessible": false
-    },
-    {
-      "key": "sample-review-4",
-      "user_email": "scout.one@example.invalid",
-      "venue_slug": "market-square",
-      "comment": "Fictional sample review for development only.",
-      "wheelchair_accessible": true
-    },
-    {
-      "key": "sample-review-5",
-      "user_email": "scout.one@example.invalid",
-      "venue_slug": "evening-gallery",
-      "comment": "Fictional sample review for development only.",
-      "wheelchair_accessible": true
-    },
-    {
-      "key": "sample-review-6",
-      "user_email": "scout.one@example.invalid",
-      "venue_slug": "community-lounge",
-      "comment": "Fictional sample review for development only.",
-      "wheelchair_accessible": false
-    },
-    {
-      "key": "sample-review-7",
-      "user_email": "scout.one@example.invalid",
-      "venue_slug": "riverside-cafe",
-      "comment": "Fictional sample review for development only.",
-      "wheelchair_accessible": true
-    },
-    {
-      "key": "sample-review-8",
-      "user_email": "scout.one@example.invalid",
-      "venue_slug": "busy-food-hall",
-      "comment": "Fictional sample review for development only.",
-      "wheelchair_accessible": true
-    },
-    {
-      "key": "sample-review-9",
-      "user_email": "scout.one@example.invalid",
-      "venue_slug": "study-corner",
-      "comment": "Fictional sample review for development only.",
-      "wheelchair_accessible": false
-    },
-    {
-      "key": "sample-review-second",
+      "key": "denton-north-library-review-2",
       "user_email": "scout.two@example.invalid",
-      "venue_slug": "willow-reading-room",
-      "comment": "Second fictional sample assessment.",
-      "wheelchair_accessible": true
+      "venue_slug": "denton-north-library",
+      "comment": "Prototype observation at Denton North Branch Library: study tables felt quiet, the lighting was dim, and the space was lightly occupied during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
     },
     {
-      "key": "denton-demo-review-1",
+      "key": "denton-north-library-review-3",
+      "user_email": "scout.three@example.invalid",
+      "venue_slug": "denton-north-library",
+      "comment": "Prototype observation at Denton North Branch Library: main seating area felt very quiet, the lighting was moderately lit, and the space was sparsely occupied during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
+    },
+    {
+      "key": "denton-south-library-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "denton-south-library",
+      "comment": "Prototype observation at Denton South Branch Library: reading area felt quiet, the lighting was moderately lit, and the space was lightly occupied during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "denton-south-library-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "denton-south-library",
+      "comment": "Prototype observation at Denton South Branch Library: study tables felt moderately active, the lighting was softly lit, and the space was moderately busy during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "denton-south-library-review-3",
+      "user_email": "scout.three@example.invalid",
+      "venue_slug": "denton-south-library",
+      "comment": "Prototype observation at Denton South Branch Library: main seating area felt very quiet, the lighting was bright, and the space was sparsely occupied during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
+    },
+    {
+      "key": "patterson-appleton-arts-center-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "patterson-appleton-arts-center",
+      "comment": "Prototype observation at Patterson-Appleton Arts Center: exhibit rooms felt quiet, the lighting was moderately lit, and the space was lightly occupied during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "patterson-appleton-arts-center-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "patterson-appleton-arts-center",
+      "comment": "Prototype observation at Patterson-Appleton Arts Center: visitor areas felt moderately active, the lighting was softly lit, and the space was moderately busy during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "patterson-appleton-arts-center-review-3",
+      "user_email": "scout.three@example.invalid",
+      "venue_slug": "patterson-appleton-arts-center",
+      "comment": "Prototype observation at Patterson-Appleton Arts Center: galleries felt very quiet, the lighting was bright, and the space was sparsely occupied during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
+    },
+    {
+      "key": "courthouse-square-museum-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "courthouse-square-museum",
+      "comment": "Prototype observation at Denton County Courthouse-on-the-Square Museum: exhibit rooms felt moderately active, the lighting was bright, and the space was moderately busy during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "courthouse-square-museum-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "courthouse-square-museum",
+      "comment": "Prototype observation at Denton County Courthouse-on-the-Square Museum: visitor areas felt lively, the lighting was moderately lit, and the space was busy during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "courthouse-square-museum-review-3",
+      "user_email": "scout.three@example.invalid",
+      "venue_slug": "courthouse-square-museum",
+      "comment": "Prototype observation at Denton County Courthouse-on-the-Square Museum: galleries felt quiet, the lighting was very bright, and the space was lightly occupied during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
+    },
+    {
+      "key": "historical-park-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "historical-park",
+      "comment": "Prototype observation at Denton County Historical Park: walking paths felt quiet, the lighting was very bright, and the space was lightly occupied during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "historical-park-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "historical-park",
+      "comment": "Prototype observation at Denton County Historical Park: open green space felt moderately active, the lighting was bright, and the space was moderately busy during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "historical-park-review-3",
+      "user_email": "scout.three@example.invalid",
+      "venue_slug": "historical-park",
+      "comment": "Prototype observation at Denton County Historical Park: shared picnic areas felt very quiet, the lighting was very bright, and the space was sparsely occupied during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
+    },
+    {
+      "key": "bayless-selby-house-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "bayless-selby-house",
+      "comment": "Prototype observation at Bayless-Selby House Museum: exhibit rooms felt very quiet, the lighting was moderately lit, and the space was sparsely occupied during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "bayless-selby-house-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "bayless-selby-house",
+      "comment": "Prototype observation at Bayless-Selby House Museum: visitor areas felt quiet, the lighting was softly lit, and the space was lightly occupied during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "bayless-selby-house-review-3",
+      "user_email": "scout.three@example.invalid",
+      "venue_slug": "bayless-selby-house",
+      "comment": "Prototype observation at Bayless-Selby House Museum: galleries felt very quiet, the lighting was bright, and the space was sparsely occupied during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
+    },
+    {
+      "key": "quakertown-park-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "quakertown-park",
+      "comment": "Prototype observation at Quakertown Park: walking paths felt quiet, the lighting was very bright, and the space was lightly occupied during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "quakertown-park-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "quakertown-park",
+      "comment": "Prototype observation at Quakertown Park: open green space felt moderately active, the lighting was bright, and the space was moderately busy during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "quakertown-park-review-3",
+      "user_email": "scout.three@example.invalid",
+      "venue_slug": "quakertown-park",
+      "comment": "Prototype observation at Quakertown Park: shared picnic areas felt very quiet, the lighting was very bright, and the space was sparsely occupied during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
+    },
+    {
+      "key": "west-oak-coffee-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "west-oak-coffee",
+      "comment": "Prototype observation at West Oak Coffee Bar: seating area felt lively, the lighting was bright, and the space was busy during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "west-oak-coffee-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "west-oak-coffee",
+      "comment": "Prototype observation at West Oak Coffee Bar: counter and dining area felt loud, the lighting was moderately lit, and the space was crowded during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "west-oak-coffee-review-3",
+      "user_email": "scout.three@example.invalid",
+      "venue_slug": "west-oak-coffee",
+      "comment": "Prototype observation at West Oak Coffee Bar: tables near the entrance felt moderately active, the lighting was very bright, and the space was moderately busy during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
+    },
+    {
+      "key": "triptych-coffee-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "triptych-coffee",
+      "comment": "Prototype observation at Triptych Coffee: seating area felt moderately active, the lighting was moderately lit, and the space was moderately busy during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "triptych-coffee-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "triptych-coffee",
+      "comment": "Prototype observation at Triptych Coffee: counter and dining area felt lively, the lighting was softly lit, and the space was busy during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "triptych-coffee-review-3",
+      "user_email": "scout.three@example.invalid",
+      "venue_slug": "triptych-coffee",
+      "comment": "Prototype observation at Triptych Coffee: tables near the entrance felt quiet, the lighting was bright, and the space was lightly occupied during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
+    },
+    {
+      "key": "denton-public-library-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "denton-public-library",
+      "comment": "Prototype observation at Emily Fowler Central Library: reading area felt very quiet, the lighting was moderately lit, and the space was lightly occupied during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "denton-public-library-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "denton-public-library",
+      "comment": "Prototype observation at Emily Fowler Central Library: study tables felt quiet, the lighting was softly lit, and the space was moderately busy during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "denton-public-library-review-3",
       "user_email": "scout.three@example.invalid",
       "venue_slug": "denton-public-library",
-      "comment": "Synthetic sensory assessment for development only. These values were invented for testing and do not describe verified conditions at this venue.",
-      "wheelchair_accessible": null
+      "comment": "Prototype observation at Emily Fowler Central Library: main seating area felt very quiet, the lighting was bright, and the space was sparsely occupied during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
     },
     {
-      "key": "denton-demo-review-2",
+      "key": "north-lakes-park-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "north-lakes-park",
+      "comment": "Prototype observation at North Lakes Park: walking paths felt quiet, the lighting was very bright, and the space was moderately busy during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "north-lakes-park-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "north-lakes-park",
+      "comment": "Prototype observation at North Lakes Park: open green space felt moderately active, the lighting was bright, and the space was busy during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "north-lakes-park-review-3",
       "user_email": "scout.three@example.invalid",
       "venue_slug": "north-lakes-park",
-      "comment": "Synthetic sensory assessment for development only. These values were invented for testing and do not describe verified conditions at this venue.",
-      "wheelchair_accessible": null
+      "comment": "Prototype observation at North Lakes Park: shared picnic areas felt very quiet, the lighting was very bright, and the space was lightly occupied during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
     },
     {
-      "key": "denton-demo-review-3",
+      "key": "harmony-coffee-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "harmony-coffee",
+      "comment": "Prototype observation at Jupiter House: seating area felt moderately active, the lighting was moderately lit, and the space was moderately busy during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "harmony-coffee-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "harmony-coffee",
+      "comment": "Prototype observation at Jupiter House: counter and dining area felt lively, the lighting was softly lit, and the space was busy during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "harmony-coffee-review-3",
       "user_email": "scout.three@example.invalid",
       "venue_slug": "harmony-coffee",
-      "comment": "Synthetic sensory assessment for development only. These values were invented for testing and do not describe verified conditions at this venue.",
-      "wheelchair_accessible": null
+      "comment": "Prototype observation at Jupiter House: tables near the entrance felt quiet, the lighting was bright, and the space was lightly occupied during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
     },
     {
-      "key": "denton-demo-review-4",
+      "key": "unt-art-gallery-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "unt-art-gallery",
+      "comment": "Prototype observation at UNT Art Building: exhibit rooms felt quiet, the lighting was bright, and the space was lightly occupied during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "unt-art-gallery-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "unt-art-gallery",
+      "comment": "Prototype observation at UNT Art Building: visitor areas felt moderately active, the lighting was moderately lit, and the space was moderately busy during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "unt-art-gallery-review-3",
       "user_email": "scout.three@example.invalid",
       "venue_slug": "unt-art-gallery",
-      "comment": "Synthetic sensory assessment for development only. These values were invented for testing and do not describe verified conditions at this venue.",
-      "wheelchair_accessible": null
+      "comment": "Prototype observation at UNT Art Building: galleries felt very quiet, the lighting was very bright, and the space was sparsely occupied during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
     },
     {
-      "key": "denton-demo-review-5",
+      "key": "square-burger-co-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "square-burger-co",
+      "comment": "Prototype observation at LSA Burger Co.: dining room felt lively, the lighting was bright, and the space was busy during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "square-burger-co-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "square-burger-co",
+      "comment": "Prototype observation at LSA Burger Co.: service counter and tables felt loud, the lighting was moderately lit, and the space was crowded during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "square-burger-co-review-3",
       "user_email": "scout.three@example.invalid",
       "venue_slug": "square-burger-co",
-      "comment": "Synthetic sensory assessment for development only. These values were invented for testing and do not describe verified conditions at this venue.",
-      "wheelchair_accessible": null
+      "comment": "Prototype observation at LSA Burger Co.: main seating area felt moderately active, the lighting was very bright, and the space was moderately busy during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
     },
     {
-      "key": "denton-demo-review-6",
+      "key": "calm-corner-books-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "calm-corner-books",
+      "comment": "Prototype observation at Recycled Books, Records & CDs: aisles felt quiet, the lighting was moderately lit, and the space was lightly occupied during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "calm-corner-books-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "calm-corner-books",
+      "comment": "Prototype observation at Recycled Books, Records & CDs: browsing area felt moderately active, the lighting was softly lit, and the space was moderately busy during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "calm-corner-books-review-3",
       "user_email": "scout.three@example.invalid",
       "venue_slug": "calm-corner-books",
-      "comment": "Synthetic sensory assessment for development only. These values were invented for testing and do not describe verified conditions at this venue.",
-      "wheelchair_accessible": null
+      "comment": "Prototype observation at Recycled Books, Records & CDs: checkout area felt very quiet, the lighting was bright, and the space was sparsely occupied during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
+    },
+    {
+      "key": "avon-dale-park-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "avon-dale-park",
+      "comment": "Prototype observation at Avondale Park: walking paths felt very quiet, the lighting was very bright, and the space was sparsely occupied during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "avon-dale-park-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "avon-dale-park",
+      "comment": "Prototype observation at Avondale Park: open green space felt quiet, the lighting was bright, and the space was lightly occupied during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "avon-dale-park-review-3",
+      "user_email": "scout.three@example.invalid",
+      "venue_slug": "avon-dale-park",
+      "comment": "Prototype observation at Avondale Park: shared picnic areas felt very quiet, the lighting was very bright, and the space was sparsely occupied during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
+    },
+    {
+      "key": "bowling-green-park-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "bowling-green-park",
+      "comment": "Prototype observation at Bowling Green Park & Community Garden: walking paths felt quiet, the lighting was very bright, and the space was lightly occupied during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "bowling-green-park-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "bowling-green-park",
+      "comment": "Prototype observation at Bowling Green Park & Community Garden: open green space felt moderately active, the lighting was bright, and the space was moderately busy during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "bowling-green-park-review-3",
+      "user_email": "scout.three@example.invalid",
+      "venue_slug": "bowling-green-park",
+      "comment": "Prototype observation at Bowling Green Park & Community Garden: shared picnic areas felt very quiet, the lighting was very bright, and the space was sparsely occupied during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
+    },
+    {
+      "key": "clear-creek-natural-heritage-center-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "clear-creek-natural-heritage-center",
+      "comment": "Prototype observation at Clear Creek Natural Heritage Center: walking paths felt very quiet, the lighting was very bright, and the space was sparsely occupied during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "clear-creek-natural-heritage-center-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "clear-creek-natural-heritage-center",
+      "comment": "Prototype observation at Clear Creek Natural Heritage Center: open green space felt quiet, the lighting was bright, and the space was lightly occupied during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "clear-creek-natural-heritage-center-review-3",
+      "user_email": "scout.three@example.invalid",
+      "venue_slug": "clear-creek-natural-heritage-center",
+      "comment": "Prototype observation at Clear Creek Natural Heritage Center: shared picnic areas felt very quiet, the lighting was very bright, and the space was sparsely occupied during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
+    },
+    {
+      "key": "denton-firefighters-museum-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "denton-firefighters-museum",
+      "comment": "Prototype observation at Denton Firefighters Museum: exhibit rooms felt quiet, the lighting was moderately lit, and the space was lightly occupied during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "denton-firefighters-museum-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "denton-firefighters-museum",
+      "comment": "Prototype observation at Denton Firefighters Museum: visitor areas felt moderately active, the lighting was softly lit, and the space was moderately busy during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "denton-firefighters-museum-review-3",
+      "user_email": "scout.three@example.invalid",
+      "venue_slug": "denton-firefighters-museum",
+      "comment": "Prototype observation at Denton Firefighters Museum: galleries felt very quiet, the lighting was bright, and the space was sparsely occupied during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
+    },
+    {
+      "key": "quakertown-house-museum-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "quakertown-house-museum",
+      "comment": "Prototype observation at Quakertown House Museum: exhibit rooms felt very quiet, the lighting was moderately lit, and the space was sparsely occupied during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "quakertown-house-museum-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "quakertown-house-museum",
+      "comment": "Prototype observation at Quakertown House Museum: visitor areas felt quiet, the lighting was softly lit, and the space was lightly occupied during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "quakertown-house-museum-review-3",
+      "user_email": "scout.three@example.invalid",
+      "venue_slug": "quakertown-house-museum",
+      "comment": "Prototype observation at Quakertown House Museum: galleries felt very quiet, the lighting was bright, and the space was sparsely occupied during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
+    },
+    {
+      "key": "discover-denton-visitor-center-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "discover-denton-visitor-center",
+      "comment": "Prototype observation at Discover Denton Visitor Center: shared rooms felt moderately active, the lighting was bright, and the space was moderately busy during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "discover-denton-visitor-center-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "discover-denton-visitor-center",
+      "comment": "Prototype observation at Discover Denton Visitor Center: main gathering area felt lively, the lighting was moderately lit, and the space was busy during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "discover-denton-visitor-center-review-3",
+      "user_email": "scout.three@example.invalid",
+      "venue_slug": "discover-denton-visitor-center",
+      "comment": "Prototype observation at Discover Denton Visitor Center: surrounding grounds felt quiet, the lighting was very bright, and the space was lightly occupied during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
+    },
+    {
+      "key": "campus-theatre-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "campus-theatre",
+      "comment": "Prototype observation at Campus Theatre: shared rooms felt lively, the lighting was moderately lit, and the space was busy during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "campus-theatre-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "campus-theatre",
+      "comment": "Prototype observation at Campus Theatre: main gathering area felt loud, the lighting was softly lit, and the space was crowded during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "campus-theatre-review-3",
+      "user_email": "scout.three@example.invalid",
+      "venue_slug": "campus-theatre",
+      "comment": "Prototype observation at Campus Theatre: surrounding grounds felt moderately active, the lighting was bright, and the space was moderately busy during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
+    },
+    {
+      "key": "explorium-childrens-museum-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "explorium-childrens-museum",
+      "comment": "Prototype observation at Explorium - Denton Children’s Museum: exhibit rooms felt lively, the lighting was very bright, and the space was busy during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "explorium-childrens-museum-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "explorium-childrens-museum",
+      "comment": "Prototype observation at Explorium - Denton Children’s Museum: visitor areas felt loud, the lighting was bright, and the space was crowded during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "explorium-childrens-museum-review-3",
+      "user_email": "scout.three@example.invalid",
+      "venue_slug": "explorium-childrens-museum",
+      "comment": "Prototype observation at Explorium - Denton Children’s Museum: galleries felt moderately active, the lighting was very bright, and the space was moderately busy during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
+    },
+    {
+      "key": "beth-maries-ice-cream-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "beth-maries-ice-cream",
+      "comment": "Prototype observation at Beth Marie’s Old Fashioned Ice Cream: seating area felt moderately active, the lighting was bright, and the space was moderately busy during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "beth-maries-ice-cream-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "beth-maries-ice-cream",
+      "comment": "Prototype observation at Beth Marie’s Old Fashioned Ice Cream: counter and dining area felt lively, the lighting was moderately lit, and the space was busy during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "beth-maries-ice-cream-review-3",
+      "user_email": "scout.three@example.invalid",
+      "venue_slug": "beth-maries-ice-cream",
+      "comment": "Prototype observation at Beth Marie’s Old Fashioned Ice Cream: tables near the entrance felt quiet, the lighting was very bright, and the space was lightly occupied during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
+    },
+    {
+      "key": "chestnut-tree-bistro-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "chestnut-tree-bistro",
+      "comment": "Prototype observation at Chestnut Tree Tea House & Bistro: dining room felt quiet, the lighting was moderately lit, and the space was lightly occupied during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "chestnut-tree-bistro-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "chestnut-tree-bistro",
+      "comment": "Prototype observation at Chestnut Tree Tea House & Bistro: service counter and tables felt moderately active, the lighting was softly lit, and the space was moderately busy during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "chestnut-tree-bistro-review-3",
+      "user_email": "scout.three@example.invalid",
+      "venue_slug": "chestnut-tree-bistro",
+      "comment": "Prototype observation at Chestnut Tree Tea House & Bistro: main seating area felt very quiet, the lighting was bright, and the space was sparsely occupied during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
+    },
+    {
+      "key": "komodo-loco-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "komodo-loco",
+      "comment": "Prototype observation at Komodo Loco: dining room felt lively, the lighting was bright, and the space was busy during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "komodo-loco-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "komodo-loco",
+      "comment": "Prototype observation at Komodo Loco: service counter and tables felt loud, the lighting was moderately lit, and the space was crowded during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "komodo-loco-review-3",
+      "user_email": "scout.three@example.invalid",
+      "venue_slug": "komodo-loco",
+      "comment": "Prototype observation at Komodo Loco: main seating area felt moderately active, the lighting was very bright, and the space was moderately busy during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
+    },
+    {
+      "key": "ta-an-eatery-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "ta-an-eatery",
+      "comment": "Prototype observation at Taan Eatery: dining room felt moderately active, the lighting was bright, and the space was moderately busy during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "ta-an-eatery-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "ta-an-eatery",
+      "comment": "Prototype observation at Taan Eatery: service counter and tables felt lively, the lighting was moderately lit, and the space was busy during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "ta-an-eatery-review-3",
+      "user_email": "scout.three@example.invalid",
+      "venue_slug": "ta-an-eatery",
+      "comment": "Prototype observation at Taan Eatery: main seating area felt quiet, the lighting was very bright, and the space was lightly occupied during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
+    },
+    {
+      "key": "patchouli-joes-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "patchouli-joes",
+      "comment": "Prototype observation at Patchouli Joe’s Books & Indulgences: aisles felt quiet, the lighting was moderately lit, and the space was lightly occupied during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "patchouli-joes-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "patchouli-joes",
+      "comment": "Prototype observation at Patchouli Joe’s Books & Indulgences: browsing area felt moderately active, the lighting was softly lit, and the space was moderately busy during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "patchouli-joes-review-3",
+      "user_email": "scout.three@example.invalid",
+      "venue_slug": "patchouli-joes",
+      "comment": "Prototype observation at Patchouli Joe’s Books & Indulgences: checkout area felt very quiet, the lighting was bright, and the space was sparsely occupied during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
+    },
+    {
+      "key": "taqueria-monterrey-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "taqueria-monterrey",
+      "comment": "Prototype observation at Taqueria Monterrey: dining room felt lively, the lighting was bright, and the space was busy during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "taqueria-monterrey-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "taqueria-monterrey",
+      "comment": "Prototype observation at Taqueria Monterrey: service counter and tables felt loud, the lighting was moderately lit, and the space was crowded during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "taqueria-monterrey-review-3",
+      "user_email": "scout.three@example.invalid",
+      "venue_slug": "taqueria-monterrey",
+      "comment": "Prototype observation at Taqueria Monterrey: main seating area felt moderately active, the lighting was very bright, and the space was moderately busy during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
+    },
+    {
+      "key": "mellow-mushroom-denton-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "mellow-mushroom-denton",
+      "comment": "Prototype observation at Mellow Mushroom: dining room felt lively, the lighting was bright, and the space was busy during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "mellow-mushroom-denton-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "mellow-mushroom-denton",
+      "comment": "Prototype observation at Mellow Mushroom: service counter and tables felt loud, the lighting was moderately lit, and the space was crowded during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "mellow-mushroom-denton-review-3",
+      "user_email": "scout.three@example.invalid",
+      "venue_slug": "mellow-mushroom-denton",
+      "comment": "Prototype observation at Mellow Mushroom: main seating area felt moderately active, the lighting was very bright, and the space was moderately busy during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
+    },
+    {
+      "key": "rusty-taco-denton-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "rusty-taco-denton",
+      "comment": "Prototype observation at Rusty Taco: dining room felt lively, the lighting was bright, and the space was busy during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "rusty-taco-denton-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "rusty-taco-denton",
+      "comment": "Prototype observation at Rusty Taco: service counter and tables felt loud, the lighting was moderately lit, and the space was crowded during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "rusty-taco-denton-review-3",
+      "user_email": "scout.three@example.invalid",
+      "venue_slug": "rusty-taco-denton",
+      "comment": "Prototype observation at Rusty Taco: main seating area felt moderately active, the lighting was very bright, and the space was moderately busy during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
+    },
+    {
+      "key": "the-cookie-crave-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "the-cookie-crave",
+      "comment": "Prototype observation at The Cookie Crave: seating area felt moderately active, the lighting was bright, and the space was moderately busy during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "the-cookie-crave-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "the-cookie-crave",
+      "comment": "Prototype observation at The Cookie Crave: counter and dining area felt lively, the lighting was moderately lit, and the space was busy during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "the-cookie-crave-review-3",
+      "user_email": "scout.three@example.invalid",
+      "venue_slug": "the-cookie-crave",
+      "comment": "Prototype observation at The Cookie Crave: tables near the entrance felt quiet, the lighting was very bright, and the space was lightly occupied during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
+    },
+    {
+      "key": "atomic-candy-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "atomic-candy",
+      "comment": "Prototype observation at Atomic Candy: aisles felt moderately active, the lighting was very bright, and the space was moderately busy during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "atomic-candy-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "atomic-candy",
+      "comment": "Prototype observation at Atomic Candy: browsing area felt lively, the lighting was bright, and the space was busy during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "atomic-candy-review-3",
+      "user_email": "scout.three@example.invalid",
+      "venue_slug": "atomic-candy",
+      "comment": "Prototype observation at Atomic Candy: checkout area felt quiet, the lighting was very bright, and the space was lightly occupied during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
+    },
+    {
+      "key": "greater-denton-arts-council-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "greater-denton-arts-council",
+      "comment": "Prototype observation at Greater Denton Arts Council: shared rooms felt quiet, the lighting was bright, and the space was lightly occupied during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "greater-denton-arts-council-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "greater-denton-arts-council",
+      "comment": "Prototype observation at Greater Denton Arts Council: main gathering area felt moderately active, the lighting was moderately lit, and the space was moderately busy during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "greater-denton-arts-council-review-3",
+      "user_email": "scout.three@example.invalid",
+      "venue_slug": "greater-denton-arts-council",
+      "comment": "Prototype observation at Greater Denton Arts Council: surrounding grounds felt very quiet, the lighting was very bright, and the space was sparsely occupied during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
+    },
+    {
+      "key": "little-chapel-in-the-woods-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "little-chapel-in-the-woods",
+      "comment": "Prototype observation at Little Chapel in the Woods: shared rooms felt very quiet, the lighting was moderately lit, and the space was sparsely occupied during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "little-chapel-in-the-woods-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "little-chapel-in-the-woods",
+      "comment": "Prototype observation at Little Chapel in the Woods: main gathering area felt quiet, the lighting was softly lit, and the space was lightly occupied during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "little-chapel-in-the-woods-review-3",
+      "user_email": "scout.three@example.invalid",
+      "venue_slug": "little-chapel-in-the-woods",
+      "comment": "Prototype observation at Little Chapel in the Woods: surrounding grounds felt very quiet, the lighting was bright, and the space was sparsely occupied during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
+    },
+    {
+      "key": "north-lakes-park-trail-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "north-lakes-park-trail",
+      "comment": "Prototype observation at North Lakes Park Trail: walking paths felt very quiet, the lighting was very bright, and the space was sparsely occupied during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "north-lakes-park-trail-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "north-lakes-park-trail",
+      "comment": "Prototype observation at North Lakes Park Trail: open green space felt quiet, the lighting was bright, and the space was lightly occupied during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "north-lakes-park-trail-review-3",
+      "user_email": "scout.three@example.invalid",
+      "venue_slug": "north-lakes-park-trail",
+      "comment": "Prototype observation at North Lakes Park Trail: shared picnic areas felt very quiet, the lighting was very bright, and the space was sparsely occupied during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
+    },
+    {
+      "key": "american-legion-senior-center-review-1",
+      "user_email": "scout.one@example.invalid",
+      "venue_slug": "american-legion-senior-center",
+      "comment": "Prototype observation at American Legion Hall Senior Center: shared rooms felt quiet, the lighting was moderately lit, and the space was lightly occupied during a quieter period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 4
+    },
+    {
+      "key": "american-legion-senior-center-review-2",
+      "user_email": "scout.two@example.invalid",
+      "venue_slug": "american-legion-senior-center",
+      "comment": "Prototype observation at American Legion Hall Senior Center: main gathering area felt moderately active, the lighting was softly lit, and the space was moderately busy during a typical daytime visit. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 5
+    },
+    {
+      "key": "american-legion-senior-center-review-3",
+      "user_email": "scout.three@example.invalid",
+      "venue_slug": "american-legion-senior-center",
+      "comment": "Prototype observation at American Legion Hall Senior Center: surrounding grounds felt very quiet, the lighting was bright, and the space was sparsely occupied during a busier period. This illustrative entry demonstrates how conditions can differ by place and time; it is not a verified visitor report.",
+      "wheelchair_accessible": null,
+      "overall_rating": 3
     }
   ],
   "ratings": [
     {
-      "review_key": "sample-review-1",
-      "noise_rating": 1,
-      "light_rating": 3,
-      "crowd_rating": 1
-    },
-    {
-      "review_key": "sample-review-2",
-      "noise_rating": 3,
-      "light_rating": 3,
-      "crowd_rating": 3
-    },
-    {
-      "review_key": "sample-review-3",
-      "noise_rating": 1,
-      "light_rating": 5,
-      "crowd_rating": 1
-    },
-    {
-      "review_key": "sample-review-4",
-      "noise_rating": 5,
-      "light_rating": 5,
-      "crowd_rating": 5
-    },
-    {
-      "review_key": "sample-review-5",
-      "noise_rating": 1,
-      "light_rating": 1,
-      "crowd_rating": 1
-    },
-    {
-      "review_key": "sample-review-6",
-      "noise_rating": 3,
-      "light_rating": 1,
-      "crowd_rating": 3
-    },
-    {
-      "review_key": "sample-review-7",
-      "noise_rating": 1,
-      "light_rating": 3,
-      "crowd_rating": 5
-    },
-    {
-      "review_key": "sample-review-8",
-      "noise_rating": 5,
-      "light_rating": 3,
-      "crowd_rating": 5
-    },
-    {
-      "review_key": "sample-review-9",
-      "noise_rating": 1,
-      "light_rating": 1,
-      "crowd_rating": 3
-    },
-    {
-      "review_key": "sample-review-second",
-      "noise_rating": 2,
-      "light_rating": 2,
-      "crowd_rating": 2
-    },
-    {
-      "review_key": "denton-demo-review-1",
+      "review_key": "denton-north-library-review-1",
       "noise_rating": 1,
       "light_rating": 2,
       "crowd_rating": 1
     },
     {
-      "review_key": "denton-demo-review-2",
+      "review_key": "denton-north-library-review-2",
+      "noise_rating": 2,
+      "light_rating": 1,
+      "crowd_rating": 2
+    },
+    {
+      "review_key": "denton-north-library-review-3",
+      "noise_rating": 1,
+      "light_rating": 3,
+      "crowd_rating": 1
+    },
+    {
+      "review_key": "denton-south-library-review-1",
+      "noise_rating": 2,
+      "light_rating": 3,
+      "crowd_rating": 2
+    },
+    {
+      "review_key": "denton-south-library-review-2",
+      "noise_rating": 3,
+      "light_rating": 2,
+      "crowd_rating": 3
+    },
+    {
+      "review_key": "denton-south-library-review-3",
+      "noise_rating": 1,
+      "light_rating": 4,
+      "crowd_rating": 1
+    },
+    {
+      "review_key": "patterson-appleton-arts-center-review-1",
+      "noise_rating": 2,
+      "light_rating": 3,
+      "crowd_rating": 2
+    },
+    {
+      "review_key": "patterson-appleton-arts-center-review-2",
+      "noise_rating": 3,
+      "light_rating": 2,
+      "crowd_rating": 3
+    },
+    {
+      "review_key": "patterson-appleton-arts-center-review-3",
+      "noise_rating": 1,
+      "light_rating": 4,
+      "crowd_rating": 1
+    },
+    {
+      "review_key": "courthouse-square-museum-review-1",
+      "noise_rating": 3,
+      "light_rating": 4,
+      "crowd_rating": 3
+    },
+    {
+      "review_key": "courthouse-square-museum-review-2",
+      "noise_rating": 4,
+      "light_rating": 3,
+      "crowd_rating": 4
+    },
+    {
+      "review_key": "courthouse-square-museum-review-3",
       "noise_rating": 2,
       "light_rating": 5,
       "crowd_rating": 2
     },
     {
-      "review_key": "denton-demo-review-3",
+      "review_key": "historical-park-review-1",
+      "noise_rating": 2,
+      "light_rating": 5,
+      "crowd_rating": 2
+    },
+    {
+      "review_key": "historical-park-review-2",
+      "noise_rating": 3,
+      "light_rating": 4,
+      "crowd_rating": 3
+    },
+    {
+      "review_key": "historical-park-review-3",
+      "noise_rating": 1,
+      "light_rating": 5,
+      "crowd_rating": 1
+    },
+    {
+      "review_key": "bayless-selby-house-review-1",
+      "noise_rating": 1,
+      "light_rating": 3,
+      "crowd_rating": 1
+    },
+    {
+      "review_key": "bayless-selby-house-review-2",
+      "noise_rating": 2,
+      "light_rating": 2,
+      "crowd_rating": 2
+    },
+    {
+      "review_key": "bayless-selby-house-review-3",
+      "noise_rating": 1,
+      "light_rating": 4,
+      "crowd_rating": 1
+    },
+    {
+      "review_key": "quakertown-park-review-1",
+      "noise_rating": 2,
+      "light_rating": 5,
+      "crowd_rating": 2
+    },
+    {
+      "review_key": "quakertown-park-review-2",
+      "noise_rating": 3,
+      "light_rating": 4,
+      "crowd_rating": 3
+    },
+    {
+      "review_key": "quakertown-park-review-3",
+      "noise_rating": 1,
+      "light_rating": 5,
+      "crowd_rating": 1
+    },
+    {
+      "review_key": "west-oak-coffee-review-1",
+      "noise_rating": 4,
+      "light_rating": 4,
+      "crowd_rating": 4
+    },
+    {
+      "review_key": "west-oak-coffee-review-2",
+      "noise_rating": 5,
+      "light_rating": 3,
+      "crowd_rating": 5
+    },
+    {
+      "review_key": "west-oak-coffee-review-3",
+      "noise_rating": 3,
+      "light_rating": 5,
+      "crowd_rating": 3
+    },
+    {
+      "review_key": "triptych-coffee-review-1",
       "noise_rating": 3,
       "light_rating": 3,
       "crowd_rating": 3
     },
     {
-      "review_key": "denton-demo-review-4",
+      "review_key": "triptych-coffee-review-2",
+      "noise_rating": 4,
+      "light_rating": 2,
+      "crowd_rating": 4
+    },
+    {
+      "review_key": "triptych-coffee-review-3",
+      "noise_rating": 2,
+      "light_rating": 4,
+      "crowd_rating": 2
+    },
+    {
+      "review_key": "denton-public-library-review-1",
+      "noise_rating": 1,
+      "light_rating": 3,
+      "crowd_rating": 2
+    },
+    {
+      "review_key": "denton-public-library-review-2",
+      "noise_rating": 2,
+      "light_rating": 2,
+      "crowd_rating": 3
+    },
+    {
+      "review_key": "denton-public-library-review-3",
+      "noise_rating": 1,
+      "light_rating": 4,
+      "crowd_rating": 1
+    },
+    {
+      "review_key": "north-lakes-park-review-1",
+      "noise_rating": 2,
+      "light_rating": 5,
+      "crowd_rating": 3
+    },
+    {
+      "review_key": "north-lakes-park-review-2",
+      "noise_rating": 3,
+      "light_rating": 4,
+      "crowd_rating": 4
+    },
+    {
+      "review_key": "north-lakes-park-review-3",
+      "noise_rating": 1,
+      "light_rating": 5,
+      "crowd_rating": 2
+    },
+    {
+      "review_key": "harmony-coffee-review-1",
+      "noise_rating": 3,
+      "light_rating": 3,
+      "crowd_rating": 3
+    },
+    {
+      "review_key": "harmony-coffee-review-2",
+      "noise_rating": 4,
+      "light_rating": 2,
+      "crowd_rating": 4
+    },
+    {
+      "review_key": "harmony-coffee-review-3",
+      "noise_rating": 2,
+      "light_rating": 4,
+      "crowd_rating": 2
+    },
+    {
+      "review_key": "unt-art-gallery-review-1",
+      "noise_rating": 2,
+      "light_rating": 4,
+      "crowd_rating": 2
+    },
+    {
+      "review_key": "unt-art-gallery-review-2",
+      "noise_rating": 3,
+      "light_rating": 3,
+      "crowd_rating": 3
+    },
+    {
+      "review_key": "unt-art-gallery-review-3",
+      "noise_rating": 1,
+      "light_rating": 5,
+      "crowd_rating": 1
+    },
+    {
+      "review_key": "square-burger-co-review-1",
+      "noise_rating": 4,
+      "light_rating": 4,
+      "crowd_rating": 4
+    },
+    {
+      "review_key": "square-burger-co-review-2",
+      "noise_rating": 5,
+      "light_rating": 3,
+      "crowd_rating": 5
+    },
+    {
+      "review_key": "square-burger-co-review-3",
+      "noise_rating": 3,
+      "light_rating": 5,
+      "crowd_rating": 3
+    },
+    {
+      "review_key": "calm-corner-books-review-1",
       "noise_rating": 2,
       "light_rating": 3,
       "crowd_rating": 2
     },
     {
-      "review_key": "denton-demo-review-5",
+      "review_key": "calm-corner-books-review-2",
+      "noise_rating": 3,
+      "light_rating": 2,
+      "crowd_rating": 3
+    },
+    {
+      "review_key": "calm-corner-books-review-3",
+      "noise_rating": 1,
+      "light_rating": 4,
+      "crowd_rating": 1
+    },
+    {
+      "review_key": "avon-dale-park-review-1",
+      "noise_rating": 1,
+      "light_rating": 5,
+      "crowd_rating": 1
+    },
+    {
+      "review_key": "avon-dale-park-review-2",
+      "noise_rating": 2,
+      "light_rating": 4,
+      "crowd_rating": 2
+    },
+    {
+      "review_key": "avon-dale-park-review-3",
+      "noise_rating": 1,
+      "light_rating": 5,
+      "crowd_rating": 1
+    },
+    {
+      "review_key": "bowling-green-park-review-1",
+      "noise_rating": 2,
+      "light_rating": 5,
+      "crowd_rating": 2
+    },
+    {
+      "review_key": "bowling-green-park-review-2",
+      "noise_rating": 3,
+      "light_rating": 4,
+      "crowd_rating": 3
+    },
+    {
+      "review_key": "bowling-green-park-review-3",
+      "noise_rating": 1,
+      "light_rating": 5,
+      "crowd_rating": 1
+    },
+    {
+      "review_key": "clear-creek-natural-heritage-center-review-1",
+      "noise_rating": 1,
+      "light_rating": 5,
+      "crowd_rating": 1
+    },
+    {
+      "review_key": "clear-creek-natural-heritage-center-review-2",
+      "noise_rating": 2,
+      "light_rating": 4,
+      "crowd_rating": 2
+    },
+    {
+      "review_key": "clear-creek-natural-heritage-center-review-3",
+      "noise_rating": 1,
+      "light_rating": 5,
+      "crowd_rating": 1
+    },
+    {
+      "review_key": "denton-firefighters-museum-review-1",
+      "noise_rating": 2,
+      "light_rating": 3,
+      "crowd_rating": 2
+    },
+    {
+      "review_key": "denton-firefighters-museum-review-2",
+      "noise_rating": 3,
+      "light_rating": 2,
+      "crowd_rating": 3
+    },
+    {
+      "review_key": "denton-firefighters-museum-review-3",
+      "noise_rating": 1,
+      "light_rating": 4,
+      "crowd_rating": 1
+    },
+    {
+      "review_key": "quakertown-house-museum-review-1",
+      "noise_rating": 1,
+      "light_rating": 3,
+      "crowd_rating": 1
+    },
+    {
+      "review_key": "quakertown-house-museum-review-2",
+      "noise_rating": 2,
+      "light_rating": 2,
+      "crowd_rating": 2
+    },
+    {
+      "review_key": "quakertown-house-museum-review-3",
+      "noise_rating": 1,
+      "light_rating": 4,
+      "crowd_rating": 1
+    },
+    {
+      "review_key": "discover-denton-visitor-center-review-1",
+      "noise_rating": 3,
+      "light_rating": 4,
+      "crowd_rating": 3
+    },
+    {
+      "review_key": "discover-denton-visitor-center-review-2",
+      "noise_rating": 4,
+      "light_rating": 3,
+      "crowd_rating": 4
+    },
+    {
+      "review_key": "discover-denton-visitor-center-review-3",
+      "noise_rating": 2,
+      "light_rating": 5,
+      "crowd_rating": 2
+    },
+    {
+      "review_key": "campus-theatre-review-1",
+      "noise_rating": 4,
+      "light_rating": 3,
+      "crowd_rating": 4
+    },
+    {
+      "review_key": "campus-theatre-review-2",
+      "noise_rating": 5,
+      "light_rating": 2,
+      "crowd_rating": 5
+    },
+    {
+      "review_key": "campus-theatre-review-3",
+      "noise_rating": 3,
+      "light_rating": 4,
+      "crowd_rating": 3
+    },
+    {
+      "review_key": "explorium-childrens-museum-review-1",
+      "noise_rating": 4,
+      "light_rating": 5,
+      "crowd_rating": 4
+    },
+    {
+      "review_key": "explorium-childrens-museum-review-2",
       "noise_rating": 5,
       "light_rating": 4,
       "crowd_rating": 5
     },
     {
-      "review_key": "denton-demo-review-6",
+      "review_key": "explorium-childrens-museum-review-3",
+      "noise_rating": 3,
+      "light_rating": 5,
+      "crowd_rating": 3
+    },
+    {
+      "review_key": "beth-maries-ice-cream-review-1",
+      "noise_rating": 3,
+      "light_rating": 4,
+      "crowd_rating": 3
+    },
+    {
+      "review_key": "beth-maries-ice-cream-review-2",
+      "noise_rating": 4,
+      "light_rating": 3,
+      "crowd_rating": 4
+    },
+    {
+      "review_key": "beth-maries-ice-cream-review-3",
+      "noise_rating": 2,
+      "light_rating": 5,
+      "crowd_rating": 2
+    },
+    {
+      "review_key": "chestnut-tree-bistro-review-1",
+      "noise_rating": 2,
+      "light_rating": 3,
+      "crowd_rating": 2
+    },
+    {
+      "review_key": "chestnut-tree-bistro-review-2",
+      "noise_rating": 3,
+      "light_rating": 2,
+      "crowd_rating": 3
+    },
+    {
+      "review_key": "chestnut-tree-bistro-review-3",
+      "noise_rating": 1,
+      "light_rating": 4,
+      "crowd_rating": 1
+    },
+    {
+      "review_key": "komodo-loco-review-1",
+      "noise_rating": 4,
+      "light_rating": 4,
+      "crowd_rating": 4
+    },
+    {
+      "review_key": "komodo-loco-review-2",
+      "noise_rating": 5,
+      "light_rating": 3,
+      "crowd_rating": 5
+    },
+    {
+      "review_key": "komodo-loco-review-3",
+      "noise_rating": 3,
+      "light_rating": 5,
+      "crowd_rating": 3
+    },
+    {
+      "review_key": "ta-an-eatery-review-1",
+      "noise_rating": 3,
+      "light_rating": 4,
+      "crowd_rating": 3
+    },
+    {
+      "review_key": "ta-an-eatery-review-2",
+      "noise_rating": 4,
+      "light_rating": 3,
+      "crowd_rating": 4
+    },
+    {
+      "review_key": "ta-an-eatery-review-3",
+      "noise_rating": 2,
+      "light_rating": 5,
+      "crowd_rating": 2
+    },
+    {
+      "review_key": "patchouli-joes-review-1",
+      "noise_rating": 2,
+      "light_rating": 3,
+      "crowd_rating": 2
+    },
+    {
+      "review_key": "patchouli-joes-review-2",
+      "noise_rating": 3,
+      "light_rating": 2,
+      "crowd_rating": 3
+    },
+    {
+      "review_key": "patchouli-joes-review-3",
+      "noise_rating": 1,
+      "light_rating": 4,
+      "crowd_rating": 1
+    },
+    {
+      "review_key": "taqueria-monterrey-review-1",
+      "noise_rating": 4,
+      "light_rating": 4,
+      "crowd_rating": 4
+    },
+    {
+      "review_key": "taqueria-monterrey-review-2",
+      "noise_rating": 5,
+      "light_rating": 3,
+      "crowd_rating": 5
+    },
+    {
+      "review_key": "taqueria-monterrey-review-3",
+      "noise_rating": 3,
+      "light_rating": 5,
+      "crowd_rating": 3
+    },
+    {
+      "review_key": "mellow-mushroom-denton-review-1",
+      "noise_rating": 4,
+      "light_rating": 4,
+      "crowd_rating": 4
+    },
+    {
+      "review_key": "mellow-mushroom-denton-review-2",
+      "noise_rating": 5,
+      "light_rating": 3,
+      "crowd_rating": 5
+    },
+    {
+      "review_key": "mellow-mushroom-denton-review-3",
+      "noise_rating": 3,
+      "light_rating": 5,
+      "crowd_rating": 3
+    },
+    {
+      "review_key": "rusty-taco-denton-review-1",
+      "noise_rating": 4,
+      "light_rating": 4,
+      "crowd_rating": 4
+    },
+    {
+      "review_key": "rusty-taco-denton-review-2",
+      "noise_rating": 5,
+      "light_rating": 3,
+      "crowd_rating": 5
+    },
+    {
+      "review_key": "rusty-taco-denton-review-3",
+      "noise_rating": 3,
+      "light_rating": 5,
+      "crowd_rating": 3
+    },
+    {
+      "review_key": "the-cookie-crave-review-1",
+      "noise_rating": 3,
+      "light_rating": 4,
+      "crowd_rating": 3
+    },
+    {
+      "review_key": "the-cookie-crave-review-2",
+      "noise_rating": 4,
+      "light_rating": 3,
+      "crowd_rating": 4
+    },
+    {
+      "review_key": "the-cookie-crave-review-3",
+      "noise_rating": 2,
+      "light_rating": 5,
+      "crowd_rating": 2
+    },
+    {
+      "review_key": "atomic-candy-review-1",
+      "noise_rating": 3,
+      "light_rating": 5,
+      "crowd_rating": 3
+    },
+    {
+      "review_key": "atomic-candy-review-2",
+      "noise_rating": 4,
+      "light_rating": 4,
+      "crowd_rating": 4
+    },
+    {
+      "review_key": "atomic-candy-review-3",
+      "noise_rating": 2,
+      "light_rating": 5,
+      "crowd_rating": 2
+    },
+    {
+      "review_key": "greater-denton-arts-council-review-1",
+      "noise_rating": 2,
+      "light_rating": 4,
+      "crowd_rating": 2
+    },
+    {
+      "review_key": "greater-denton-arts-council-review-2",
+      "noise_rating": 3,
+      "light_rating": 3,
+      "crowd_rating": 3
+    },
+    {
+      "review_key": "greater-denton-arts-council-review-3",
+      "noise_rating": 1,
+      "light_rating": 5,
+      "crowd_rating": 1
+    },
+    {
+      "review_key": "little-chapel-in-the-woods-review-1",
+      "noise_rating": 1,
+      "light_rating": 3,
+      "crowd_rating": 1
+    },
+    {
+      "review_key": "little-chapel-in-the-woods-review-2",
       "noise_rating": 2,
       "light_rating": 2,
       "crowd_rating": 2
-    }
-  ],
-  "review_votes": [
-    {
-      "review_key": "sample-review-1",
-      "user_email": "scout.two@example.invalid",
-      "is_upvote": true
     },
     {
-      "review_key": "sample-review-second",
-      "user_email": "scout.three@example.invalid",
-      "is_upvote": false
+      "review_key": "little-chapel-in-the-woods-review-3",
+      "noise_rating": 1,
+      "light_rating": 4,
+      "crowd_rating": 1
+    },
+    {
+      "review_key": "north-lakes-park-trail-review-1",
+      "noise_rating": 1,
+      "light_rating": 5,
+      "crowd_rating": 1
+    },
+    {
+      "review_key": "north-lakes-park-trail-review-2",
+      "noise_rating": 2,
+      "light_rating": 4,
+      "crowd_rating": 2
+    },
+    {
+      "review_key": "north-lakes-park-trail-review-3",
+      "noise_rating": 1,
+      "light_rating": 5,
+      "crowd_rating": 1
+    },
+    {
+      "review_key": "american-legion-senior-center-review-1",
+      "noise_rating": 2,
+      "light_rating": 3,
+      "crowd_rating": 2
+    },
+    {
+      "review_key": "american-legion-senior-center-review-2",
+      "noise_rating": 3,
+      "light_rating": 2,
+      "crowd_rating": 3
+    },
+    {
+      "review_key": "american-legion-senior-center-review-3",
+      "noise_rating": 1,
+      "light_rating": 4,
+      "crowd_rating": 1
     }
   ],
+  "review_votes": [],
   "saved_places": [
     {
       "user_email": "scout.one@example.invalid",

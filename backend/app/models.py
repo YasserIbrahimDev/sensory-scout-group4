@@ -108,6 +108,7 @@ class Review(Timestamped, Base):
         ForeignKey("venues.id", ondelete="CASCADE"), nullable=False, index=True
     )
     comment: Mapped[str | None] = mapped_column(Text, nullable=True)
+    overall_rating: Mapped[int | None] = mapped_column(Integer, nullable=True)
     wheelchair_accessible: Mapped[bool | None] = mapped_column(Boolean, nullable=True)
 
 
@@ -177,3 +178,15 @@ class UserSettings(Timestamped, Base):
         ForeignKey("users.id", ondelete="CASCADE"), nullable=False, unique=True
     )
     location_access: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+
+
+class AuthSession(Base):
+    """Opaque bearer tokens are stored as hashes, never plaintext."""
+    __tablename__ = "auth_sessions"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    user_id: Mapped[int] = mapped_column(
+        ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True
+    )
+    token_hash: Mapped[str] = mapped_column(String(64), nullable=False, unique=True)
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)

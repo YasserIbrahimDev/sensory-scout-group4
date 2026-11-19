@@ -6,7 +6,6 @@ import PlaceDetailsPage from './PlaceDetailsPage';
 import { LOAD_ERROR_MESSAGE } from './HomePage';
 import { SEARCH_ERROR_MESSAGE } from './SearchPage';
 import { MAP_LOAD_ERROR_MESSAGE, missingLocationMessage } from './MapPage';
-import { REVIEW_TEXT_UNAVAILABLE } from '../components/placeTabs/ReviewsTab';
 import { renderWithRouter } from '../test/renderWithRouter';
 import { allVenues, mockApi, useApiData } from '../test/fakeApi';
 
@@ -80,12 +79,14 @@ describe('Sprint 1 pages on the API', () => {
       .toContain('destination=3%20Example%20Lane');
   });
 
-  it('TC-API-25: Place Details explains that review text is not available yet', async () => {
+  it('TC-API-25: Place Details displays written reviews from the API', async () => {
     mockApi();
     renderDetails('1');
     expect(await screen.findByText('2 reviews', { selector: '.place-hero__rating' })).toBeInTheDocument();
     await userEvent.click(screen.getByRole('tab', { name: 'Reviews (2)' }));
-    expect(await screen.findByText(REVIEW_TEXT_UNAVAILABLE)).toBeInTheDocument();
+    expect(await screen.findByText('Most recent reviews')).toBeInTheDocument();
+    expect(await screen.findByText('A calm space with comfortable lighting.')).toBeInTheDocument();
+    expect(screen.getByText('Alex R.')).toBeInTheDocument();
   });
 
   it('TC-API-26: Place Details shows "not found" for unknown ids and an error when the API fails', async () => {
